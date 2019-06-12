@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import './../App.css';
+import './../../App.css';
 
 class Spots extends Component {
   render() {

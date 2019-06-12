@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import './../App.css';
-import Schedule from './Schedule'
-import Spots from './Spots'
-import Map from './Map'
+import Schedule from './schedule/Schedule'
+import Spots from './spots/Spots'
+import Map from './map/Map'
 
 class Main extends Component {
   render() {
