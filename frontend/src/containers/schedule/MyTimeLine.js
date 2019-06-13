@@ -1,52 +1,25 @@
 import React, { Component } from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import Timeline from 'react-calendar-timeline'
-// make sure you include the timeline stylesheet or the timeline will not be styled
-import 'react-calendar-timeline/lib/Timeline.css'
-import moment from 'moment'
-
+import TimeLine from 'react-time-line'
 import './../../App.css';
 
+const events = [
+  {ts: "2017-09-17T12:22:46.587Z", text: 'Logged in'},
+  {ts: "2017-09-17T12:21:46.587Z", text: 'Clicked Home Page'},
+  {ts: "2017-09-17T12:20:46.587Z", text: 'Edited Profile'},
+  {ts: "2017-09-16T12:22:46.587Z", text: 'Registred'},
+  {ts: "2017-09-16T12:21:46.587Z", text: 'Clicked Cart'},
+  {ts: "2017-09-16T12:20:46.587Z", text: 'Clicked Checkout'},
+];
 
-const groups = [{ id: 1, title: 'group 1' }]
-
-const items = [
-  {
-    id: 1,
-    group: 1,
-    title: 'item 1',
-    start_time: moment(),
-    end_time: moment().add(1, 'hour')
-  },
-  {
-    id: 2,
-    group: 2,
-    title: 'item 2',
-    start_time: moment().add(-0.5, 'hour'),
-    end_time: moment().add(0.5, 'hour')
-  },
-  {
-    id: 3,
-    group: 1,
-    title: 'item 3',
-    start_time: moment().add(2, 'hour'),
-    end_time: moment().add(3, 'hour')
-  }
-]
-
-class Schedule extends Component {
+class MyTimeLine extends Component {
   render() {
     return (
       <div>
-        <Timeline
-          groups={groups}
-          items={items}
-          defaultTimeStart={moment().add(-1, 'hour')}
-          defaultTimeEnd={moment().add(1, 'hour')}
-        />
+        Schedule
+        <TimeLine items={events} />
       </div>
     );
   }
 }
 
-export default Schedule;
+export default MyTimeLine;

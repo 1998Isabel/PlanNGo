@@ -39,7 +39,6 @@ class Map extends Component {
           defaultZoom={this.state.zoom}
           options={createMapOptions}
         >
-
         </GoogleMap>
       </div>
     );

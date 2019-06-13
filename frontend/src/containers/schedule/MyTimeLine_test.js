@@ -5,7 +5,7 @@ import 'react-vertical-timeline-component/style.min.css';
 
 import './../../App.css';
 
-class Schedule extends Component {
+class MyTimeLine extends Component {
   render() {
     return (
       <div>
@@ -15,4 +15,4 @@ class Schedule extends Component {
   }
 }
 
-export default Schedule;
+export default MyTimeLine;

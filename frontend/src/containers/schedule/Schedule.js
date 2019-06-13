@@ -3,20 +3,20 @@ import { Droppable } from 'react-beautiful-dnd';
 import './../../App.css';
 import MyTimeLine from './MyTimeLine'
 import RouteButton from './../../components/RouteButton'
+import DayBox from './DayBox'
 
 class Schedule extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
-      <Droppable droppableId={1}>
-        {(provided) => (
-          <div id="left_schedule" ref={provided.innerRef} {...provided.droppableProps}>
-            Schedule
+      <div id="left_schedule">
+        Schedule
             <RouteButton />
-            {/* <MyTimeLine /> */}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+        {/* <DayBox /> */}
+        {/* <MyTimeLine /> */}
+      </div>
     );
   }
 }

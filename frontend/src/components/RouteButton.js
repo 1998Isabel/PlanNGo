@@ -17,8 +17,8 @@ export default function IconLabelButtons() {
 
   return (
     <Button variant="contained" color="primary" className={classes.button}>
-        Route!
-        {/* <DeleteIcon className={classes.rightIcon} /> */}
-      </Button>
+      Route!
+      {/* <DeleteIcon className={classes.rightIcon} /> */}
+    </Button>
   );
 }
