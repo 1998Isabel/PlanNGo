@@ -13,7 +13,7 @@ class Schedule extends Component {
     return (
       <div id="left_schedule">
         Schedule
-            <RouteButton />
+        <RouteButton />
         {/* <DayBox /> */}
         {/* <MyTimeLine /> */}
       </div>
