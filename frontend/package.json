@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.1.0",
+    "classnames": "^2.2.6",
     "google-map-react": "^1.1.4",
+    "interactjs": "^1.4.10",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.4",
+    "react-calendar-timeline": "^0.25.3",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
