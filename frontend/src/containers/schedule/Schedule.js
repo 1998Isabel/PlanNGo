@@ -4,16 +4,23 @@ import './../../App.css';
 import MyTimeLine from './MyTimeLine'
 import RouteButton from './../../components/RouteButton'
 import DayBox from './DayBox'
+import Col from '../spots/Spots_col'
 
 class Schedule extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const column = this.props.col["droppable-0"];
+    console.log(column);
+    const items = column.items.map(itemId=>this.props.items[itemId]);
     return (
       <div id="left_schedule">
-        Schedule
-        <RouteButton />
+        <span>
+          Schedule
+          <RouteButton />
+        </span>
+        <Col key={column.id} column={column} items={items}/>
         {/* <DayBox /> */}
         {/* <MyTimeLine /> */}
       </div>

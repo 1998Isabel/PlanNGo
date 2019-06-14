@@ -70,9 +70,23 @@
   height: 100%;
   font-size: calc(10px + 2vmin);
 }
-
+/* edited by lun */
 .spots-root {
   width: 100%;
+}
+.test-card-root {
+  min-width: 275px;
+}
+.test-card-bullet {
+  display: 'inline-block';
+  margin: 0 2px;
+  transform: scale(0.8)
+}
+.test-card-title {
+  font-size: 14
+}
+.test-card-pos {
+  margin-bottom: 12px;
 }
 
 .App-link {

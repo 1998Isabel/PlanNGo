@@ -12,6 +12,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Col from './Spots_col'
 
 
 function TabContainer(props) {
@@ -42,8 +43,12 @@ class Spots extends Component {
   ]
   render() {
     let value = this.state.value
+    let renderCols=this.props.columnOrder.map(colId => {
+			const column = this.props.col[colId];
+			const items = column.items.map(itemId=>this.props.items[itemId]);
+			return (<Col key={column.id} column={column} items={items}/>);
+		})
     return (
-      // <Droppable>
         <div id="middle_spot">
           <span>Spots</span>
           <div className="spots-root">
@@ -61,12 +66,11 @@ class Spots extends Component {
                 <Tab label="Accommodation" icon={<LocateIcon />} style={{ padding: 4, width:'30%' }} />
               </Tabs>
             </Paper>
-            {value === 0 && <TabContainer>Item One</TabContainer>}
-            {value === 1 && <TabContainer>Item Two</TabContainer>}
-            {value === 2 && <TabContainer>Item Three</TabContainer>}
+            {value === 0 && <TabContainer>{renderCols[0]}</TabContainer>}
+            {value === 1 && <TabContainer>{renderCols[1]}</TabContainer>}
+            {value === 2 && <TabContainer>{renderCols[2]}</TabContainer>}
           </div>
         </div>
-      // </Droppable>
     );
   }
 }
