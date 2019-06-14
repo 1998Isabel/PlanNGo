@@ -7,7 +7,7 @@ class Spots extends Component {
     return (
       // <Droppable>
         <div id="middle_spot">
-          Spots
+          景點Spots
         </div>
       // </Droppable>
     );

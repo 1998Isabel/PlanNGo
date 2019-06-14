@@ -1,0 +1,22 @@
+.search-root {
+    padding: 2px 4px;
+    display: flex;
+    align-items: top;
+    width: 400;
+}
+
+.search-input {
+    margin-left: 8;
+    flex: 1;
+}
+
+.search-iconButton {
+    padding: 10;
+}
+
+
+.search-divider {
+    width: 1;
+    height: 28;
+    margin: 4;
+}
