@@ -13,9 +13,10 @@ const InfoWindow = (props) => {
 	const { place } = props;
 	const infoWindowStyle = {
 		position: 'relative',
-		bottom: 150,
+		bottom: 360,
 		left: '-45px',
 		width: 220,
+		// height: 280,
 		backgroundColor: 'white',
 		boxShadow: '0 2px 7px 1px rgba(0, 0, 0, 0.3)',
 		padding: 10,
@@ -40,7 +41,9 @@ const InfoWindow = (props) => {
 		//console.log(place.photos[0].getUrl())
 		if (place.photos)
 			return (
-				<img src={place.photos[0].getUrl()} width="220px"/>
+				<div>
+					<img className="image-img" src={place.photos[0].getUrl()} />
+				</div>
 			);
 		else
 			return;

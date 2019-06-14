@@ -34,18 +34,25 @@ class Map extends Component {
 
   addPlace = (place) => {
     place.show = false;
-    this.setState({ places: [place] });
+    const places = this.state.places
+    places.push(place)
+    // console.log(places)
+    this.setState({ places: places });
   };
 
   // onChildClick callback can take two arguments: key and childProps
   onChildClickCallback = (key) => {
     this.setState((state) => {
-      console.log(state)
+      // console.log(state)
       const index = state.places.findIndex(e => e.id === key);
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
   };
+
+  handleClick = () => {
+
+  }
 
   render() {
     const {

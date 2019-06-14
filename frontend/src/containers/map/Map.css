@@ -31,3 +31,22 @@
 .info-media {
   height: 140;
 }
+
+.image-frame {  
+	height: 200; /*can be anything*/
+	width: 210; /*can be anything*/
+	position: absolute;
+	}
+
+.image-img {  
+	max-height: 200px;  
+	max-width: 190px; 
+	width: auto;
+	height: auto;
+	/* position: absolute;   */
+	top: 0;  
+	bottom: 0;  
+	left: 0;  
+	right: 0;  
+	/* margin: auto; */
+}

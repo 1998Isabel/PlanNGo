@@ -50,7 +50,7 @@
 #left_schedule {
   background-color: #FFECC9;
   float: left;
-  width:28%;
+  width: 28%;
   height: 100%;
   font-size: calc(10px + 2vmin);
 }
@@ -70,12 +70,16 @@
   height: 100%;
   font-size: calc(10px + 2vmin);
 }
+
 /* edited by lun */
 .spots-root {
   width: 100%;
 }
 .test-card-root {
+  width:90%;
   min-width: 275px;
+  margin: 10px;
+  float: center;
 }
 .test-card-bullet {
   display: 'inline-block';
@@ -87,6 +91,20 @@
 }
 .test-card-pos {
   margin-bottom: 12px;
+}
+.test-expand {
+  transform: rotate(0deg);
+  margin-left: auto;
+  /* transition: transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }) */
+}
+.test-expandOpen {
+  transform: rotate(180deg);
+}
+
+.info-media {
+  height: 140;
 }
 
 .App-link {
