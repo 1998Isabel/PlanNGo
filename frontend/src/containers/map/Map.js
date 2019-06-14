@@ -7,7 +7,7 @@ import MarkerInfo from './MarkerInfo'
 
 // examples:
 import GoogleMap from './GoogleMap';
-import AutoComplete from './Search';
+import Search from './Search';
 
 // consts
 const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
@@ -40,6 +40,7 @@ class Map extends Component {
   // onChildClick callback can take two arguments: key and childProps
   onChildClickCallback = (key) => {
     this.setState((state) => {
+      console.log(state)
       const index = state.places.findIndex(e => e.id === key);
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
@@ -53,7 +54,7 @@ class Map extends Component {
     return (
       <div id="right_map">
         {mapApiLoaded && (
-            <AutoComplete map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
+            <Search map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
         )}
         <GoogleMap
           defaultZoom={12}
