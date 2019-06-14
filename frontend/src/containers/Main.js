@@ -5,10 +5,14 @@ import Schedule from './schedule/Schedule'
 import Spots from './spots/Spots'
 import Map from './map/Map'
 
+
 class Main extends Component {
+  onDragEnd = () => {
+    
+  }
   render() {
     return (
-      <DragDropContext>
+      <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="main">
               <Schedule />
               <Spots />

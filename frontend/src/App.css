@@ -71,6 +71,9 @@
   font-size: calc(10px + 2vmin);
 }
 
+.spots-root {
+  width: 100%;
+}
 
 .App-link {
   color: #61dafb;
