@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import isEmpty from 'lodash.isempty';
 
 // components:
-// import Marker from './Marker';
+import Marker from './Marker';
 import MarkerInfo from './MarkerInfo'
 
 // examples:
@@ -33,17 +33,7 @@ class Map extends Component {
   };
 
   addPlace = (place) => {
-    place.show = false;
     this.setState({ places: [place] });
-  };
-
-  // onChildClick callback can take two arguments: key and childProps
-  onChildClickCallback = (key) => {
-    this.setState((state) => {
-      const index = state.places.findIndex(e => e.id === key);
-      state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
-      return { places: state.places };
-    });
   };
 
   render() {
@@ -62,18 +52,16 @@ class Map extends Component {
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],
           }}
-          onChildClick={this.onChildClickCallback}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
           {!isEmpty(places) &&
             places.map(place => (
-              <MarkerInfo
+              <Marker
                 key={place.id}
+                text={place.name}
                 lat={place.geometry.location.lat()}
                 lng={place.geometry.location.lng()}
-                show={place.show}
-                place={place}
               />
             ))}
         </GoogleMap>
