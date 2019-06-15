@@ -11,7 +11,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
-// const uuidv1 = require('uuid/v1');
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+
 import { Draggable } from 'react-beautiful-dnd';
 import '../App.css';
 
@@ -21,11 +22,15 @@ class SimpleCard extends Component {
     super(props);
     this.state = {
       expanded: false,
+      anchorEl: null
     }
   }
   handleExpandClick = () => {
     const expand = this.state.expanded
     this.setState({expanded: !expand});
+  }
+  handleDeleteClick = () => {
+    this.props.handleDelete(this.props.id, this.props.colid)
   }
   render() {
     const { place } = this.props;
@@ -38,7 +43,8 @@ class SimpleCard extends Component {
             <CardContent>
               <Typography className="test-card-title" color="textSecondary" gutterBottom>
                 {place.type}
-                <FavoriteIcon style={{float: "right"}}/>
+                {/* <FavoriteIcon style={{float: "right"}}/> */}
+                <DeleteOutlinedIcon className="test-card-delete" onClick={this.handleDeleteClick}/>
               </Typography>
               <Typography variant="h5" component="h2">
                 {place.name}

@@ -6,11 +6,51 @@ import Spots from './spots/Spots'
 import Map from './map/Map'
 import initial_state from '../Initial';
 
+function IndexofProperty(array, attr, value) {
+  for(var i = 0; i < array.length; i += 1) {
+      if(array[i] === value) {
+          return i;
+      }
+  }
+  return -1;
+}
+
 class Main extends Component {
   constructor(props) {
 		super(props);
 		this.state = initial_state;
 	}
+  handleDelete = (id, colid) => {
+    console.log(id, colid);
+    let col;
+    if (colid === "droppable-0") col = {...this.state.schedule_columns};
+    else col = {...this.state.spots_columns};
+    let items = {...this.state.items};
+
+    let update_col = col;
+    let update_items = items;
+		let item_idx = IndexofProperty(col[colid].items, 'id', id);
+
+    if (item_idx !== -1) {
+      delete update_items[id];
+      update_col[colid].items.splice(item_idx, 1);
+      console.log(update_items);
+      console.log(update_col);
+      if (colid === "droppable-0") {
+        this.setState({
+          schedule_columns: update_col,
+          items: update_items
+        });
+      }
+      else {
+        this.setState({
+          spots_columns: update_col,
+          items: update_items
+        });
+      }
+    }
+  }
+
   onDragEnd = (result)=> {
 		const { destination, source, draggableId } = result;
 		if (!destination) {
@@ -83,13 +123,14 @@ class Main extends Component {
       spots_columns: curr_spot_col
 		})
 
-	}
+  }
+  
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="main">
-              <Schedule col={this.state.schedule_columns} items={this.state.items}/>
-              <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder}/>
+              <Schedule col={this.state.schedule_columns} items={this.state.items} handleDelete={this.handleDelete}/>
+              <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
               <Map />
           </div>
       </DragDropContext>

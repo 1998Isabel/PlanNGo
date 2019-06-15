@@ -11,12 +11,15 @@ const placeinfo = {
 }
 
 class Column extends Component {
+	handleDelete = (id, colid) => {
+		this.props.handleDelete(id, colid)
+	}
 	render() {
 		let items = null;
 		if (this.props.items.length != 0) {
 			items = this.props.items.map((item, index) => <Item
 				id={item.id} key={item.id} description={item.description}
-				index={index} colid={this.props.column.id} place={placeinfo} />);
+				index={index} colid={this.props.column.id} place={placeinfo} handleDelete={this.handleDelete}/>);
 		}
 		return (
 			<Droppable droppableId={this.props.column.id}>

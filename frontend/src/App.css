@@ -23,7 +23,7 @@
   display: grid;
   grid-template-columns: 1fr;
   /* grid-template-rows: 50px 1fr; */
-  grid-template-rows: auto 90%;
+  grid-template-rows: auto 90vh;
 
   grid-template-areas:
     'header'
@@ -80,6 +80,19 @@
   min-width: 275px;
   margin: 10px;
   float: center;
+}
+.test-card-delete {
+  display: none !important;
+  float: right;
+  transition: all 0.2s ease;
+}
+.test-card-root:hover .test-card-delete {
+  display: inline !important;
+}
+.test-card-root:hover .test-card-delete:hover {
+  display: inline !important;
+  border:1.5px solid #ffffff;
+  text-shadow: 2px 2px 5px #ffffff;
 }
 .test-card-bullet {
   display: 'inline-block';

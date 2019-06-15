@@ -10,6 +10,9 @@ class Schedule extends Component {
   constructor(props) {
     super(props);
   }
+  handleDelete = (id, colid) => {
+    this.props.handleDelete(id, colid)
+  }
   render() {
     const column = this.props.col["droppable-0"];
     console.log(column);
@@ -20,7 +23,7 @@ class Schedule extends Component {
           Schedule
           <RouteButton />
         </span>
-        <Col key={column.id} column={column} items={items}/>
+        <Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>
         {/* <DayBox /> */}
         {/* <MyTimeLine /> */}
       </div>

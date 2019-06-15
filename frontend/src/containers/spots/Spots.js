@@ -41,12 +41,15 @@ class Spots extends Component {
       value: newValue
     })
   ]
+  handleDelete = (id, colid) => {
+    this.props.handleDelete(id, colid)
+  }
   render() {
     let value = this.state.value
     let renderCols=this.props.columnOrder.map(colId => {
 			const column = this.props.col[colId];
 			const items = column.items.map(itemId=>this.props.items[itemId]);
-			return (<Col key={column.id} column={column} items={items}/>);
+			return (<Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
 		})
     return (
         <div id="middle_spot">
