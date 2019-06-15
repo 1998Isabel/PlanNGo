@@ -44,7 +44,9 @@ class SimpleCard extends Component {
               <Typography className="test-card-title" color="textSecondary" gutterBottom>
                 {place.type}
                 {/* <FavoriteIcon style={{float: "right"}}/> */}
-                <DeleteOutlinedIcon className="test-card-delete" onClick={this.handleDeleteClick}/>
+                <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
+                  <DeleteOutlinedIcon  onClick={this.handleDeleteClick}/>
+                </IconButton>
               </Typography>
               <Typography variant="h5" component="h2">
                 {place.name}

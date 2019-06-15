@@ -91,7 +91,7 @@
 }
 .test-card-root:hover .test-card-delete:hover {
   display: inline !important;
-  border:1.5px solid #ffffff;
+  /* border:1.5px solid #ffffff; */
   text-shadow: 2px 2px 5px #ffffff;
 }
 .test-card-bullet {

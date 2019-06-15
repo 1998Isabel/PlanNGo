@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import PrintIcon from '@material-ui/icons/Print';
+import SaveIcon from '@material-ui/icons/Save';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +39,14 @@ export default function Header() {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Header
+            {/* 之後應該要改成該旅程的名字? */}
           </Typography>
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
+            <SaveIcon/>
+          </IconButton>
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
+            <PrintIcon/>
+          </IconButton>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
