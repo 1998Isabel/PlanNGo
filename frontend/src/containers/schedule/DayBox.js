@@ -35,11 +35,12 @@ class DayBox extends Component {
 			items = this.props.items.map((item, index) => <Item
 				id={item.id} key={item.id} description={item.description}
 				index={index} colid={this.props.column.id} place={placeinfo} handleDelete={this.handleDelete}/>);
-		}
+    }
+    const day = "DAY"+this.props.index;
     return (
       <div>
         <ListItem>
-          <ListItemText primary="DAY1" secondary="Jan 9, 2014" />
+          <ListItemText primary={day} secondary="Jan 9, 2014" />
         </ListItem>
         <Divider component="li" variant="inset"/>
         <li>

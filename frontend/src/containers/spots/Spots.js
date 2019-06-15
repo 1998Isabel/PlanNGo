@@ -53,7 +53,11 @@ class Spots extends Component {
 		})
     return (
         <div id="middle_spot">
-          <span>Spots</span>
+          <span>
+            <Typography variant="h5" gutterBottom style={{marginLeft:'10px', marginTop:'10px'}}>
+              Spots
+            </Typography>
+          </span>
           <div className="spots-root">
             {/* <AppBar position="static" color="default"> */}
             <Paper square className="spots-root">
