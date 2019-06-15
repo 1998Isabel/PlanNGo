@@ -14,6 +14,10 @@ function IndexofProperty(array, attr, value) {
   }
   return -1;
 }
+function FindCol(s) {
+  let tmp = parseInt(s.substring(s.lastIndexOf('-')+1), 10);
+  return tmp;
+}
 
 class Main extends Component {
   constructor(props) {
@@ -23,7 +27,8 @@ class Main extends Component {
   handleDelete = (id, colid) => {
     console.log(id, colid);
     let col;
-    if (colid === "droppable-0") col = {...this.state.schedule_columns};
+    // if (colid === "droppable-4") col = {...this.state.schedule_columns};
+    if (FindCol(colid) >= 4) col = {...this.state.schedule_columns};    
     else col = {...this.state.spots_columns};
     let items = {...this.state.items};
 
@@ -36,7 +41,8 @@ class Main extends Component {
       update_col[colid].items.splice(item_idx, 1);
       console.log(update_items);
       console.log(update_col);
-      if (colid === "droppable-0") {
+      // if (colid === "droppable-4") {
+      if (FindCol(colid) >= 4) {
         this.setState({
           schedule_columns: update_col,
           items: update_items
@@ -64,11 +70,13 @@ class Main extends Component {
     // check if source is from schedule
     let start;
     let finish;
-		if (source.droppableId === "droppable-0") start = this.state.schedule_columns[source.droppableId];
+		// if (source.droppableId === "droppable-4") start = this.state.schedule_columns[source.droppableId];
+		if (FindCol(source.droppableId) >= 4) start = this.state.schedule_columns[source.droppableId];    
     else start = this.state.spots_columns[source.droppableId];
     // check if source is from spot
-    if (destination.droppableId === "droppable-0") finish = this.state.schedule_columns[destination.droppableId];
-		else finish = this.state.spots_columns[destination.droppableId];
+    // if (destination.droppableId === "droppable-4") finish = this.state.schedule_columns[destination.droppableId];
+    if (FindCol(destination.droppableId) >= 4) finish = this.state.schedule_columns[destination.droppableId];    
+    else finish = this.state.spots_columns[destination.droppableId];
 		
 		if (start === finish) {
 			const newTaskIds = Array.from(start.items);
@@ -80,11 +88,12 @@ class Main extends Component {
 				items: newTaskIds
       };
       let cols;
-      if (source.droppableId === "droppable-0") cols = {...this.state.schedule_columns};
+      if (FindCol(source.droppableId) >= 4) cols = {...this.state.schedule_columns};
 			else cols = {...this.state.spots_columns};
 			const curr_col = cols;
       curr_col[newColumn.id]= newColumn;
-      if (source.droppableId === "droppable-0")
+      // if (source.droppableId === "droppable-4")
+      if (FindCol(source.droppableId) >= 4)
         this.setState({
           schedule_columns:curr_col
         })
@@ -113,9 +122,9 @@ class Main extends Component {
 		let spot_cols = {...this.state.spots_columns};
     const curr_spot_col = spot_cols;
     const curr_sche_col = schedule_col;
-    if (newStart.id==="droppable-0") curr_sche_col[newStart.id] = newStart;
+    if (FindCol(newStart.id) >= 4) curr_sche_col[newStart.id] = newStart;
 		else curr_spot_col[newStart.id] = newStart;
-    if (newFinish.id==="droppable-0") curr_sche_col[newFinish.id] = newFinish;
+    if (FindCol(newFinish.id) >= 4) curr_sche_col[newFinish.id] = newFinish;
     else curr_spot_col[newFinish.id] = newFinish;
     
     this.setState({
@@ -129,7 +138,7 @@ class Main extends Component {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="main">
-              <Schedule col={this.state.schedule_columns} items={this.state.items} handleDelete={this.handleDelete}/>
+              <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
               <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
               <Map />
           </div>

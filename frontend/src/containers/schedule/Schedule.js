@@ -5,6 +5,8 @@ import MyTimeLine from './MyTimeLine'
 import RouteButton from './../../components/RouteButton'
 import DayBox from './DayBox'
 import Col from '../spots/Spots_col'
+import List from '@material-ui/core/List';
+
 
 class Schedule extends Component {
   constructor(props) {
@@ -14,16 +16,24 @@ class Schedule extends Component {
     this.props.handleDelete(id, colid)
   }
   render() {
-    const column = this.props.col["droppable-0"];
-    console.log(column);
-    const items = column.items.map(itemId=>this.props.items[itemId]);
+    // const column = this.props.col["droppable-4"];
+    // console.log(column);
+    // const items = column.items.map(itemId=>this.props.items[itemId]);
+    let renderCols=this.props.columnOrder.map(colId => {
+			const column = this.props.col[colId];
+			const items = column.items.map(itemId=>this.props.items[itemId]);
+			return (<DayBox key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
+		})
     return (
       <div id="left_schedule">
         <span>
           Schedule
           <RouteButton />
         </span>
-        <Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>
+        <List className="schedule-root">
+          {renderCols}
+        </List>
+        {/* <Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/> */}
         {/* <DayBox /> */}
         {/* <MyTimeLine /> */}
       </div>

@@ -16,11 +16,19 @@ const initialData = {
             id:'item4',
             description:'this is test 4'
         },
+        'item5':{
+            id:'item5',
+            description:'this is test 5'
+        },
     },
     schedule_columns: {
-        "droppable-0":{
-            id: "droppable-0",
+        "droppable-4":{
+            id: "droppable-4",
             items:['item4']
+        },
+        "droppable-5":{
+            id: "droppable-5",
+            items:['item5']
         },
     },
     spots_columns: {
@@ -40,6 +48,7 @@ const initialData = {
         }
     },
     columnOrder: ["droppable-1","droppable-2", "droppable-3"],
+    dayOrder: ["droppable-4", "droppable-5"]
 };
 
 export default initialData;
