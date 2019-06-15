@@ -24,7 +24,7 @@ class Column extends Component {
 		return (
 			<Droppable droppableId={this.props.column.id}>
 				{(provided) => (
-					<div ref={provided.innerRef} {...provided.droppableProps}>
+					<div ref={provided.innerRef} {...provided.droppableProps} style={{minHeight:'10em'}}>
 						{items}
 						{provided.placeholder}
 					</div>

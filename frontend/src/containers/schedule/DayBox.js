@@ -45,7 +45,7 @@ class DayBox extends Component {
         <li>
           <Droppable droppableId={this.props.column.id}>
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
+              <div ref={provided.innerRef} {...provided.droppableProps} style={{minHeight:'2em'}}>
                 {items}
                 {provided.placeholder}
               </div>
