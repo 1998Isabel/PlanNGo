@@ -61,9 +61,9 @@ class Spots extends Component {
               Spots
             </Typography>
           </span>
-          <div className="spots-root">
+          <div>
             {/* <AppBar position="static" color="default"> */}
-            <Paper square className="spots-root">
+            <Paper square >
               <Tabs
                 value={value}
                 onChange={this.handleChange}

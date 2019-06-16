@@ -122,13 +122,13 @@
 
 .element {
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 .fixed-size {
-  height: 500px;
+  height: 74vh;
 }
 .day-fixed-size {
-  height: 500px;
+  height: 74vh;
 }
 /* .active {
 	color:red !important;

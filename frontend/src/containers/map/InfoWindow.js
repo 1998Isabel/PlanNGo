@@ -13,10 +13,10 @@ const InfoWindow = (props) => {
 	const { place } = props;
 	const infoWindowStyle = {
 		position: 'relative',
-		bottom: 360,
+		bottom: 200,
 		left: '-45px',
 		width: 220,
-		// height: 280,
+		// height: "40vh",
 		backgroundColor: 'white',
 		boxShadow: '0 2px 7px 1px rgba(0, 0, 0, 0.3)',
 		padding: 10,
@@ -42,7 +42,7 @@ const InfoWindow = (props) => {
 		if (place.photos)
 			return (
 				<div>
-					<img className="image-img" src={place.photos[0].getUrl()} />
+					<img className="image-img" height="30vh" minWidth="32vh" src={place.photos[0].getUrl()}/>
 				</div>
 			);
 		else
@@ -65,7 +65,7 @@ const InfoWindow = (props) => {
 					{String.fromCharCode(9733).repeat(5 - Math.floor(place.rating))}
 				</span>
 			</div>
-			{showphoto()}
+			{/* {showphoto()} */}
 			<div style={{ fontSize: 14, color: 'grey' }}>
 				{place.types[0]}
 			</div>
