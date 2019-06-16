@@ -137,11 +137,11 @@ class Main extends Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="main">
-              <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
-              <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
-              <Map />
-          </div>
+        <div className="main">
+          <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
+          <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
+          <Map />
+        </div>
       </DragDropContext>
     );
   }

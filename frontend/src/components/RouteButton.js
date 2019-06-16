@@ -5,10 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
 	button: {
 		margin: theme.spacing(1),
-		float: "right"
-	},
-	input: {
-		display: 'none',
+    //float: "right",
+    //textAlign: "right",
 	},
 }));
 
@@ -16,9 +14,8 @@ export default function IconLabelButtons() {
   const classes = useStyles();
 
   return (
-    <Button variant="contained" color="primary" className={classes.button}>
+    <Button size="small" variant="contained" color="primary" className={classes.button}>
       Route!
-      {/* <DeleteIcon className={classes.rightIcon} /> */}
     </Button>
   );
 }

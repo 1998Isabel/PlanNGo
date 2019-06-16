@@ -13,13 +13,16 @@ import LocateIcon from '@material-ui/icons/LocationCity';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Col from './Spots_col'
+import { Element, scrollSpy, Events, Link } from 'react-scroll';
 
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 }}>
-      {props.children}
-    </Typography>
+    <Element name="Container" className="element fixed-size" id="ContainerElement">
+      <Typography component="div" style={{ padding: 8 }}>
+        {props.children}
+      </Typography>
+    </Element>
   );
 }
 
