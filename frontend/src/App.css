@@ -130,9 +130,9 @@
 .day-fixed-size {
   height: 500px;
 }
-.active {
+/* .active {
 	color:red !important;
-}
+} */
 .navbar {
   width: 60%;
   /* height: 5%; */

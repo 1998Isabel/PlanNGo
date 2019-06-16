@@ -35,7 +35,7 @@ class Spots extends Component {
   constructor(props){
     super(props);
     this.state ={
-      value:null
+      value:0
     }
   }
   
@@ -67,13 +67,16 @@ class Spots extends Component {
               <Tabs
                 value={value}
                 onChange={this.handleChange}
-                variant="fullWidth"
+                //variant="fullWidth"
                 indicatorColor="secondary"
                 textColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
+                size="small"
               >
-                <Tab label="Eat" icon={<RestaurantIcon /> } style={{ padding: 4, width:'30%' }} />
-                <Tab label="Favorite" icon={<FavoriteIcon />} style={{ padding: 4, width:'30%' }} />
-                <Tab label="Accommodation" icon={<LocateIcon />} style={{ padding: 4, width:'30%' }} />
+                <Tab label="Eat" icon={<RestaurantIcon /> } style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
+                <Tab label="Favorite" icon={<FavoriteIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
+                <Tab label="Accommodation" icon={<LocateIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
               </Tabs>
             </Paper>
             {value === 0 && <TabContainer>{renderCols[0]}</TabContainer>}
