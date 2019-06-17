@@ -30,12 +30,20 @@ const initialData = {
             id: "droppable-5",
             items:['item5']
         },
+        "droppable-6":{
+            id: "droppable-6",
+            items:['item2']
+        },
+        "droppable-7":{
+            id: "droppable-7",
+            items:['item3']
+        },
     },
     spots_columns: {
         "droppable-1":{
             id: "droppable-1",
             items:[
-                'item1', 'item2', 'item3'
+                'item1'
             ]
         },
         "droppable-2":{
@@ -48,7 +56,7 @@ const initialData = {
         }
     },
     columnOrder: ["droppable-1","droppable-2", "droppable-3"],
-    dayOrder: ["droppable-4", "droppable-5"]
+    dayOrder: ["droppable-4", "droppable-5", "droppable-6", "droppable-7"]
 };
 
 export default initialData;
