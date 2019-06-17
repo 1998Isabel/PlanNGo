@@ -4,6 +4,7 @@ import './../App.css';
 import Schedule from './schedule/Schedule'
 import Spots from './spots/Spots'
 import Map from './map/Map'
+// import Map from './map/GmapObj' //for testing
 import initial_state from '../Initial';
 
 function IndexofProperty(array, attr, value) {

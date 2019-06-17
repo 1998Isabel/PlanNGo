@@ -50,10 +50,6 @@ class Map extends Component {
     });
   };
 
-  handleClick = () => {
-
-  }
-
   render() {
     const {
       places, mapApiLoaded, mapInstance, mapApi,

@@ -13,7 +13,7 @@ const InfoWindow = (props) => {
 	const { place } = props;
 	const infoWindowStyle = {
 		position: 'relative',
-		bottom: 200,
+		bottom: 160,
 		left: '-45px',
 		width: 220,
 		// height: "40vh",
@@ -22,7 +22,7 @@ const InfoWindow = (props) => {
 		padding: 10,
 		fontSize: 14,
 		zIndex: 100,
-		// borderRadius: '10px',
+		borderRadius: '10px',
 	};
 
 	const opening = () => {
