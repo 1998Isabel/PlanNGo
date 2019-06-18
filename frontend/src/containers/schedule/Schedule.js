@@ -34,7 +34,7 @@ class Schedule extends Component {
         Events.scrollEvent.remove('end');
       });
       scroller.scrollTo("DayContainer", {
-        duration: 250,
+        duration: 0,
         delay: 0,
         smooth: 'easeInOutQuart'
       });
@@ -45,7 +45,8 @@ class Schedule extends Component {
         duration: 800,
         delay: 0,
         smooth: 'easeInOutQuart',
-        containerId: "DayContainerElement"
+        containerId: "DayContainerElement",
+        offset: -200,
       }));
   }
   render() {
