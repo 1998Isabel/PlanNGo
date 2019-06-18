@@ -42,6 +42,11 @@
 	margin: 5px;
 }
 
+.info-button-del {
+	margin: 5px;
+	float: right;
+}
+
 .image-img {  
 	max-height: 200px;  
 	max-width: 190px; 
