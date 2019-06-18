@@ -7,7 +7,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import LocateIcon from '@material-ui/icons/LocationCity';
 
 const InfoWindow = (props) => {
 	const { place } = props;
@@ -53,6 +58,9 @@ const InfoWindow = (props) => {
 		<div style={infoWindowStyle}>
 			<div style={{ fontSize: 16 }}>
 				{place.name}
+				<IconButton className="info-button" aria-label="Delete" size="small">
+        	<DeleteIcon />
+      	</IconButton>
 			</div>
 			<div style={{ fontSize: 14 }}>
 				<span style={{ color: 'grey' }}>
@@ -74,12 +82,18 @@ const InfoWindow = (props) => {
 			</div>
 			{opening()}
 			<CardActions>
-				<Button size="small" color="primary">
-					Share
-					</Button>
-				<Button size="small" color="primary">
-					Learn More
-					</Button>
+				<Button size="small" style={{ fontSize: 14 }}>
+					More
+				</Button>
+				<IconButton className="info-button" aria-label="Add to eat">
+					<RestaurantIcon  size="small"/>
+				</IconButton>
+				<IconButton className="info-button" aria-label="Add to favorate">
+					<FavoriteIcon size="small"/>
+				</IconButton>
+				<IconButton className="info-button" aria-label="Add to accommodation">
+					<LocateIcon  size="small"/>
+				</IconButton>
 			</CardActions>
 		</div>
 	);

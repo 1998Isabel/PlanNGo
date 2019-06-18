@@ -36,7 +36,11 @@
 	height: 200; /*can be anything*/
 	width: 210; /*can be anything*/
 	position: absolute;
-	}
+}
+
+.info-button {
+	margin: 5px;
+}
 
 .image-img {  
 	max-height: 200px;  

@@ -13,7 +13,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
 
-
 class Schedule extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +33,9 @@ class Schedule extends Component {
     let renderCols = this.props.columnOrder.map((colId, index) => {
       const column = this.props.col[colId];
       const items = column.items.map(itemId => this.props.items[itemId]);
-      const dayelement = "DAY" + (index + 1) + ""
+      const dayelement = "DAY" + (index + 2)
+      console.log("rol")
+      console.log(dayelement)
       return (
         <Element key={column.id} name={dayelement} className="element">
           <DayBox key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
@@ -44,17 +45,6 @@ class Schedule extends Component {
 
     let scrolllink = () => {
       return (
-        // <nav className="navbar navbar-default">
-        //   <ul className="nav navbar-nav">
-        //     {this.props.columnOrder.map((colId, index) => {
-        //       const column = this.props.col[colId];
-        //       const dayelement = "DAY" + (index + 1) + ""
-        //       return (
-        //         <li key={index + 1}><Link activeClass="active" to={dayelement} spy={true} smooth={true} duration={250} containerId="DayContainerElement">{dayelement}</Link></li>
-        //       );
-        //     })}
-        //   </ul>
-        // </nav>
         <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
@@ -66,11 +56,13 @@ class Schedule extends Component {
           >
             {this.props.columnOrder.map((colId, index) => {
               const column = this.props.col[colId];
-              const dayelement = "DAY" + (index + 1) + ""
+              const dayelement = "DAY" + (index + 1)
+              console.log("link")
+              console.log(dayelement)
               return (
-                <Tab label={dayelement}>
-                  <Link key={index+1} to={dayelement} spy={true} smooth={true} duration={250} containerId="DayContainerElement"></Link>
-                </Tab>
+                <Link key={column.id} to={dayelement} spy={true} smooth={true} duration={250} containerId="DayContainerElement">
+                  <Tab key={column.id} label={dayelement} value={index} style={{ padding: 4, width: 80, minWidth: 80 }} />
+                </Link>
               );
             })}
           </Tabs>
