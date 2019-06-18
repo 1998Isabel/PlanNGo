@@ -1,80 +1,87 @@
-import React ,{Component}from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-// const uuidv1 = require('uuid/v1');
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import LocateIcon from '@material-ui/icons/LocationCity';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+
 import { Draggable } from 'react-beautiful-dnd';
 import '../App.css';
 
-const useStyles = makeStyles({
-  card: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
 // export default function SimpleCard() {
 class SimpleCard extends Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      anchorEl: null
     }
-    render () {
-      const { place } = this.props
-      return (
-        <Draggable draggableId={this.props.id} index={this.props.index}>
-        {provided=>(
-            <Card className="info-card" {...provided.dragHandleProps}
+  }
+  handleExpandClick = () => {
+    const expand = this.state.expanded
+    this.setState({expanded: !expand});
+  }
+  handleDeleteClick = () => {
+    this.props.handleDelete(this.props.id, this.props.colid)
+  }
+  render() {
+    const { place } = this.props;
+    return (
+      <Draggable draggableId={this.props.id} index={this.props.index}>
+        {provided => (
+          <Card className="test-card-root" {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}>
-            <CardActionArea>
-              <CardMedia
-                className="info-media"
-                image={place.photo}
-                title={place.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {place.name}
+            <CardContent>
+              {/* <Typography className="test-card-title" color="textSecondary" gutterBottom>
+                {place.type}
+                
+              </Typography> */}
+              <Typography variant="h5" component="h2">
+                {place.name}
+                <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
+                  <DeleteOutlinedIcon  onClick={this.handleDeleteClick}/>
+                </IconButton>
+              </Typography>
+              <Typography className="test-card-pos" color="textSecondary">
+                Staying time: {place.staying}
                 </Typography>
-                <div style={{ fontSize: 14 }}>
-                  <span style={{ color: 'grey' }}>
-                    {place.rating}{' '}
-                  </span>
-                  <span style={{ color: 'orange' }}>
-                    {String.fromCharCode(9733).repeat(Math.floor(place.rating))}
-                  </span>
-                  <span style={{ color: 'lightgrey' }}>
-                    {String.fromCharCode(9733).repeat(5 - Math.floor(place.rating))}
-                  </span>
-                </div>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
+              <Typography variant="body2" component="p">
+                {this.props.description}
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
+              <Button size="small">Learn More</Button>
+              <IconButton
+                className={clsx("test-expand", {
+                  "test-expandOpen": this.state.expanded,
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
             </CardActions>
+            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>Method:</Typography>
+                <Typography paragraph>
+                  {place.note}
+                </Typography>
+              </CardContent>
+            </Collapse> */}
           </Card>)}
-            </Draggable>
-      );
-} 
+      </Draggable>
+    );
+  }
 }
 export default SimpleCard;

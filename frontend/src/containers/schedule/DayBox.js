@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import './../../App.css';
-import Item from './../../components/test_card'
+import Item from './../../components/test_card_2'
 // 這邊的item應該換成像LINE那種簡易型
 
 import { makeStyles } from '@material-ui/core/styles';
