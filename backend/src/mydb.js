@@ -7,10 +7,12 @@ const mydb = {
                 description:'this is test 1'
                 // placeid: ,
                 // name: ,
+                // discription: ,
                 // type:,
                 // duration:,
                 // note: ,
                 // photo: ,
+                // price: ,
             },
             {
                 id: 2,
