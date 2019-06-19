@@ -1,5 +1,5 @@
 type Query {
-  items(query: Int): [Item!]!
+  items(user:String! day: Int!): [Item!]!
   users(query: String): [User!]!
   posts(query: String): [Post!]!
   comments: [Comment!]!
@@ -23,6 +23,39 @@ type Subscription {
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
 }
+type User {
+  name: String!
+  token: String!
+  Days: [Day!]!
+}
+type Day {
+  User: Int!
+  Items: [Item!]!
+}
+
+type Item { 
+  id: Int!
+  description: String
+  placeid: Int
+  name: String
+  type: String
+  duration: Int
+  note: String
+  photo: String
+  price: Int
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 input CreateUserInput {
   name: String!
@@ -57,11 +90,6 @@ input CreateCommentInput {
 
 input UpdateCommentInput {
   text: String
-}
-
-type Item{
-  id: Int!
-  description: String
 }
 
 type User {
