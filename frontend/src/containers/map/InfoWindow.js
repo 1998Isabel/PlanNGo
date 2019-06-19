@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
@@ -16,20 +16,28 @@ import LocateIcon from '@material-ui/icons/LocationCity';
 
 const InfoWindow = (props) => {
 	const { place } = props;
+	const [addtype, setAddtype] = React.useState(null);
+
 	const infoWindowStyle = {
 		position: 'relative',
-		bottom: 160,
+		bottom: 220,
 		left: '-45px',
-		width: 220,
+		width: 260,
 		// height: "40vh",
 		backgroundColor: 'white',
 		boxShadow: '0 2px 7px 1px rgba(0, 0, 0, 0.3)',
-		padding: 10,
+		padding: 14,
 		fontSize: 14,
 		zIndex: 100,
 		borderRadius: '10px',
 	};
 
+	// function handleclick(type) {
+	// 	// if (addtype !== type)
+	// 	// 	//setAddtype(type);
+	// 		console.log(type)
+	// }
+	
 	const opening = () => {
 		if (place.opening_hours)
 			return (
@@ -54,12 +62,19 @@ const InfoWindow = (props) => {
 			return;
 	}
 
+	const buttoncolor = (type) => {
+		if (addtype === type)
+			return "secondary"
+		else
+			return ""
+	}
+
 	return (
 		<div style={infoWindowStyle}>
 			<div style={{ fontSize: 16 }}>
 				{place.name}
-				<IconButton className="info-button" aria-label="Delete" size="small">
-        	<DeleteIcon />
+				<IconButton className="info-button-del" aria-label="Delete">
+        	<DeleteOutlinedIcon />
       	</IconButton>
 			</div>
 			<div style={{ fontSize: 14 }}>
@@ -85,14 +100,29 @@ const InfoWindow = (props) => {
 				<Button size="small" style={{ fontSize: 14 }}>
 					More
 				</Button>
-				<IconButton className="info-button" aria-label="Add to eat">
-					<RestaurantIcon  size="small"/>
+				<IconButton className="info-button" aria-label="Add to eat" 
+					color={buttoncolor('eat')}
+					onClick={() => {
+						// console.log('eat')
+						setAddtype('eat')
+				}}>
+					<RestaurantIcon />
 				</IconButton>
-				<IconButton className="info-button" aria-label="Add to favorate">
-					<FavoriteIcon size="small"/>
+				<IconButton className="info-button" aria-label="Add to favorate"
+					color={buttoncolor('favorate')}
+					onClick={() => {
+						// console.log('favorate')
+						setAddtype('favorate')
+				}}>
+					<FavoriteIcon />
 				</IconButton>
-				<IconButton className="info-button" aria-label="Add to accommodation">
-					<LocateIcon  size="small"/>
+				<IconButton className="info-button" aria-label="Add to accommodation"
+					color={buttoncolor('accommodation')}
+					onClick={() => {
+						// console.log('accommodation')
+						setAddtype('accommodation')
+				}}>
+					<LocateIcon />
 				</IconButton>
 			</CardActions>
 		</div>

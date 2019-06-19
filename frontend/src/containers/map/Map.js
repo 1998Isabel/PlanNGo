@@ -45,6 +45,9 @@ class Map extends Component {
     this.setState((state) => {
       // console.log(state)
       const index = state.places.findIndex(e => e.id === key);
+      // console.log(index)
+      if (index < 0)
+        return;
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
