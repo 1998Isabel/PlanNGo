@@ -1,9 +1,16 @@
 const mydb = {
     default: {
+
         items: [
             {
                 id: 1,
                 description:'this is test 1'
+                // placeid: ,
+                // name: ,
+                // type:,
+                // duration:,
+                // note: ,
+                // photo: ,
             },
             {
                 id: 2,
