@@ -53,7 +53,6 @@ client.query({
     query: gql`
       {
         users{
-          tests
           token
           totalDays
           days {
