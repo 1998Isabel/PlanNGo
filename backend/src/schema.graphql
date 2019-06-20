@@ -1,9 +1,8 @@
 type Query {
   items(user:String! day: Int!): [Item!]!
-  users(query: String): [User!]!
+  users: Users!
   posts(query: String): [Post!]!
   comments: [Comment!]!
-  me: User!
   post: Post!
 }
 
@@ -23,18 +22,19 @@ type Subscription {
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
 }
-type User {
+type Users {
+  totalDays: [String!]
   name: String!
   token: String!
-  Days: [Day!]!
+  days: [Day]
 }
 type Day {
-  User: Int!
-  Items: [Item!]!
+  id: String
+  items: [Item]
 }
 
 type Item { 
-  id: Int!
+  id: String
   description: String
   placeid: Int
   name: String
@@ -44,14 +44,6 @@ type Item {
   photo: String
   price: Int
 }
-
-
-
-
-
-
-
-
 
 
 

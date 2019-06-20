@@ -6,7 +6,7 @@ import Subscription from './resolvers/Subscription'
 import User from './resolvers/User'
 import Post from './resolvers/Post'
 import Comment from './resolvers/Comment'
-
+import Users from './resolvers/Users'
 const pubsub = new PubSub()
 
 const server = new GraphQLServer({
@@ -17,7 +17,8 @@ const server = new GraphQLServer({
     Subscription,
     User,
     Post,
-    Comment
+    Comment,
+    Users
   },
   context: {
     db,

@@ -1,1 +1,1 @@
-export { ITEMS_QUERY } from './queries'
+export { DAYS_INFO } from './queries'

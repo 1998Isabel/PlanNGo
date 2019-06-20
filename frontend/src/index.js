@@ -52,8 +52,13 @@ ReactDOM.render(wrappedApp, document.getElementById('root'));
 client.query({
     query: gql`
       {
-        items{
-          description
+        users{
+          tests
+          token
+          totalDays
+          days {
+            id
+          }
         }
       }
     `

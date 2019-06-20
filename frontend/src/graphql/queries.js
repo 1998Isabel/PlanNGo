@@ -1,10 +1,18 @@
 import { gql } from 'apollo-boost'
 
-export const ITEMS_QUERY = gql`
+export const DAYS_INFO = gql`
   query {
-    items {
-        id
-        description
-    }
+      users {
+          token
+          totalDays
+          days {
+              id
+              items {
+                  id
+                  description
+              }
+          }
+      }
   }
+
 `

@@ -11,14 +11,11 @@ const Query = {
   },
   
   users(parent, args, { db }, info) {
-    if (!args.query) {
-      return db.users
-    }
-
-    return db.users.filter(user => {
-      return user.name.toLowerCase().includes(args.query.toLowerCase())
-    })
+    console.log("Hi")
+    console.log(db["Henry"])
+    return db["Henry"]
   },
+
   posts(parent, args, { db }, info) {
     if (!args.query) {
       return db.posts
@@ -36,13 +33,6 @@ const Query = {
   },
   comments(parent, args, { db }, info) {
     return db.comments
-  },
-  me() {
-    return {
-      id: '123098',
-      name: 'Mike',
-      email: 'mike@example.com'
-    }
   },
   post() {
     return {
