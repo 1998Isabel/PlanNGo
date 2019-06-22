@@ -91,10 +91,10 @@ class InfoWindow extends Component {
 		this.mycreateItem({
 			variables: {
 				id: type,
+				description: place.types[0],
 				placeid: place.place_id,
 				name: place.name,
 				type: typeid,
-				note: place.types[0],
 				photo: this.showphoto,
 				price: place.price_level,
 			}

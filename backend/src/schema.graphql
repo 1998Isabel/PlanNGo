@@ -41,16 +41,15 @@ type Item {
   name: String
   type: String
   duration: Int
-  note: String
   photo: String
   price: Int
 }
 
 input CreateItemInput {
+  description: String
   placeid: String
   name: String
   type: String
-  note: String
   photo: String
   price: Int
 }
