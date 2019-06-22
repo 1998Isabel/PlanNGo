@@ -52,12 +52,22 @@ const mydb = {
 
             {
                 id: "droppable-2",
-                items:[]
+                items:[
+                    {
+                        id: 'item6',
+                        description: 'this is item6'
+                    }
+                ]
             },
 
             {
                 id: "droppable-3",
-                items:[]
+                items:[
+                    {
+                        id: 'item7',
+                        description: 'this is item7'
+                    }
+                ]
             }
         ]
     },

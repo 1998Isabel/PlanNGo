@@ -47,8 +47,6 @@ type Item {
 
 
 
-
-
 input CreateUserInput {
   name: String!
   email: String!

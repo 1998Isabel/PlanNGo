@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import { Droppable } from 'react-beautiful-dnd';
 import './../../App.css';
-import MyTimeLine from './MyTimeLine'
 import RouteButton from './../../components/RouteButton'
 import DayBox from './DayBox'
 // import Col from '../spots/Spots_col'
@@ -58,8 +57,8 @@ class Schedule extends Component {
     // const items = column.items.map(itemId=>this.props.items[itemId]);
     return (<Query query={DAYS_INFO}>{
       ({loading, error, data, sub}) => {
-        if(error) return <p>error</p>
-        if(loading) return <p>loading</p>
+        if(error) return <div id="left_schedule">error</div>
+        if(loading) return <div id="left_schedule">loading...</div>
         console.log("HIIIIIIII",data,error,loading,sub)
         const totalDays = data.users.totalDays
         const daysInfo = listToObjbyID(data.users.days)
@@ -119,9 +118,6 @@ class Schedule extends Component {
                 {renderCols}
               </List>
             </Element>
-            {/* <Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/> */}
-            {/* <DayBox /> */}
-            {/* <MyTimeLine /> */}
           </div>
         );
       }
