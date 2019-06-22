@@ -14,9 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Col from './Spots_col'
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
-import {DAYS_INFO} from '../../graphql'
+import { DAYS_INFO } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
-import {listToObjbyID} from '../../util'
+import { listToObjbyID } from '../../util'
 
 const totalTypes = ["droppable-1", "droppable-2", "droppable-3"]
 
@@ -61,6 +61,7 @@ class Spots extends Component {
         let renderCols = totalTypes.map(colId => {
           const column = daysInfo[colId];
           const items = column.items;
+          console.log(items)
           return (<Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
         })
 
