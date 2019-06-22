@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter, Switch } from 'react-router-dom';
 import { ApolloClient, InMemoryCache } from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import { split } from 'apollo-link'
@@ -43,10 +44,14 @@ const httpLink = new HttpLink({
   })
   
   const wrappedApp = (
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  )
+    <BrowserRouter>
+      <Switch>
+        <ApolloProvider client={client}>
+            <App />
+        </ApolloProvider>
+      </Switch>
+    </BrowserRouter>
+)
 
 ReactDOM.render(wrappedApp, document.getElementById('root'));
 client.query({

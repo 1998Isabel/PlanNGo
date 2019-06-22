@@ -99,43 +99,6 @@ class Spots extends Component {
         );
       }
     }</Query>);
-    
-    // let renderCols=this.props.columnOrder.map(colId => {
-		// 	const column = this.props.col[colId];
-		// 	const items = column.items.map(itemId=>this.props.items[itemId]);
-		// 	return (<Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
-		// })
-    // return (
-    //     <div id="middle_spot">
-    //       <span>
-    //         <Typography variant="h5" gutterBottom style={{marginLeft:'10px', marginTop:'10px'}}>
-    //           Spots
-    //         </Typography>
-    //       </span>
-    //       <div>
-    //         {/* <AppBar position="static" color="default"> */}
-    //         <Paper square >
-    //           <Tabs
-    //             value={value}
-    //             onChange={this.handleChange}
-    //             //variant="fullWidth"
-    //             indicatorColor="secondary"
-    //             textColor="secondary"
-    //             variant="scrollable"
-    //             scrollButtons="auto"
-    //             size="small"
-    //           >
-    //             <Tab label="Eat" icon={<RestaurantIcon /> } style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
-    //             <Tab label="Favorite" icon={<FavoriteIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
-    //             <Tab label="Accommodation" icon={<LocateIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
-    //           </Tabs>
-    //         </Paper>
-    //         {value === 0 && <TabContainer>{renderCols[0]}</TabContainer>}
-    //         {value === 1 && <TabContainer>{renderCols[1]}</TabContainer>}
-    //         {value === 2 && <TabContainer>{renderCols[2]}</TabContainer>}
-    //       </div>
-    //     </div>
-    // );
   }
 }
 
