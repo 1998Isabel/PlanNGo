@@ -8,7 +8,7 @@ import PlaceIcon from '@material-ui/icons/Place';
 const Marker = (props) => {
 	return (
 		<Fragment>
-			<PlaceIcon color="secondary" style={{fontSize: "36px"}} />
+			<PlaceIcon color="secondary" style={{fontSize: "36px"}}/>
 			{props.show && <InfoWindow place={props.place} />}
 		</Fragment>
 	);

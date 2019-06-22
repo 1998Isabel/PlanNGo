@@ -28,6 +28,19 @@
 	z-index: 100;
 }
 
+.info-window {
+	position: relative;
+	bottom: 220;
+	left: -45px;
+	width: 260;
+	background-color: white;
+	box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3);
+	padding: 14;
+	font-size: 14;
+	z-index: 100;
+	border-radius: 10px;
+}
+
 .info-media {
   height: 140;
 }
