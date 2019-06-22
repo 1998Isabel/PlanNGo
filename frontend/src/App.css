@@ -1,3 +1,22 @@
+html{
+  height: 100% !important;
+  margin: 0;
+  background: linear-gradient(45deg, rgba(254, 108, 139, 1)30%, rgba(255, 142, 81, 0.8)90%); 
+background: -moz-linear-gradient(45deg, rgba(254, 108, 139, 1)30%, rgba(255, 142, 81, 0.8)90%); 
+background: -webkit-linear-gradient(45deg, rgba(254, 108, 139, 1)30%, rgba(255, 142, 81, 0.8)90%); 
+background: -o-linear-gradient(45deg, rgba(254, 108, 139, 1)30%, rgba(255, 142, 81, 0.8)90%); 
+}
+h1 {
+  color: rgba(255, 255, 255, 0.8);
+}
+header {
+  height: 0px;
+}
+.home-wrapper {
+  margin: 0 auto;
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }

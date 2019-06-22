@@ -19,7 +19,7 @@ const styles = {
       marginTop: 10
     },
     outterWrapper: {
-        margin: 0 
+        margin: 0,
     },
     innerWrapper:{
         marginTop: 50,
@@ -31,6 +31,9 @@ const styles = {
     },
     link:{
         textDecoration: "none"
+    },
+    input:{
+        color: "rgba(255, 255, 255, 0.65)"
     }
 }
 
@@ -55,6 +58,9 @@ class NewProject extends React.Component{
                                 className={classes.textField}
                                 margin="normal"
                                 variant="outlined"
+                                InputProps={{
+                                    className: classes.input
+                                }}
                             /></div>
                         <div><TextField
                                 id="password"
@@ -64,6 +70,9 @@ class NewProject extends React.Component{
                                 autoComplete="current-password"
                                 margin="normal"
                                 variant="outlined"
+                                InputProps={{
+                                    className: classes.input
+                                }}
                             /></div>
                         <div><TextField
                                 id="repeat_password"
@@ -73,6 +82,9 @@ class NewProject extends React.Component{
                                 autoComplete="current-password"
                                 margin="normal"
                                 variant="outlined"
+                                InputProps={{
+                                    className: classes.input
+                                }}
                             /></div>
                         <div><TextField
                                 id="destination"
@@ -80,6 +92,9 @@ class NewProject extends React.Component{
                                 className={classes.textField}
                                 margin="normal"
                                 variant="outlined"
+                                InputProps={{
+                                    className: classes.input
+                                }}
                             /></div>
                         <div><MyDayPick /></div>
                     </form>

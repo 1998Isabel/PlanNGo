@@ -28,7 +28,27 @@ const useStyles = makeStyles(theme => ({
       },
     link:{
         textDecoration: "none"
-    }
+    },
+    input:{
+        color:"rgba(255, 255, 255, 0.65)"
+    },
+    cssLabel:{
+        color:"rgba(255, 255, 255, 0.65)"
+    },
+    cssFocused:{
+        color:"white"
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+          borderColor: `${theme.palette.primary.main} !important`,
+        }
+      },
+    
+    
+    notchedOutline: {
+        borderWidth: '1px',
+        borderColor: 'green !important'
+    },
   }));
 
 export default function Login(props) {
@@ -42,10 +62,22 @@ export default function Login(props) {
                         id="outlined-project-input"
                         label="Project Name"
                         className={classes.textField}
-                        type="password"
+                        // type="password"
                         autoComplete="current-password"
                         margin="normal"
                         variant="outlined"
+                        InputProps={{
+                            className: classes.input,
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                              root: classes.cssLabel,
+                              focused: classes.cssFocused,
+                            },
+                        }}
                     /></div>
                 <div><TextField
                         id="outlined-password-input"
@@ -55,6 +87,15 @@ export default function Login(props) {
                         autoComplete="current-password"
                         margin="normal"
                         variant="outlined"
+                        InputProps={{
+                            className: classes.input
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                              root: classes.cssLabel,
+                              focused: classes.cssFocused,
+                            },
+                        }}
                     /></div>
                 </form>
                 <div className={classes.loginWrapper}>

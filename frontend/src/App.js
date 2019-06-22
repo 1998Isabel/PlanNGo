@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
+import './assets/css/home.css';
 import Header from './containers/Header'
 import Main from './containers/Main'
 import Home from './components/Home'

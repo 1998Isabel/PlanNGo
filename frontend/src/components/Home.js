@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import '../assets/css/home.css';
 const useStyles = makeStyles(theme => ({
     fab: {
       margin: theme.spacing(1),
@@ -16,10 +17,10 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(1.5),
     },
     outterWrapper: {
-        margin: 0 
+        margin: 0,
     },
     innerWrapper:{
-        marginTop: 250,
+        // marginTop: 250,
         textAlign: "center"
     },
     link:{
@@ -30,18 +31,12 @@ export default function Home(props) {
     const classes = useStyles()
     
     return(
-        <div className={classes.outWrapper}>
+        <div className={classes.outterWrapper}>
             <div className={classes.innerWrapper}>
-                <div>
-                </div>
-                <div>
-                    <Button variant="contained" color="default" className={classes.fab}>
-                        <NavigationIcon className={classes.extendedIcon} /> Login
-                    </Button>
-                    <Button variant="contained" color="primary" className={classes.fab}>
-                    <AddIcon className={classes.extendedIcon} /> New
-                    </Button>
-                </div>
+                <header id="header">
+					<h1 style={{fontSize:'5em', fontWeight:'100'}}>PlanNGo</h1>
+					<h1 style={{fontWeight:'100'}}>Plan your own <strong>Trip</strong> here!</h1>
+				</header>
                 <div>
                     <Link to="/login" className={classes.link}>
                         <Fab variant="extended" aria-label="login" className={classes.fab}>
