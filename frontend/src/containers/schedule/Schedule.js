@@ -29,7 +29,6 @@ class Schedule extends Component {
     this.setState({value: newValue})
   }
   scrollToWithContainer(day) {
-    console.log(day)
     let goToContainer = new Promise((resolve, reject) => {
       Events.scrollEvent.register('end', () => {
         resolve();
@@ -52,22 +51,18 @@ class Schedule extends Component {
       }));
   }
   render() {
-    // const column = this.props.col["droppable-4"];
-    // console.log(column);
-    // const items = column.items.map(itemId=>this.props.items[itemId]);
     return (<Query query={DAYS_INFO}>{
       ({loading, error, data, sub}) => {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>
-        console.log("HIIIIIIII",data,error,loading,sub)
+        
         const totalDays = data.users.totalDays
         const daysInfo = listToObjbyID(data.users.days)
+
         let renderCols = totalDays.map((colId, index) => {
           const column = daysInfo[colId];
           const items = column.items
           const dayelement = "DAY" + (index + 1)
-          // console.log("rol")
-          // console.log(dayelement)
           return (
             <Element key={column.id} name={dayelement} className="element">
               <DayBox key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
@@ -89,8 +84,7 @@ class Schedule extends Component {
                 {this.props.columnOrder.map((colId, index) => {
                   const column = this.props.col[colId];
                   const dayelement = "DAY" + (index + 1)
-                  // console.log("link")
-                  // console.log(dayelement)
+
                   return (
                     <Tab key={column.id} label={dayelement} value={index} style={{ padding: 4, width: 80, minWidth: 80 }} onClick={() => this.scrollToWithContainer(dayelement)}>
                       {/* <Link key={column.id} to={dayelement} spy={true} smooth={true} duration={250} containerId="DayContainerElement">
