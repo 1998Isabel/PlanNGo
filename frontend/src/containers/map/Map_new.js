@@ -43,12 +43,23 @@ class Map extends Component {
   // onChildClick callback can take two arguments: key and childProps
   onChildClickCallback = (key) => {
     this.setState((state) => {
-      console.log(state)
-      const index = state.places.findIndex(e => e.place_id === key);
-      console.log(index)
+      // console.log(state)
+      const index = state.places.findIndex(e => e.id === key);
       // console.log(index)
-      if (index < 0){
-        return;}
+      if (index < 0)
+        return;
+      state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
+      return { places: state.places };
+    });
+  };
+
+  handleClick = (key) => {
+    this.setState((state) => {
+      // console.log(state)
+      const index = state.places.findIndex(e => e.id === key);
+      // console.log(index)
+      if (index < 0)
+        return;
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
@@ -70,18 +81,20 @@ class Map extends Component {
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],
           }}
-          onChildClick={this.onChildClickCallback}
+          // onChildClick={this.onChildClickCallback}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo
-                key={place.place_id}
+                key={place.id}
+                keyid={place.id}
                 lat={place.geometry.location.lat()}
                 lng={place.geometry.location.lng()}
                 show={place.show}
                 place={place}
+                onClick={this.handleClick}
               />
             ))}
         </GoogleMap>

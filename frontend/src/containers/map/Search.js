@@ -73,10 +73,6 @@ class Search extends Component {
 				<IconButton className="search-iconButton" aria-label="Search">
 					<SearchIcon />
 				</IconButton>
-				{/* <Divider className="search-divider" />
-				<IconButton color="primary" className="search-iconButton" aria-label="Directions">
-					<DirectionsIcon />
-				</IconButton> */}
 			</Paper>
 		);
 	}

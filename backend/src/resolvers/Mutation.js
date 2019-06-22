@@ -1,6 +1,31 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
+
+  createItem(parent, args, { db, pubsub }, info ) {
+    const { id, data } = args
+    
+    const item = {
+      id: uuidv4(),
+      ...data
+    }
+
+    db["Henry"].days.find((day) => {
+      return (day.id === id)
+    }).items.push(item)
+    
+    // for subscription
+    // pubsub.publish('item', {
+    //   item: {
+    //     mutation: 'CREATED',
+    //     data: item
+    //   }
+    // })
+
+    return item
+
+  },
+
   createUser(parent, args, { db }, info) {
     const emailTaken = db.users.some(user => user.email === args.data.email)
 
