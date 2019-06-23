@@ -36,7 +36,8 @@ class Map extends Component {
     place.show = false;
     const places = this.state.places
     places.push(place)
-    // console.log(places)
+    console.log(place.geometry.location.lat())
+    console.log(place.geometry.location.lng())
     this.setState({ places: places });
   };
 
