@@ -16,6 +16,7 @@ const Mutation = {
 
     db["Henry"].items.push(item)
 
+    console.log(db["Henry"].items)
     console.log(db["Henry"].days.find((day) => {
       return (day.id === id)
     }))

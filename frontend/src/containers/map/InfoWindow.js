@@ -85,9 +85,7 @@ class InfoWindow extends Component {
 			typeid = "favorite";
 		if (type === "droppable-3")
 			typeid = "accommodation";
-		console.log(typeid)
 		const { place } = this.props;
-		console.log(place)
 		this.mycreateItem({
 			variables: {
 				id: type,
@@ -97,6 +95,8 @@ class InfoWindow extends Component {
 				type: typeid,
 				photo: this.showphoto,
 				price: place.price_level,
+				lat: place.geometry.location.lat(),
+				lng: place.geometry.location.lng()
 			}
 		})
 	}

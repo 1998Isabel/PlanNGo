@@ -9,6 +9,8 @@ export const CREATE_ITEM = gql`
     $type: String!
     $photo: String
     $price: Int
+    $lat: Float!
+    $lng: Float!
   ) {
     createItem(
       id: $id
@@ -20,6 +22,7 @@ export const CREATE_ITEM = gql`
           type: $type
           photo: $photo
           price: $price
+          location: [$lat, $lng]
         }
       }
     ) {

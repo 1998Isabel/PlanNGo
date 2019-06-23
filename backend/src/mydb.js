@@ -13,6 +13,7 @@ const mydb = {
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0339639, 121.51423060000002]
                 },
             },
             {
@@ -20,11 +21,12 @@ const mydb = {
                 place: {
                     description: '',
                     placeid: '',
-                    name: 'Taipei201',
+                    name: 'Taipei M Hotel',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0450608, 121.51271440000005]
                 },
             },
             {
@@ -37,6 +39,7 @@ const mydb = {
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0342464, 121.5667909]
                 },
             },
             {
@@ -49,6 +52,7 @@ const mydb = {
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.035669, 121.56449220000002]
                 },
             },
             {
@@ -61,32 +65,33 @@ const mydb = {
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0354792, 121.56810280000002]
                 },
             },
-            {
-                id: 'item6',
-                place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei601',
-                    type: 'favorite',
-                    duration: 1,
-                    photo: '',
-                    price: 0,
-                },
-            },
-            {
-                id: 'item7',
-                place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei701',
-                    type: 'favorite',
-                    duration: 1,
-                    photo: '',
-                    price: 0,
-                },
-            },
+            // {
+            //     id: 'item6',
+            //     place: {
+            //         description: '',
+            //         placeid: '',
+            //         name: 'Taipei601',
+            //         type: 'favorite',
+            //         duration: 1,
+            //         photo: '',
+            //         price: 0,
+            //     },
+            // },
+            // {
+            //     id: 'item7',
+            //     place: {
+            //         description: '',
+            //         placeid: '',
+            //         name: 'Taipei701',
+            //         type: 'favorite',
+            //         duration: 1,
+            //         photo: '',
+            //         price: 0,
+            //     },
+            // },
         ],
         days : [
             {
@@ -116,12 +121,12 @@ const mydb = {
 
             {
                 id: "droppable-2",
-                itemsid:['item6']
+                itemsid:[]
             },
 
             {
                 id: "droppable-3",
-                itemsid:['item7']
+                itemsid:[]
             }
         ]
     },
