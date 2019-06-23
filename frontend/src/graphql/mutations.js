@@ -24,7 +24,9 @@ export const CREATE_ITEM = gql`
       }
     ) {
       id
-      name
+      place {
+        name
+      }
     }
   }
 `
