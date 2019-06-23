@@ -17,7 +17,7 @@ class Column extends Component {
 	render() {
 		let items = null;
 		if (this.props.items.length != 0) {
-			console.log(this.props.items)
+			// console.log(this.props.items)
 			items = this.props.items.map((item, index) => <Item
 				id={item.id} key={item.id} 
 				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}/>);

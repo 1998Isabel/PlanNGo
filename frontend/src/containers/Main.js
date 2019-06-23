@@ -7,7 +7,7 @@ import Map from './map/Map'
 // import Map from './map/GmapObj' //for testing
 import initial_state from '../Initial';
 import { Mutation } from 'react-apollo'
-import { CREATE_ITEM } from '../graphql';
+import { UPDATE_DND_ITEM } from '../graphql';
 
 
 function IndexofProperty(array, attr, value) {
@@ -72,7 +72,7 @@ class Main extends Component {
 			destination.index === source.index){
 				return;
     }
-    this.updateDnDItem({
+    this.updateDnD({
       variables: {
         draggableId: draggableId,
         destination_droppableId: destination.droppableId,
@@ -81,76 +81,11 @@ class Main extends Component {
         source_index: source.index, 
       }
     });
-    // check if source is from schedule
-    let start;
-    let finish;
-		// if (source.droppableId === "droppable-4") start = this.state.schedule_columns[source.droppableId];
-		if (FindCol(source.droppableId) >= 4) start = this.state.schedule_columns[source.droppableId];    
-    else start = this.state.spots_columns[source.droppableId];
-    // check if source is from spot
-    // if (destination.droppableId === "droppable-4") finish = this.state.schedule_columns[destination.droppableId];
-    if (FindCol(destination.droppableId) >= 4) finish = this.state.schedule_columns[destination.droppableId];    
-    else finish = this.state.spots_columns[destination.droppableId];
-		
-		if (start === finish) {
-			const newTaskIds = Array.from(start.items);
-			newTaskIds.splice(source.index, 1);
-			newTaskIds.splice(destination.index, 0, draggableId);
-			
-			const newColumn = {
-				...start,
-				items: newTaskIds
-      };
-      let cols;
-      if (FindCol(source.droppableId) >= 4) cols = {...this.state.schedule_columns};
-			else cols = {...this.state.spots_columns};
-			const curr_col = cols;
-      curr_col[newColumn.id]= newColumn;
-      // if (source.droppableId === "droppable-4")
-      if (FindCol(source.droppableId) >= 4)
-        this.setState({
-          schedule_columns:curr_col
-        })
-      else this.setState({
-        spots_columns:curr_col
-      })
-
-			return;
-		}
-
-		const startTaskIds = Array.from(start.items);
-		startTaskIds.splice(source.index, 1);
-		const newStart = {
-			...start,
-			items: startTaskIds,
-		};
-
-		const finishTaskIds = Array.from(finish.items);
-		finishTaskIds.splice(destination.index, 0,draggableId);
-		const newFinish = {
-			...finish,
-			items: finishTaskIds,
-    };
-    
-    let schedule_col = {...this.state.schedule_columns}
-		let spot_cols = {...this.state.spots_columns};
-    const curr_spot_col = spot_cols;
-    const curr_sche_col = schedule_col;
-    if (FindCol(newStart.id) >= 4) curr_sche_col[newStart.id] = newStart;
-		else curr_spot_col[newStart.id] = newStart;
-    if (FindCol(newFinish.id) >= 4) curr_sche_col[newFinish.id] = newFinish;
-    else curr_spot_col[newFinish.id] = newFinish;
-    
-    this.setState({
-      schedule_columns: curr_sche_col,
-      spots_columns: curr_spot_col
-		})
-
   }
   
   render() {
     return (
-      <Mutation mutation={CREATE_ITEM}> {
+      <Mutation mutation={UPDATE_DND_ITEM}>{
         updateDnDItem => {
           console.log("updateDnDItem")
           this.updateDnD = updateDnDItem;

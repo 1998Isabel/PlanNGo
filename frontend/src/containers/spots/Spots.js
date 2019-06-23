@@ -56,12 +56,12 @@ class Spots extends Component {
       ({loading, error, data, sub}) => {
         if (error) return <div id="middle_spot">error!</div>
         if (loading) return <div id="middle_spot">loading...</div>
-        console.log("in spots.js", data)
+        // console.log("in spots.js", data)
         const daysInfo = listToObjbyID(data.users.days)
         let renderCols = totalTypes.map(colId => {
           const column = daysInfo[colId];
           const items = column.items;
-          console.log(items)
+          // console.log(items)
           return (<Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
         })
 

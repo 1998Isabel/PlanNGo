@@ -1,6 +1,6 @@
 function listToObjbyID(list){
     let obj = {}
-    console.log("HIIII",list)
+    // console.log("HIIII",list)
     list.forEach((elem) => {
         obj[elem.id] = elem
     })

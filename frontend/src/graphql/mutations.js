@@ -36,24 +36,24 @@ export const CREATE_ITEM = gql`
 
 export const UPDATE_DND_ITEM = gql`
   mutation updateDnDItem(
-    $droppableId: String!
+    $draggableId: String!
     $destination_droppableId: String!
-    $destination_index: String!
+    $destination_index: Int!
     $source_droppableId: String!
-    $source_index: String!
+    $source_index: Int!
   ) {
     updateDnDItem(
-      id: $id
       data: {
 
-          droppableId: $droppableId
+          draggableId: $draggableId
           destination_droppableId: $destination_droppableId
           destination_index: $destination_index
           source_droppableId: $source_droppableId
           source_index: $source_index
       }
     ) {
-      days
+      id 
+      itemsid
     }
   }
 `
