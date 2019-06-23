@@ -58,27 +58,6 @@ class SimpleCard extends Component {
                 {this.props.description}
               </Typography>
             </CardContent>
-            {/* <CardActions>
-              <Button size="small">Learn More</Button>
-              <IconButton
-                className={clsx("test-expand", {
-                  "test-expandOpen": this.state.expanded,
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="Show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography paragraph>Method:</Typography>
-                <Typography paragraph>
-                  {place.note}
-                </Typography>
-              </CardContent>
-            </Collapse> */}
           </Card>)}
       </Draggable>
     );

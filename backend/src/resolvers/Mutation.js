@@ -2,6 +2,35 @@ import uuidv4 from 'uuid/v4'
 
 const Mutation = {
 
+  updateDnDItem (parent, args, { db, pubsub }, info ) {
+    const { data } = args
+    console.log("updateDnD", data)
+    
+    let update_days = db["Henry"].days
+    let start_idx;
+    let finish_idx;
+    for (var i=0; i < update_days.length; i++) {
+      if (update_days[i].id === data.source_droppableId) {
+        start_idx = i;
+      }
+      if (update_days[i].id === data.destination_droppableId){
+        finish_idx = i;
+      }
+    }
+
+    if (start_idx === finish_idx) {
+      update_days[start_idx].itemsid.splice(data.source_index, 1);
+      update_days[start_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+    }
+    else {
+      update_days[start_idx].itemsid.splice(data.source_index, 1);
+      update_days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+    }
+    console.log("update_day", update_days);
+    db["Henry"].days = update_days;
+
+    return db["Henry"].days
+  },
   createItem(parent, args, { db, pubsub }, info ) {
     const { id, data } = args
     

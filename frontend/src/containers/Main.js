@@ -6,6 +6,9 @@ import Spots from './spots/Spots'
 import Map from './map/Map'
 // import Map from './map/GmapObj' //for testing
 import initial_state from '../Initial';
+import { Mutation } from 'react-apollo'
+import { CREATE_ITEM } from '../graphql';
+
 
 function IndexofProperty(array, attr, value) {
   for(var i = 0; i < array.length; i += 1) {
@@ -68,7 +71,16 @@ class Main extends Component {
 		if (destination.droppableId === source.droppableId &&
 			destination.index === source.index){
 				return;
+    }
+    this.updateDnDItem({
+      variables: {
+        draggableId: draggableId,
+        destination_droppableId: destination.droppableId,
+        destination_index: destination.index,
+        source_droppableId: source.droppableId,
+        source_index: source.index, 
       }
+    });
     // check if source is from schedule
     let start;
     let finish;
@@ -138,13 +150,22 @@ class Main extends Component {
   
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <div className="main">
-          <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
-          <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
-          <Map />
-        </div>
-      </DragDropContext>
+      <Mutation mutation={CREATE_ITEM}> {
+        updateDnDItem => {
+          console.log("updateDnDItem")
+          this.updateDnD = updateDnDItem;
+          return (
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <div className="main">
+                <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
+                <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
+                <Map />
+              </div>
+            </DragDropContext>
+          );
+        }
+      }
+      </Mutation>
     );
   }
 }

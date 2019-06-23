@@ -30,3 +30,27 @@ export const CREATE_ITEM = gql`
     }
   }
 `
+
+export const UPDATE_DND_ITEM = gql`
+  mutation updateDnDItem(
+    $droppableId: String!
+    $destination_droppableId: String!
+    $destination_index: String!
+    $source_droppableId: String!
+    $source_index: String!
+  ) {
+    updateDnDItem(
+      id: $id
+      data: {
+
+          droppableId: $droppableId
+          destination_droppableId: $destination_droppableId
+          destination_index: $destination_index
+          source_droppableId: $source_droppableId
+          source_index: $source_index
+      }
+    ) {
+      days
+    }
+  }
+`
