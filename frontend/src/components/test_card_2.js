@@ -52,7 +52,7 @@ class SimpleCard extends Component {
                 </IconButton>
               </Typography>
               <Typography className="test-card-pos" color="textSecondary">
-                Staying time: {place.staying}
+                Staying time: {place.duration} hr
                 </Typography>
               <Typography variant="body2" component="p">
                 {this.props.description}

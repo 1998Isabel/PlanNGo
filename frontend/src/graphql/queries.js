@@ -28,6 +28,13 @@ export const DAYS_INFO = gql`
                   id
                   place {
                       name
+                      description
+                      placeid
+                      name
+                      type
+                      duration
+                      photo
+                      price
                   }
               }
           }

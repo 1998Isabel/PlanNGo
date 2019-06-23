@@ -34,6 +34,7 @@ class SimpleCard extends Component {
   }
   render() {
     const { place } = this.props;
+    console.log("place", place);
     return (
       <Draggable draggableId={this.props.id} index={this.props.index}>
         {provided => (
@@ -52,7 +53,7 @@ class SimpleCard extends Component {
                 {place.name}
               </Typography>
               <Typography className="test-card-pos" color="textSecondary">
-                Staying time: {place.staying}
+                Staying time: {place.duration} hr
                 </Typography>
               <Typography variant="body2" component="p">
                 {this.props.description}
