@@ -6,7 +6,7 @@ const mydb = {
             {
                 id: 'item1',
                 place: {
-                    description: '',
+                    description: 'premise',
                     placeid: '52ChIJH56c2rarQjQRphD9gvC8BhI',
                     name: 'Taipei101',
                     type: 'favorite',
@@ -19,7 +19,7 @@ const mydb = {
             {
                 id: 'item2',
                 place: {
-                    description: '',
+                    description: 'lodging',
                     placeid: 'ChIJU-I5lQypQjQRIswONmg_Mos',
                     name: 'Taipei M Hotel',
                     type: 'favorite',
@@ -32,7 +32,7 @@ const mydb = {
             {
                 id: 'item3',
                 place: {
-                    description: '',
+                    description: 'point_of_interest',
                     placeid: 'ChIJy-qHObarQjQRdukyRsgZ-Xw',
                     name: 'Taipei World Trade Center',
                     type: 'favorite',
@@ -45,9 +45,9 @@ const mydb = {
             {
                 id: 'item4',
                 place: {
-                    description: '',
+                    description: 'route',
                     placeid: 'EiFUYWl3YW4sIFRhaXBlaSBDaXR5LCDosaHlsbHmraXpgZMiLiosChQKEgmZakNWrKtCNBHKC3KxInPlaxIUChIJi73bYWusQjQRgqQGXK260bw',
-                    name: 'Elephant Mountain',
+                    name: '象山步道',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
@@ -58,10 +58,10 @@ const mydb = {
             {
                 id: 'item5',
                 place: {
-                    description: '',
+                    description: 'restaurant',
                     placeid: 'ChIJaSOhhrCrQjQRl6ktXQKUF-E',
-                    name: 'Taipei501',
-                    type: 'favorite',
+                    name: '一幻拉麵',
+                    type: 'eat',
                     duration: 1,
                     photo: '',
                     price: 0,

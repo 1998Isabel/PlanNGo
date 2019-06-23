@@ -18,7 +18,7 @@ import LocateIcon from '@material-ui/icons/LocationCity';
 
 const infoWindowStyle = {
 	position: 'relative',
-	bottom: 220,
+	bottom: 200,
 	left: '-45px',
 	width: 260,
 	// height: "40vh",
@@ -35,7 +35,7 @@ class InfoWindow extends Component {
 		super(props);
 
 		this.state = {
-			addtype: null,
+			addtype: this.props.place.spottype,
 		};
 	}
 
@@ -131,9 +131,9 @@ class InfoWindow extends Component {
 							<div style={{ fontSize: 14, color: 'grey' }}>
 								{this.props.place.types[0]}
 							</div>
-							<div style={{ fontSize: 14, color: 'grey' }}>
+							{/* <div style={{ fontSize: 14, color: 'grey' }}>
 								{'$'.repeat(this.props.place.price_level)}
-							</div>
+							</div> */}
 							{this.opening()}
 							<CardActions>
 								<Button size="small" style={{ fontSize: 14 }}>

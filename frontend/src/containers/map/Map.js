@@ -28,15 +28,24 @@ class Map extends Component {
   componentDidMount() {
     this.props.client.query({query: MAP_ITEMS}).then(result => {
       const queryplaces = result.data.items.map(item => {
-        item.place.show = false
         function lat() {return item.place.location[0]};
         function lng() {return item.place.location[1]};
-        item.place.geometry = {location: {lat, lng}};
-        return item.place
+        console.log(item.place.type)
+        const place = {
+          name: item.place.name,
+          geometry: {location: {lat, lng}},
+          show: false,
+          place_id: item.place.placeid,
+          types: [item.place.description],
+          price_level: item.place.price,
+          spottype: item.place.type,
+        }
+        // console.log(place.types)
+        return place
       })
-      console.log("Query places in map", queryplaces)
+      // console.log("Query places in map", queryplaces)
       this.setState({places: queryplaces})
-      console.log("query: ",this.state.places)
+      // console.log("query: ",this.state.places)
     })
     
   }
@@ -62,9 +71,9 @@ class Map extends Component {
   // onChildClick callback can take two arguments: key and childProps
   onChildClickCallback = (key) => {
     this.setState((state) => {
-      console.log(state)
+      // console.log(state)
       const index = state.places.findIndex(e => e.place_id === key);
-      console.log(index)
+      // console.log(index)
       // console.log(index)
       if (index < 0){
         return;}

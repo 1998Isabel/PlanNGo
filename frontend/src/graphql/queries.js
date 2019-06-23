@@ -23,6 +23,10 @@ export const MAP_ITEMS = gql`
             place {
                 placeid
                 location
+                description
+                name
+                price
+                type
             }
         }
     }
