@@ -1,6 +1,7 @@
 type Query {
   items(user:String! day: Int!): [Item!]!
   users: Users!
+  days: [Day!]!
   posts(query: String): [Post!]!
   comments: [Comment!]!
   post: Post!
@@ -34,6 +35,7 @@ type Users {
 type Day {
   id: String
   itemsid: [String]
+  items: [Item]!
 }
 
 type Place {

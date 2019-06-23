@@ -3,10 +3,12 @@ import db from './mydb'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import Subscription from './resolvers/Subscription'
-import User from './resolvers/User'
+// import User from './resolvers/User'
 import Post from './resolvers/Post'
 import Comment from './resolvers/Comment'
 import Users from './resolvers/Users'
+import Day from './resolvers/Day'
+
 const pubsub = new PubSub()
 
 const server = new GraphQLServer({
@@ -15,10 +17,10 @@ const server = new GraphQLServer({
     Query,
     Mutation,
     Subscription,
-    User,
     Post,
     Comment,
-    Users
+    Users,
+    Day
   },
   context: {
     db,
