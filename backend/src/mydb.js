@@ -1,38 +1,107 @@
 const mydb = {
     Henry: {
-        token: "1",
+        token : "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
+        items : {
+            'item1': {
+                id: 'item1',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei101',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item2': {
+                id: 'item2',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei201',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item3': {
+                id: 'item3',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei301',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item4': {
+                id: 'item4',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei401',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item5': {
+                id: 'item5',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei501',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item6': {
+                id: 'item6',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei601',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item7': {
+                id: 'item7',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei701',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+        },
         days : [
             {
                 id: "droppable-4",
-                items:[
-                    {
-                        id: 'item1',
-                        description: 'this is item1'
-                    },
-                    {
-                        id: 'item2',
-                        description: 'this is item2'
-                    }
-                ]
+                itemsid:['item1', 'item2']
             },
 
             {
                 id: "droppable-5",
-                items:[
-                    {
-                        id: 'item3',
-                        description: 'this is item3'
-                    }
-                ]
+                items:['item3']
             },
 
             {
                 id: "droppable-6",
-                items:[ {
-                    id: 'item4',
-                    description: 'this is item4'
-                }]
+                items:['item4']
             },
 
             {
@@ -42,69 +111,123 @@ const mydb = {
         
             {
                 id: "droppable-1",
-                items:[
-                    {
-                        id: 'item5',
-                        description: 'this is item5'
-                    }
-                ]
+                items:['item5']
             },
 
             {
                 id: "droppable-2",
-                items:[
-                    {
-                        id: 'item6',
-                        description: 'this is item6'
-                    }
-                ]
+                items:['item6']
             },
 
             {
                 id: "droppable-3",
-                items:[
-                    {
-                        id: 'item7',
-                        description: 'this is item7'
-                    }
-                ]
+                items:['item7']
             }
         ]
     },
     Ariel: {
         token: "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
+        items : {
+            'item1': {
+                id: 'item1',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei101',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item2': {
+                id: 'item2',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei201',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item3': {
+                id: 'item3',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei301',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item4': {
+                id: 'item4',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei401',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item5': {
+                id: 'item5',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei501',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item6': {
+                id: 'item6',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei601',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+            'item7': {
+                id: 'item7',
+                place: {
+                    description: '',
+                    placeid: '',
+                    name: 'Taipei701',
+                    type: 'favorite',
+                    duration: 1,
+                    photo: '',
+                    price: 0,
+                },
+            },
+        },
         days : [
             {
                 id: "droppable-4",
-                items:[
-                    {
-                        id: 'item1',
-                        description: 'this is item1'
-                    },
-                    {
-                        id: 'item2',
-                        description: 'this is item2'
-                    }
-                ]
+                itemsid:['item1', 'item2']
             },
 
             {
                 id: "droppable-5",
-                items:[
-                    {
-                        id: 'item3',
-                        description: 'this is item3'
-                    }
-                ]
+                items:['item3']
             },
 
             {
                 id: "droppable-6",
-                items:[ {
-                    id: 'item4',
-                    description: 'this is item4'
-                }]
+                items:['item4']
             },
 
             {
@@ -114,22 +237,17 @@ const mydb = {
         
             {
                 id: "droppable-1",
-                items:[
-                    {
-                        id: 'item5',
-                        description: 'this is item5'
-                    }
-                ]
+                items:['item5']
             },
 
             {
                 id: "droppable-2",
-                items:[]
+                items:['item6']
             },
 
             {
                 id: "droppable-3",
-                items:[]
+                items:['item7']
             }
         ]
     }
