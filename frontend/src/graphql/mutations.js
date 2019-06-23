@@ -13,12 +13,14 @@ export const CREATE_ITEM = gql`
     createItem(
       id: $id
       data: {
-        description: $description
-        placeid: $placeid
-        name: $name
-        type: $type
-        photo: $photo
-        price: $price
+        place: {
+          description: $description
+          placeid: $placeid
+          name: $name
+          type: $type
+          photo: $photo
+          price: $price
+        }
       }
     ) {
       id

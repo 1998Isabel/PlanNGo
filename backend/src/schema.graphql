@@ -53,13 +53,18 @@ type Item {
   place: Place
 }
 
-input CreateItemInput {
+input PlaceInput {
   description: String
   placeid: String
   name: String
   type: String
+  duration: Int
   photo: String
   price: Int
+}
+
+input CreateItemInput {
+  place: PlaceInput
 }
 
 # input UpdateDnDItemInput {

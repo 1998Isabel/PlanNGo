@@ -12,7 +12,9 @@ const Mutation = {
 
     db["Henry"].days.find((day) => {
       return (day.id === id)
-    }).items.push(item)
+    }).itemsid.unshift(item.id)
+
+    db["Henry"].items.push(item)
 
     console.log(db["Henry"].days.find((day) => {
       return (day.id === id)

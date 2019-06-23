@@ -82,7 +82,7 @@ class InfoWindow extends Component {
 		if (type === "droppable-1")
 			typeid = "eat";
 		if (type === "droppable-2")
-			typeid = "favorate";
+			typeid = "favorite";
 		if (type === "droppable-3")
 			typeid = "accommodation";
 		// console.log(typeid)
@@ -149,12 +149,12 @@ class InfoWindow extends Component {
 									}}>
 									<RestaurantIcon />
 								</IconButton>
-								<IconButton className="info-button" aria-label="Add to favorate"
-									color={this.buttoncolor('favorate')}
+								<IconButton className="info-button" aria-label="Add to favorite"
+									color={this.buttoncolor('favorite')}
 									onClick={() => {
-										// console.log('favorate')
-										// setAddtype('favorate')
-										this.setState({ addtype: 'favorate' })
+										// console.log('favorite')
+										// setAddtype('favorite')
+										this.setState({ addtype: 'favorite' })
 										this.handleAdd("droppable-2")
 									}}>
 									<FavoriteIcon />
