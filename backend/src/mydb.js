@@ -7,7 +7,7 @@ const mydb = {
                 id: 'item1',
                 place: {
                     description: '',
-                    placeid: '',
+                    placeid: '52ChIJH56c2rarQjQRphD9gvC8BhI',
                     name: 'Taipei101',
                     type: 'favorite',
                     duration: 1,
@@ -20,7 +20,7 @@ const mydb = {
                 id: 'item2',
                 place: {
                     description: '',
-                    placeid: '',
+                    placeid: 'ChIJU-I5lQypQjQRIswONmg_Mos',
                     name: 'Taipei M Hotel',
                     type: 'favorite',
                     duration: 1,
@@ -33,33 +33,33 @@ const mydb = {
                 id: 'item3',
                 place: {
                     description: '',
-                    placeid: '',
-                    name: 'Taipei301',
+                    placeid: 'ChIJy-qHObarQjQRdukyRsgZ-Xw',
+                    name: 'Taipei World Trade Center',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
-                    location: [25.0342464, 121.5667909]
+                    location: [25.033155, 121.56234700000005]
                 },
             },
             {
                 id: 'item4',
                 place: {
                     description: '',
-                    placeid: '',
-                    name: 'Taipei401',
+                    placeid: 'EiFUYWl3YW4sIFRhaXBlaSBDaXR5LCDosaHlsbHmraXpgZMiLiosChQKEgmZakNWrKtCNBHKC3KxInPlaxIUChIJi73bYWusQjQRgqQGXK260bw',
+                    name: 'Elephant Mountain',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
-                    location: [25.035669, 121.56449220000002]
+                    location: [25.0252002, 121.57967499999995]
                 },
             },
             {
                 id: 'item5',
                 place: {
                     description: '',
-                    placeid: '',
+                    placeid: 'ChIJaSOhhrCrQjQRl6ktXQKUF-E',
                     name: 'Taipei501',
                     type: 'favorite',
                     duration: 1,

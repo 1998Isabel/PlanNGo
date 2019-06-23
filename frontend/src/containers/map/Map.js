@@ -8,6 +8,8 @@ import MarkerInfo from './MarkerInfo'
 // examples:
 import GoogleMap from './GoogleMap';
 import Search from './Search';
+import { withApollo } from 'react-apollo';
+import { MAP_ITEMS } from '../../graphql/queries';
 
 // consts
 const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
@@ -15,13 +17,28 @@ const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
 class Map extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       mapApiLoaded: false,
       mapInstance: null,
       mapApi: null,
       places: [],
     };
+  }
+
+  componentDidMount() {
+    this.props.client.query({query: MAP_ITEMS}).then(result => {
+      const queryplaces = result.data.items.map(item => {
+        item.place.show = false
+        function lat() {return item.place.location[0]};
+        function lng() {return item.place.location[1]};
+        item.place.geometry = {location: {lat, lng}};
+        return item.place
+      })
+      console.log("Query places in map", queryplaces)
+      this.setState({places: queryplaces})
+      console.log("query: ",this.state.places)
+    })
+    
   }
 
   apiHasLoaded = (map, maps) => {
@@ -36,8 +53,9 @@ class Map extends Component {
     place.show = false;
     const places = this.state.places
     places.push(place)
-    console.log(place.geometry.location.lat())
-    console.log(place.geometry.location.lng())
+    // console.log(place.geometry.location.lat())
+    // console.log(place.geometry.location.lng())
+    // console.log(place.place_id)
     this.setState({ places: places });
   };
 
@@ -91,4 +109,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default withApollo(Map);

@@ -1,5 +1,5 @@
 type Query {
-  items(user:String! day: Int!): [Item!]!
+  items: [Item!]!
   users: Users!
   days: [Day!]!
   posts(query: String): [Post!]!

@@ -17,6 +17,17 @@ import { gql } from 'apollo-boost'
 
 // `
 
+export const MAP_ITEMS = gql`
+    query {
+        items {
+            place {
+                placeid
+                location
+            }
+        }
+    }
+`
+
 export const DAYS_INFO = gql`
   query {
       users {
@@ -40,5 +51,4 @@ export const DAYS_INFO = gql`
           }
       }
   }
-
 `

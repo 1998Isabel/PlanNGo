@@ -2,12 +2,13 @@ const Query = {
   
   items(parent, args, {db}, info){
     if(!args.query){
-      return db.default.items
+      return db["Henry"].items
     }
+    console.log(db["Henry"].items)
 
-    return db.default.items.filter(item => {
-      return item.id === args.query
-    })
+    // return db["Henry"].items.filter(item => {
+    //   return item.id === args.query
+    // })
   },
   
   users(parent, args, { db }, info) {
