@@ -46,6 +46,7 @@ type Place {
   duration: Int
   photo: String
   price: Int
+  location: [Float]
 }
 
 type Item { 
@@ -58,9 +59,9 @@ input PlaceInput {
   placeid: String
   name: String
   type: String
-  duration: Int
   photo: String
   price: Int
+  location: [Float]
 }
 
 input CreateItemInput {
