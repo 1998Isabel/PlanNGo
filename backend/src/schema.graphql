@@ -8,6 +8,7 @@ type Query {
 
 type Mutation {
   createItem(id: String!, data: CreateItemInput!): Item!
+  updateDnDItem(data: UpdateDnDItemInput!): Item!
   createUser(data: CreateUserInput!): User!
   deleteUser(id: ID!): User!
   updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -31,18 +32,22 @@ type Users {
 }
 type Day {
   id: String
-  items: [Item]
+  itemsid: [String]
 }
 
-type Item { 
-  id: String
+type Place {
   description: String
-  placeid: Int
+  placeid: String
   name: String
   type: String
   duration: Int
   photo: String
   price: Int
+}
+
+type Item { 
+  id: String
+  place: Place
 }
 
 input CreateItemInput {
@@ -52,6 +57,10 @@ input CreateItemInput {
   type: String
   photo: String
   price: Int
+}
+
+input UpdateDnDItemInput {
+  
 }
 
 input CreateUserInput {

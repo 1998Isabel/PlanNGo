@@ -59,6 +59,7 @@ class Main extends Component {
   }
 
   onDragEnd = (result)=> {
+    console.log("dnd result", result);
 		const { destination, source, draggableId } = result;
 		if (!destination) {
             console.log("destination empty");

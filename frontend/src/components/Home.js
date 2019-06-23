@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import '../assets/css/home.css';
+// import '../assets/css/home.css';
 const useStyles = makeStyles(theme => ({
     fab: {
       margin: theme.spacing(1),
@@ -34,8 +34,8 @@ export default function Home(props) {
         <div className={classes.outterWrapper}>
             <div className={classes.innerWrapper}>
                 <header id="header">
-					<h1 style={{fontSize:'5em', fontWeight:'100'}}>PlanNGo</h1>
-					<h1 style={{fontWeight:'100'}}>Plan your own <strong>Trip</strong> here!</h1>
+					<h1 style={{fontSize:'6em', fontWeight:'100'}}>PlanNGo</h1>
+					<h1 style={{fontWeight:'100', marginBottom:'1em'}}>Plan your own <strong>Trip</strong> here!</h1>
 				</header>
                 <div>
                     <Link to="/login" className={classes.link}>

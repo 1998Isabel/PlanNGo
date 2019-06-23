@@ -85,9 +85,9 @@ class InfoWindow extends Component {
 			typeid = "favorate";
 		if (type === "droppable-3")
 			typeid = "accommodation";
-		console.log(typeid)
+		// console.log(typeid)
 		const { place } = this.props;
-		// console.log(place)
+		console.log(place)
 		this.mycreateItem({
 			variables: {
 				id: type,
