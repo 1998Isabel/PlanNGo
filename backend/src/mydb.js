@@ -96,32 +96,32 @@ const mydb = {
 
             {
                 id: "droppable-5",
-                items:['item3']
+                itemsid:['item3']
             },
 
             {
                 id: "droppable-6",
-                items:['item4']
+                itemsid:['item4']
             },
 
             {
                 id: "droppable-7",
-                items:[]
+                itemsid:[]
             },
         
             {
                 id: "droppable-1",
-                items:['item5']
+                itemsid:['item5']
             },
 
             {
                 id: "droppable-2",
-                items:['item6']
+                itemsid:['item6']
             },
 
             {
                 id: "droppable-3",
-                items:['item7']
+                itemsid:['item7']
             }
         ]
     },
@@ -222,32 +222,32 @@ const mydb = {
 
             {
                 id: "droppable-5",
-                items:['item3']
+                itemsid:['item3']
             },
 
             {
                 id: "droppable-6",
-                items:['item4']
+                itemsid:['item4']
             },
 
             {
                 id: "droppable-7",
-                items:[]
+                itemsid:[]
             },
         
             {
                 id: "droppable-1",
-                items:['item5']
+                itemsid:['item5']
             },
 
             {
                 id: "droppable-2",
-                items:['item6']
+                itemsid:['item6']
             },
 
             {
                 id: "droppable-3",
-                items:['item7']
+                itemsid:['item7']
             }
         ]
     }

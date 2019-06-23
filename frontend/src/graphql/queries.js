@@ -16,3 +16,22 @@ export const DAYS_INFO = gql`
   }
 
 `
+
+export const DAYS_INFO_NEW = gql`
+  query {
+      users {
+          token
+          totalDays
+          days {
+              id
+              items {
+                  id
+                  place {
+                      name
+                  }
+              }
+          }
+      }
+  }
+
+`
