@@ -26,6 +26,7 @@ type Subscription {
 }
 type Users {
   totalDays: [String!]
+  items: [Item]
   name: String!
   token: String!
   days: [Day]

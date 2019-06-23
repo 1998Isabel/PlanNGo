@@ -2,8 +2,8 @@ const mydb = {
     Henry: {
         token : "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
-        items : {
-            'item1': {
+        items : [
+            {
                 id: 'item1',
                 place: {
                     description: '',
@@ -15,7 +15,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item2': {
+            {
                 id: 'item2',
                 place: {
                     description: '',
@@ -27,7 +27,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item3': {
+            {
                 id: 'item3',
                 place: {
                     description: '',
@@ -39,7 +39,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item4': {
+            {
                 id: 'item4',
                 place: {
                     description: '',
@@ -51,7 +51,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item5': {
+            {
                 id: 'item5',
                 place: {
                     description: '',
@@ -63,7 +63,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item6': {
+            {
                 id: 'item6',
                 place: {
                     description: '',
@@ -75,7 +75,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item7': {
+            {
                 id: 'item7',
                 place: {
                     description: '',
@@ -87,7 +87,7 @@ const mydb = {
                     price: 0,
                 },
             },
-        },
+        ],
         days : [
             {
                 id: "droppable-4",
@@ -128,8 +128,8 @@ const mydb = {
     Ariel: {
         token: "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
-        items : {
-            'item1': {
+        items : [
+            {
                 id: 'item1',
                 place: {
                     description: '',
@@ -141,7 +141,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item2': {
+            {
                 id: 'item2',
                 place: {
                     description: '',
@@ -153,7 +153,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item3': {
+            {
                 id: 'item3',
                 place: {
                     description: '',
@@ -165,7 +165,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item4': {
+            {
                 id: 'item4',
                 place: {
                     description: '',
@@ -177,7 +177,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item5': {
+            {
                 id: 'item5',
                 place: {
                     description: '',
@@ -189,7 +189,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item6': {
+            {
                 id: 'item6',
                 place: {
                     description: '',
@@ -201,7 +201,7 @@ const mydb = {
                     price: 0,
                 },
             },
-            'item7': {
+            {
                 id: 'item7',
                 place: {
                     description: '',
@@ -213,7 +213,7 @@ const mydb = {
                     price: 0,
                 },
             },
-        },
+        ],
         days : [
             {
                 id: "droppable-4",
