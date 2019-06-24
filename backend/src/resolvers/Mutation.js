@@ -65,6 +65,12 @@ const Mutation = {
     //     data: item
     //   }
     // })
+    pubsub.publish('mapitem', {
+      mapitem: {
+        mutation: 'CREATED',
+        data: item
+      }
+    })
 
     return item
 

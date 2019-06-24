@@ -23,6 +23,7 @@ type Mutation {
 
 type Subscription {
   item: ItemSubscriptionPayload!
+  mapitem: MapItemSubscriptionPayload!
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
 }
@@ -155,4 +156,8 @@ type CommentSubscriptionPayload {
 type ItemSubscriptionPayload {
   mutation: MutationType!
   data: [Day]!
+}
+type MapItemSubscriptionPayload {
+  mutation: MutationType!
+  data: Item!
 }

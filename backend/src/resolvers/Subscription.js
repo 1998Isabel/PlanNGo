@@ -20,6 +20,11 @@ const Subscription = {
       return pubsub.asyncIterator('item')
     }
   },
+  mapitem: {
+    subscribe(parent, args, { pubsub }, info) {
+      return pubsub.asyncIterator('mapitem')
+    }
+  }
 }
 
 export { Subscription as default }
