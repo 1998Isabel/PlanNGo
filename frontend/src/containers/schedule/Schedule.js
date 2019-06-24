@@ -11,7 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Element, scrollSpy, Events, Link, scroller  } from 'react-scroll';
-import {DAYS_INFO} from '../../graphql'
+import { DAYS_INFO , ITEM_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import {listToObjbyID} from '../../util'
 
@@ -50,9 +50,12 @@ class Schedule extends Component {
         offset: -200,
       }));
   }
+
+  unsubscribe = null
+
   render() {
-    return (<Query query={DAYS_INFO}>{
-      ({loading, error, data, sub}) => {
+    return (<Query query={DAYS_INFO}  partialRefetch={true}>{
+      ({loading, error, data, subscribeToMore}) => {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>
         
@@ -70,6 +73,23 @@ class Schedule extends Component {
           );
         })
     
+        if (!this.unsubscribe) {
+          this.unsubscribe = subscribeToMore({
+            document: ITEM_SUBSCRIPTION,
+            updateQuery: (prev, { subscriptionData }) => {
+              console.log("prev", prev)
+              console.log("subscriptionData.data", subscriptionData.data)
+              if (!subscriptionData.data) return prev
+              const newDays = subscriptionData.data.item.data
+              console.log("newDays", newDays);
+
+              prev.users.days = newDays;
+              console.log("update prev", prev)
+              return {
+                ...prev,
+                days: newDays 
+              }
+            }})}
         let scrolllink = () => {
           return (
             <AppBar position="static" color="default">

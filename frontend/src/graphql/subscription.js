@@ -7,6 +7,19 @@ export const ITEM_SUBSCRIPTION = gql`
       data {
         id 
         itemsid
+        items {
+                id
+                place {
+                    name
+                    description
+                    placeid
+                    name
+                    type
+                    duration
+                    photo
+                    price
+                }
+        }
       }
     }
   }

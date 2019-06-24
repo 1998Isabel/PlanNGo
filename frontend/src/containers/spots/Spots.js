@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Col from './Spots_col'
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
-import { DAYS_INFO } from '../../graphql'
+import { DAYS_INFO, ITEM_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import { listToObjbyID } from '../../util'
 
@@ -51,9 +51,12 @@ class Spots extends Component {
   handleDelete = (id, colid) => {
     this.props.handleDelete(id, colid)
   }
+
+  unsubscribe = null
+
   render() {
-    return (<Query query={DAYS_INFO}>{
-      ({loading, error, data, sub}) => {
+    return (<Query query={DAYS_INFO}  partialRefetch={true}>{
+      ({loading, error, data, subscribeToMore}) => {
         if (error) return <div id="middle_spot">error!</div>
         if (loading) return <div id="middle_spot">loading...</div>
         // console.log("in spots.js", data)
@@ -66,7 +69,36 @@ class Spots extends Component {
         })
 
         let value = this.state.value;
-        
+        if (!this.unsubscribe) {
+          this.unsubscribe = subscribeToMore({
+            document: ITEM_SUBSCRIPTION,
+            updateQuery: (prev, { subscriptionData }) => {
+              console.log("prev", prev)
+              console.log("subscriptionData.data", subscriptionData.data)
+              if (!subscriptionData.data) return prev
+              const newDays = subscriptionData.data.item.data
+              console.log("newDays", newDays);
+
+              prev.users.days = newDays;
+              console.log("update prev", prev)
+              return {
+                ...prev,
+                days: newDays 
+              }
+            // let update_users = [...prev.users]
+            // update_users = update_users.map(user=>{
+            //     if (user.name!==newPost.author.name) return user
+            //     let temp = user
+            //     temp.posts = [newPost, ...temp.posts]
+            //     return temp
+            // })
+            // console.log(update_users)
+            // return {
+            //     users: update_users
+            // }
+            }
+        })
+        }
         return(
           <div id="middle_spot">
             <span>
