@@ -10,6 +10,7 @@ type Query {
 type Mutation {
   createItem(id: String!, data: CreateItemInput!): Item!
   updateDnDItem(data: UpdateDnDItemInput!): [Day]!
+  deleteItem(data: DeleteItemInput!): Users!
   createUser(data: CreateUserInput!): User!
   deleteUser(id: ID!): User!
   updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -76,6 +77,10 @@ input UpdateDnDItemInput {
   destination_index: Int
   source_droppableId: String
   source_index: Int
+}
+input DeleteItemInput {
+  itemId: String!
+  columnId: String!
 }
 
 input CreateUserInput {
