@@ -96,7 +96,8 @@ class InfoWindow extends Component {
 				photo: this.showphoto(),
 				price: place.price_level,
 				lat: place.geometry.location.lat(),
-				lng: place.geometry.location.lng()
+				lng: place.geometry.location.lng(),
+				duration: 0,
 			}
 		})
 	}

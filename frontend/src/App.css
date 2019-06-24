@@ -136,6 +136,10 @@ header {
   margin-left: 1px;
   margin-right: 1px;
 }
+.test-duration-textfield{
+  margin-left: 1px;
+  margin-right: 1px;
+}
 .test-expand {
   transform: rotate(0deg);
   margin-left: auto;

@@ -13,6 +13,7 @@ export const CREATE_ITEM = gql`
     $price: Int
     $lat: Float!
     $lng: Float!
+    $duration: Int!
   ) {
     createItem(
       userid: $userid
@@ -27,6 +28,7 @@ export const CREATE_ITEM = gql`
           photo: $photo
           price: $price
           location: [$lat, $lng]
+          duration: $duration
         }
       }
     ) {
@@ -69,13 +71,15 @@ export const UPDATE_ITEM_INFO = gql`
     $itemid: String!
     $description: String
     $price: Int
+    $duration: Int
   ) {
   updateItemInfo(
     userid: $userid,
     data: {
       itemid: $itemid,
       description: $description,
-      price: $price
+      price: $price,
+      duration: $duration,
     }
   ) {
     id,
@@ -83,6 +87,7 @@ export const UPDATE_ITEM_INFO = gql`
       name,
       description,
       price,
+      duration,
     }
   }
 }

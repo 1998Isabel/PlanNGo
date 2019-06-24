@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import './../../App.css';
-import Item from './../../components/test_card_2'
-// 這邊的item應該換成像LINE那種簡易型
-
+import Item from './../../components/ScheduleCard'
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -12,15 +10,6 @@ import Avatar from '@material-ui/core/Avatar';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-
-
-const placeinfo = {
-	name: "Taipei101",
-	type: "FAVORITE",
-	staying: "one hour",
-	note: "Go to the top of the building... (should be able to edited)",
-	photo: "http://images.skyscrapercenter.com/building/tapei101_ext-mainup_(c)taipeifinancial.jpg"
-}
 
 class DayBox extends Component {
   constructor(props) {

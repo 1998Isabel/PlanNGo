@@ -82,6 +82,7 @@ const Mutation = {
     console.log(updateindex)
     db[userid].items[updateindex].place.description = data.description;
     db[userid].items[updateindex].place.price = data.price;
+    db[userid].items[updateindex].place.duration = data.duration;
 
     // for subscription
     pubsub.publish('iteminfo', {

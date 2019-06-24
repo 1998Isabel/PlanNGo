@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import Item from '../../components/test_card'
+import Item from '../../components/SpotCard'
 
 const placeinfo = {
 	name: "Taipei101",

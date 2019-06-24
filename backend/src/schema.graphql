@@ -68,6 +68,7 @@ input PlaceInput {
   photo: String
   price: Int
   location: [Float]
+  duration: Int
 }
 
 input CreateItemInput {
@@ -87,6 +88,7 @@ input UpdateItemInfo {
   itemid: String!
   description: String
   price: Int
+  duration: Int
 }
 
 input DeleteItemInput {

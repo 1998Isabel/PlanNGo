@@ -12,7 +12,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Col from './Spots_col'
+import Col from './SpotsCol'
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
 import { DAYS_INFO, ITEM_SUBSCRIPTION, ITEMINFO_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'

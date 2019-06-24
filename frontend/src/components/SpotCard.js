@@ -32,6 +32,7 @@ class SimpleCard extends Component {
       anchorEl: null,
       note: this.props.place.description,
       price: this.props.place.price + "",
+      duration: this.props.place.duration + "",
     }
   }
   handleExpandClick = () => {
@@ -55,6 +56,7 @@ class SimpleCard extends Component {
         itemid: this.props.id,
         description: this.state.note,
         price: parseInt(this.state.price),
+        duration: parseInt(this.state.duration),
       }
     })
   }
@@ -73,34 +75,46 @@ class SimpleCard extends Component {
             {...provided.draggableProps}
             ref={provided.innerRef}>
             <CardContent>
-              <Typography className="test-card-title" color="textSecondary" gutterBottom>
-                {place.type}
-                {/* <FavoriteIcon style={{float: "right"}}/> */}
-                <Mutation mutation={DELETE_ITEM}>{
-                  deleteItem => {
-                    // console.log("Mutation deleteItem");
-                    this.deleteItem = deleteItem;
+            <Mutation mutation={DELETE_ITEM}>{
+                deleteItem => {
+                  console.log("Mutation deleteItem");
+                  this.deleteItem = deleteItem;
 
-                    return (
+                  return (
+                    <Typography variant="h5" component="h2">
+                      {place.name}
                       <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
-                        <DeleteOutlinedIcon onClick={this.handleDeleteClick} />
+                        <DeleteOutlinedIcon className="test-iconSmall" onClick={this.handleDeleteClick} />
                       </IconButton>
-                    );
-                  }
+                    </Typography>
+                  );
+
                 }
-                </Mutation>
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {place.name}
-              </Typography>
+              }</Mutation>
               <Typography className="test-card-pos" color="textSecondary">
-                Staying time: {place.duration} hr
-                      </Typography>
-              <Typography variant="body2" component="p">
-                {this.props.description}
+                Staying time: <span>  </span>
+                <TextField
+                  className="test-card-textfield"
+                  defaultValue={place.duration}
+                  margin="dense"
+                  inputProps={{ 'aria-label': 'duration' }}
+                  style={{ width: '20%', textAlign: 'center' }}
+                  onChange={this.handleChange('duration')}
+                />
+                hr
+                <IconButton
+                  className={clsx("test-expand", {
+                    "test-expandOpen": this.state.expanded,
+                  })}
+                  onClick={this.handleExpandClick}
+                  aria-expanded={this.state.expanded}
+                  aria-label="Show more"
+                >
+                  <ExpandMoreIcon className="test-iconSmall" />
+                </IconButton>
               </Typography>
             </CardContent>
-            <CardActions>
+            {/* <CardActions>
               <Button size="small">Learn More</Button>
               <IconButton
                 className={clsx("test-expand", {
@@ -112,7 +126,7 @@ class SimpleCard extends Component {
               >
                 <ExpandMoreIcon />
               </IconButton>
-            </CardActions>
+            </CardActions> */}
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
               <CardMedia
                 className="test-card-media"
