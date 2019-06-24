@@ -5,16 +5,29 @@ import './assets/css/home.css';
 import Header from './containers/Header'
 import Main from './containers/Main'
 import Home from './components/Home'
-import Login from './components/Login'
+import Login from './containers/Login'
 import NewProject from './containers/NewProject'
 class App extends Component {
-  render() {
+  constructor(props) {
+    super(props)
+    this.state = {
+      User: undefined
+    }
+  }
 
-    const mainPage = () => {
+  setUser = (userID) => {
+    this.setState({
+      User: userID
+    })
+  }
+
+  render() {
+    console.log(this.state.User)
+    const mainPage = (User) => {
       return(
         <div className="grid-container">
-          <Header />
-          <Main />
+          <Header User = {User}/>
+          <Main User = {User}/>
         </div>
       )
     }
@@ -22,7 +35,7 @@ class App extends Component {
     return (
       <div>
         <Route exact path="/"      component={Home} />
-        <Route path="/Login" component={Login} />
+        <Route path="/Login"  render={(props) => <Login setUser = {this.setUser}/>} />
         <Route path="/NewProject" component={NewProject} />
         <Route path="/main" component={mainPage}/>
       </div>

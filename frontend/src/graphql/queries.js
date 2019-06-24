@@ -16,6 +16,11 @@ import { gql } from 'apollo-boost'
 //   }
 
 // `
+export const LOGIN_MATCH = gql`
+    query loginMatch($hash: String!){
+        loginMatch(id: $hash)
+    }
+`
 
 export const MAP_ITEMS = gql`
     query {

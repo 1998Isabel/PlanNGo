@@ -5,6 +5,7 @@ type Query {
   posts(query: String): [Post!]!
   comments: [Comment!]!
   post: Post!
+  loginMatch(id: String): String
 }
 
 type Mutation {

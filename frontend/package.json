@@ -11,6 +11,7 @@
     "apollo-link": "^1.2.12",
     "apollo-link-http": "^1.5.15",
     "apollo-link-ws": "^1.0.18",
+    "bcrypt": "^3.0.6",
     "classnames": "^2.2.6",
     "clsx": "^1.0.4",
     "google-map-react": "^1.1.4",
