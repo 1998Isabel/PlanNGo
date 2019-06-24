@@ -86,6 +86,7 @@ class InfoWindow extends Component {
 		const { place } = this.props;
 		this.mycreateItem({
 			variables: {
+				userid : this.props.user,
 				id: type,
 				itemid: uuidv4(),
 				description: place.types[0],

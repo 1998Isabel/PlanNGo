@@ -12,6 +12,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import CardMedia from '@material-ui/core/CardMedia';
+import TextField from '@material-ui/core/TextField';
+
 
 import { Draggable } from 'react-beautiful-dnd';
 import '../App.css';
@@ -32,7 +35,6 @@ class SimpleCard extends Component {
     this.setState({expanded: !expand});
   }
   handleDeleteClick = () => {
-    console.log(this.props.id, this.props.colid)
     // this.props.handleDelete(this.props.id, this.props.colid)
     this.deleteItem({
       variables: {
@@ -44,7 +46,7 @@ class SimpleCard extends Component {
   }
   render() {
     const { place } = this.props;
-    console.log("place", place);
+    console.log("place photo", place.photo);
     return (
       <Mutation mutation={DELETE_ITEM}>{
         deleteItem => {
@@ -89,11 +91,26 @@ class SimpleCard extends Component {
                     </IconButton>
                   </CardActions>
                   <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                    <CardMedia
+                        className="test-card-media"
+                        image={place.photo}
+                        title={place.name}
+                      />
                     <CardContent>
-                      <Typography paragraph>Method:</Typography>
+                      {/* <Typography paragraph>Note:</Typography>
                       <Typography paragraph>
                         {place.note}
-                      </Typography>
+                      </Typography> */}
+                      <TextField
+                        id="outlined-dense-multiline"
+                        label="Write Some Note Here"
+                        className="test-card-dense test-card-textfield"
+                        margin="dense"
+                        variant="outlined"
+                        multiline
+                        rowsMax="4"
+                        style={{width:'100%'}}
+                      />
                     </CardContent>
                   </Collapse>
                 </Card>)}

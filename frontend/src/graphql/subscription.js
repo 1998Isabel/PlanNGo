@@ -20,13 +20,13 @@ export const MAPITEM_SUBSCRIPTION = gql`
 `
 
 export const ITEM_SUBSCRIPTION = gql`
-  subscription {
+  subscription item($id:String!){
     item {
       mutation
       data {
         id 
         itemsid
-        items {
+        items(id: $id) {
                 id
                 place {
                     name

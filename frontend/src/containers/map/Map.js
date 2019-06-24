@@ -143,6 +143,7 @@ class Map extends Component {
                 lng={place.geometry.location.lng()}
                 show={place.show}
                 place={place}
+                user={this.props.user}
               />
             ))}
         </GoogleMap>

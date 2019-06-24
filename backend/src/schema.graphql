@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  createItem(id: String!, data: CreateItemInput!): Item!
+  createItem(userid: String!, id: String!, data: CreateItemInput!): Item!
   updateDnDItem(data: UpdateDnDItemInput!): [Day]!
   deleteItem(data: DeleteItemInput!): Users!
   createUser(data: CreateUserInput!): User!

@@ -9,7 +9,7 @@ const Marker = (props) => {
 	return (
 		<Fragment>
 			<PlaceIcon color="secondary" style={{fontSize: "36px"}}/>
-			{props.show && <InfoWindow place={props.place} />}
+			{props.show && <InfoWindow place={props.place} user={props.user}/>}
 		</Fragment>
 	);
 };

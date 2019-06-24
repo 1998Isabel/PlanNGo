@@ -40,27 +40,27 @@ const Mutation = {
     return db["Henry"].days
   },
   createItem(parent, args, { db, pubsub }, info ) {
-    const { id, data } = args
+    const { userid, id, data } = args
     
     const item = {
       ...data
     }
 
-    db["Henry"].days.find((day) => {
+    db[userid].days.find((day) => {
       return (day.id === id)
     }).itemsid.unshift(item.id)
 
-    db["Henry"].items.push(item)
+    db[userid].items.push(item)
 
-    console.log(db["Henry"].items)
-    console.log(db["Henry"].days.find((day) => {
+    console.log(db[userid].items)
+    console.log(db[userid].days.find((day) => {
       return (day.id === id)
     }))
     
     pubsub.publish('item', {
       item: {
-        mutation: 'UPDATED',
-        data: db["Henry"].days
+        mutation: 'CREATED',
+        data: db[userid].days
       }
     })
     pubsub.publish('mapitem', {

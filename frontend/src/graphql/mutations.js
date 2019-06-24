@@ -2,6 +2,7 @@ import { gql } from 'apollo-boost'
 
 export const CREATE_ITEM = gql`
   mutation createItem(
+    $userid: String!
     $id: String!
     $itemid: String!
     $description: String!
@@ -14,6 +15,7 @@ export const CREATE_ITEM = gql`
     $lng: Float!
   ) {
     createItem(
+      userid: $userid
       id: $id
       data: {
         id: $itemid

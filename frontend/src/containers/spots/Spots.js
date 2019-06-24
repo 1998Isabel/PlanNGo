@@ -73,6 +73,7 @@ class Spots extends Component {
         if (!this.unsubscribe) {
           this.unsubscribe = subscribeToMore({
             document: ITEM_SUBSCRIPTION,
+            variables: { id: userID },
             updateQuery: (prev, { subscriptionData }) => {
               console.log("prev", prev)
               console.log("subscriptionData.data", subscriptionData.data)

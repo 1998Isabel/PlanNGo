@@ -124,6 +124,18 @@ header {
 .test-card-pos {
   margin-bottom: 12px;
 }
+.test-card-media {
+  height: auto !important;
+  background-size: contain !important;
+  padding-top: 56.25%;
+}
+.test-card-dense{
+  margin-top: 2px;
+}
+.test-card-textfield{
+  margin-left: 1px;
+  margin-right: 1px;
+}
 .test-expand {
   transform: rotate(0deg);
   margin-left: auto;
