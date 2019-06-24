@@ -105,7 +105,7 @@ class InfoWindow extends Component {
 		return (
 			<Mutation mutation={CREATE_ITEM}>
 				{createItem => {
-					console.log("createItem")
+					// console.log("createItem")
 					this.mycreateItem = createItem
 
 					return (
@@ -138,7 +138,7 @@ class InfoWindow extends Component {
 							<CardActions>
 								<Button size="small" style={{ fontSize: 14 }}>
 									More
-				</Button>
+								</Button>
 								<IconButton className="info-button" aria-label="Add to eat"
 									color={this.buttoncolor('eat')}
 									onClick={() => {

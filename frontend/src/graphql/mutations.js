@@ -57,3 +57,22 @@ export const UPDATE_DND_ITEM = gql`
     }
   }
 `
+
+export const DELETE_ITEM = gql`
+  mutation deleteItem(
+    $itemId: String!
+    $columnId: String!
+  ) {
+    deleteItem(
+      data: {
+          itemId: $itemId
+          columnId: $columnId
+      }
+    ) {
+      days {
+        id 
+        itemsid
+      }
+    }
+  }
+`

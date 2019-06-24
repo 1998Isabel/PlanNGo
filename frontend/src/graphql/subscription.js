@@ -1,5 +1,23 @@
 import { gql } from 'apollo-boost'
 
+export const MAPITEM_SUBSCRIPTION = gql`
+  subscription {
+    mapitem {
+      mutation
+      data {
+        place {
+                placeid
+                location
+                description
+                name
+                price
+                type
+            }
+      }
+    }
+  }
+`
+
 export const ITEM_SUBSCRIPTION = gql`
   subscription {
     item {
