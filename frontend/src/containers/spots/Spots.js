@@ -66,7 +66,7 @@ class Spots extends Component {
           const column = daysInfo[colId];
           const items = column.items;
           // console.log(items)
-          return (<Col key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
+          return (<Col user={userID} key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
         })
 
         let value = this.state.value;

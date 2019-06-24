@@ -30,9 +30,11 @@ class DayBox extends Component {
 		this.props.handleDelete(id, colid)
 	}
   render() {
+    const userID = this.props.user
     let items = null;
 		if (this.props.items.length != 0) {
 			items = this.props.items.map((item, index) => <Item
+        user={userID}
 				id={item.id} key={item.id} 
 				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}/>);
     }

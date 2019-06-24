@@ -38,6 +38,7 @@ class SimpleCard extends Component {
     // this.props.handleDelete(this.props.id, this.props.colid)
     this.deleteItem({
       variables: {
+        userid: this.props.user,
         itemId: this.props.id,
         columnId: this.props.colid
       }

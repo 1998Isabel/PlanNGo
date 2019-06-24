@@ -69,7 +69,7 @@ class Schedule extends Component {
           const dayelement = "DAY" + (index + 1)
           return (
             <Element key={column.id} name={dayelement} className="element">
-              <DayBox key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
+              <DayBox user={userID} key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
             </Element>
           );
         })

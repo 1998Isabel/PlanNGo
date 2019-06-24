@@ -65,10 +65,12 @@ export const UPDATE_DND_ITEM = gql`
 
 export const DELETE_ITEM = gql`
   mutation deleteItem(
+    $userid: String!
     $itemId: String!
     $columnId: String!
   ) {
     deleteItem(
+      userid: $userid
       data: {
           itemId: $itemId
           columnId: $columnId

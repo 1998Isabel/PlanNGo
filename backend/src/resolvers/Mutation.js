@@ -75,27 +75,28 @@ const Mutation = {
   },
   deleteItem(parent, args, { db, pubsub }, info) {
     const { itemId, columnId } = args.data
-    const itemsIndex = db["Henry"].items.findIndex(item=> item.id === itemId);
+    const { userid } = args
+    const itemsIndex = db[userid].items.findIndex(item=> item.id === itemId);
     
     // delete items
     if (itemsIndex === -1) {
       throw new Error('Item not found')
     }
-    const delItem = db["Henry"].items[itemsIndex]
-    const deletedItems = db["Henry"].items.splice(itemsIndex, 1);
+    const delItem = db[userid].items[itemsIndex]
+    const deletedItems = db[userid].items.splice(itemsIndex, 1);
 
     // delete items index in day
-    const daysIndex = db["Henry"].days.findIndex(day => day.id === columnId);
+    const daysIndex = db[userid].days.findIndex(day => day.id === columnId);
     if (daysIndex === -1 ){
       throw new Error('Day not found')
     }
-    const itemsIndexinDay = db["Henry"].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
-    db["Henry"].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
+    const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
+    db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
     
     pubsub.publish('item', {
       item: {
         mutation: 'DELETED',
-        data: db["Henry"].days
+        data: db[userid].days
       }
     })
     pubsub.publish('mapitem', {
@@ -105,7 +106,7 @@ const Mutation = {
       }
     })
 
-    return db["Henry"]
+    return db[userid]
 
   },
   createUser(parent, args, { db }, info) {
