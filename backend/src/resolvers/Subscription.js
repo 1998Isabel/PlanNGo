@@ -14,7 +14,12 @@ const Subscription = {
     subscribe(parent, args, { pubsub }, info) {
       return pubsub.asyncIterator('post')
     }
-  }
+  },
+  item: {
+    subscribe(parent, args, { pubsub }, info) {
+      return pubsub.asyncIterator('item')
+    }
+  },
 }
 
 export { Subscription as default }

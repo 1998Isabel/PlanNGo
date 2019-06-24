@@ -29,6 +29,14 @@ const Mutation = {
     console.log("update_day", update_days);
     db["Henry"].days = update_days;
 
+    // for subscription
+    pubsub.publish('item', {
+      item: {
+        mutation: 'UPDATED',
+        data: db["Henry"].days
+      }
+    })
+
     return db["Henry"].days
   },
   createItem(parent, args, { db, pubsub }, info ) {
