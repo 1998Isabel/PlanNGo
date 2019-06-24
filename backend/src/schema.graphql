@@ -10,7 +10,7 @@ type Query {
 
 type Mutation {
   createItem(userid: String!, id: String!, data: CreateItemInput!): Item!
-  updateDnDItem(data: UpdateDnDItemInput!): [Day]!
+  updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   deleteItem(data: DeleteItemInput!): Users!
   createUser(data: CreateUserInput!): User!
   deleteUser(id: ID!): User!

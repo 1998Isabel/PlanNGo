@@ -40,6 +40,7 @@ export const CREATE_ITEM = gql`
 
 export const UPDATE_DND_ITEM = gql`
   mutation updateDnDItem(
+    $userid: String!
     $draggableId: String!
     $destination_droppableId: String!
     $destination_index: Int!
@@ -47,8 +48,8 @@ export const UPDATE_DND_ITEM = gql`
     $source_index: Int!
   ) {
     updateDnDItem(
+      userid: $userid
       data: {
-
           draggableId: $draggableId
           destination_droppableId: $destination_droppableId
           destination_index: $destination_index

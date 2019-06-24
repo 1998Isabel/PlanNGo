@@ -75,6 +75,7 @@ class Main extends Component {
     }
     this.updateDnD({
       variables: {
+        userid: this.props.user,
         draggableId: draggableId,
         destination_droppableId: destination.droppableId,
         destination_index: destination.index,

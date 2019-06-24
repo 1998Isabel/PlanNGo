@@ -3,10 +3,10 @@ import uuidv4 from 'uuid/v4'
 const Mutation = {
 
   updateDnDItem (parent, args, { db, pubsub }, info ) {
-    const { data } = args
+    const { userid, data } = args
     console.log("updateDnD", data)
     
-    let update_days = db["Henry"].days
+    let update_days = db[userid].days
     let start_idx;
     let finish_idx;
     for (var i=0; i < update_days.length; i++) {
@@ -27,17 +27,17 @@ const Mutation = {
       update_days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
     }
     console.log("update_day", update_days);
-    db["Henry"].days = update_days;
+    db[userid].days = update_days;
 
     // for subscription
     pubsub.publish('item', {
       item: {
         mutation: 'UPDATED',
-        data: db["Henry"].days
+        data: db[userid].days
       }
     })
 
-    return db["Henry"].days
+    return db[userid].days
   },
   createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args
