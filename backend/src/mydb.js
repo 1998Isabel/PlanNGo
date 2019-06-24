@@ -9,12 +9,12 @@ const mydb = {
                 place: {
                     description: 'premise',
                     placeid: '52ChIJH56c2rarQjQRphD9gvC8BhI',
-                    name: 'Taipei101',
+                    name: 'Taipei 101',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
-                    location: [25.0339639, 121.51423060000002]
+                    location: [25.0339639, 121.56447219999995]
                 },
             },
             {

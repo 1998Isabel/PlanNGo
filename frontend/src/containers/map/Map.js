@@ -68,7 +68,7 @@ class Map extends Component {
       }
       else {
         const { places } = this.state;
-          const delindex = places.findIndex(ele => ele.key === subplace.id)
+          const delindex = places.findIndex(ele => ele.id === subplace.id)
           places.splice(delindex, 1);
           this.setState({places: places});
       }
