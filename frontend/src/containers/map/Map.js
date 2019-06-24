@@ -26,7 +26,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this.props.client.query({ query: MAP_ITEMS }).then(result => {
+    this.props.client.query({ query: MAP_ITEMS, variables: {userID: this.props.user}}).then(result => {
       const queryplaces = result.data.items.map(item => {
         function lat() { return item.place.location[0] };
         function lng() { return item.place.location[1] };
@@ -68,7 +68,7 @@ class Map extends Component {
       }
       else {
         const { places } = this.state;
-          const delindex = places.findIndex(ele => ele.key === subplace.id)
+          const delindex = places.findIndex(ele => ele.id === subplace.id)
           places.splice(delindex, 1);
           this.setState({places: places});
       }

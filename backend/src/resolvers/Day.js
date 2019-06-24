@@ -5,9 +5,9 @@ const Day = {
         //   return post.author === parent.id
         // })
         return parent.itemsid.map(itemid => {
-            for(var i = 0; i < db["Henry"].items.length; i++) {
-                if (itemid === db["Henry"].items[i].id) {
-                    return db["Henry"].items[i];
+            for(var i = 0; i < db[args.id].items.length; i++) {
+                if (itemid === db[args.id].items[i].id) {
+                    return db[args.id].items[i];
                 }
             }
         })

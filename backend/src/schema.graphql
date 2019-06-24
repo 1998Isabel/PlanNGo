@@ -1,11 +1,11 @@
 type Query {
-  items: [Item!]!
-  users: Users!
+  items(id: String!): [Item!]!
+  users(id: String!): Users!
   days: [Day!]!
   posts(query: String): [Post!]!
   comments: [Comment!]!
   post: Post!
-  loginMatch(id: String): String
+  loginMatch(id: String!): String
 }
 
 type Mutation {
@@ -39,7 +39,7 @@ type Users {
 type Day {
   id: String
   itemsid: [String]
-  items: [Item]!
+  items(id: String!): [Item]!
 }
 
 type Place {

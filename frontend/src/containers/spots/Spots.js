@@ -55,7 +55,8 @@ class Spots extends Component {
   unsubscribe = null
 
   render() {
-    return (<Query query={DAYS_INFO}  partialRefetch={true}>{
+    const userID = this.props.user
+    return (<Query query={DAYS_INFO} variables={{userID}} partialRefetch={true}>{
       ({loading, error, data, subscribeToMore}) => {
         if (error) return <div id="middle_spot">error!</div>
         if (loading) return <div id="middle_spot">loading...</div>

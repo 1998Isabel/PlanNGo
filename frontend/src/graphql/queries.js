@@ -23,9 +23,8 @@ export const LOGIN_MATCH = gql`
 `
 
 export const MAP_ITEMS = gql`
-    query {
-        items {
-            id
+    query items($userID: String!){
+        items(id: $userID) {
             place {
                 placeid
                 location
@@ -39,13 +38,13 @@ export const MAP_ITEMS = gql`
 `
 
 export const DAYS_INFO = gql`
-  query {
-      users {
+  query users($userID: String!){
+      users(id: $userID) {
           token
           totalDays
           days {
               id
-              items {
+              items(id: $userID) {
                   id
                   place {
                       name

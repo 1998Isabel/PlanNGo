@@ -82,7 +82,6 @@ class Login extends React.Component{
                 this.props.history.push('/main')
             }
             else{
-                console.log("Login Fail")
                 this.setState({
                     error: true
                 })
