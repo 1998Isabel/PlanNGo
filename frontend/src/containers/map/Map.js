@@ -118,6 +118,7 @@ class Map extends Component {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
+    console.log(places)
     return (
       <div id="right_map">
         {mapApiLoaded && (

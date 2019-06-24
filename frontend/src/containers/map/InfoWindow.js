@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const infoWindowStyle = {
 	position: 'relative',
@@ -110,9 +111,6 @@ class InfoWindow extends Component {
 						<div style={infoWindowStyle}>
 							<div style={{ fontSize: 16 }}>
 								{this.props.place.name}
-								<IconButton className="info-button-del" aria-label="Delete">
-									<DeleteOutlinedIcon />
-								</IconButton>
 							</div>
 							<div style={{ fontSize: 14 }}>
 								<span style={{ color: 'grey' }}>
@@ -134,39 +132,47 @@ class InfoWindow extends Component {
 							</div> */}
 							{this.opening()}
 							<CardActions>
-								<Button size="small" style={{ fontSize: 14 }}>
-									More
-								</Button>
-								<IconButton className="info-button" aria-label="Add to eat"
-									color={this.buttoncolor('eat')}
-									onClick={() => {
-										// console.log('eat')
-										// setAddtype('eat')
-										this.setState({ addtype: 'eat' })
-										this.handleAdd("droppable-1")
-									}}>
-									<RestaurantIcon />
-								</IconButton>
-								<IconButton className="info-button" aria-label="Add to favorite"
-									color={this.buttoncolor('favorite')}
-									onClick={() => {
-										// console.log('favorite')
-										// setAddtype('favorite')
-										this.setState({ addtype: 'favorite' })
-										this.handleAdd("droppable-2")
-									}}>
-									<FavoriteIcon />
-								</IconButton>
-								<IconButton className="info-button" aria-label="Add to accommodation"
-									color={this.buttoncolor('accommodation')}
-									onClick={() => {
-										// console.log('accommodation')
-										// setAddtype('accommodation')
-										this.setState({ addtype: 'accommodation' })
-										this.handleAdd("droppable-3")
-									}}>
-									<LocateIcon />
-								</IconButton>
+								{/* <Tooltip title="Learn more" placement="bottom">
+									<Button size="small" style={{ fontSize: 14 }}>
+										More
+									</Button>
+								</Tooltip> */}
+								<Tooltip title="Add to Eat" placement="bottom">
+									<IconButton className="info-button" aria-label="Add to eat"
+										color={this.buttoncolor('eat')}
+										onClick={() => {
+											// console.log('eat')
+											// setAddtype('eat')
+											this.setState({ addtype: 'eat' })
+											this.handleAdd("droppable-1")
+										}}>
+										<RestaurantIcon />
+									</IconButton>
+								</Tooltip>
+								<Tooltip title="Add to Favorite" placement="bottom">
+									<IconButton className="info-button" aria-label="Add to favorite"
+										color={this.buttoncolor('favorite')}
+										onClick={() => {
+											// console.log('favorite')
+											// setAddtype('favorite')
+											this.setState({ addtype: 'favorite' })
+											this.handleAdd("droppable-2")
+										}}>
+										<FavoriteIcon />
+									</IconButton>
+								</Tooltip>
+								<Tooltip title="Add to Accommodation" placement="bottom">
+									<IconButton className="info-button" aria-label="Add to accommodation"
+										color={this.buttoncolor('accommodation')}
+										onClick={() => {
+											// console.log('accommodation')
+											// setAddtype('accommodation')
+											this.setState({ addtype: 'accommodation' })
+											this.handleAdd("droppable-3")
+										}}>
+										<LocateIcon />
+									</IconButton>
+								</Tooltip>
 							</CardActions>
 						</div>
 					)
