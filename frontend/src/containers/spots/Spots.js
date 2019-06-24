@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Col from './Spots_col'
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
-import { DAYS_INFO, ITEM_SUBSCRIPTION } from '../../graphql'
+import { DAYS_INFO, ITEM_SUBSCRIPTION, ITEMINFO_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import { listToObjbyID } from '../../util'
 
@@ -71,7 +71,7 @@ class Spots extends Component {
 
         let value = this.state.value;
         if (!this.unsubscribe) {
-          this.unsubscribe = subscribeToMore({
+          this.unsubscribe = [subscribeToMore({
             document: ITEM_SUBSCRIPTION,
             variables: { id: userID },
             updateQuery: (prev, { subscriptionData }) => {
@@ -99,7 +99,33 @@ class Spots extends Component {
             //     users: update_users
             // }
             }
-        })
+        }),
+        subscribeToMore({
+          document: ITEMINFO_SUBSCRIPTION,
+          // variables: { id: userID },
+          updateQuery: (prev, { subscriptionData }) => {
+            console.log("prev", prev)
+            console.log("subscriptionData.data", subscriptionData.data)
+            if (!subscriptionData.data) return prev
+            const newItem = subscriptionData.data.iteminfo.data
+            console.log("newItem", newItem);
+            const updatedayindex = prev.users.days.findIndex(day => {
+              return day.items.find(item => {
+                return item.id === newItem.id
+              })
+            })
+            const updateitemindex = prev.users.days[updatedayindex].items.findIndex(item => {
+              return item.id === newItem.id
+            })
+            prev.users.days[updatedayindex].items[updateitemindex].place = newItem.place
+            console.log(prev.users.days)
+
+            return {
+              ...prev,
+              days: prev.users.days
+            }
+          }
+      })]
         }
         return(
           <div id="middle_spot">

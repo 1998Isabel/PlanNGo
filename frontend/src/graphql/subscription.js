@@ -43,3 +43,24 @@ export const ITEM_SUBSCRIPTION = gql`
     }
   }
 `
+
+export const ITEMINFO_SUBSCRIPTION = gql`
+  subscription {
+    iteminfo {
+      mutation
+      data {
+        id
+        place {
+            name
+            description
+            placeid
+            name
+            type
+            duration
+            photo
+            price
+        }
+      }
+    }
+  }
+`

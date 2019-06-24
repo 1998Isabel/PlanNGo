@@ -63,6 +63,31 @@ export const UPDATE_DND_ITEM = gql`
   }
 `
 
+export const UPDATE_ITEM_INFO = gql`
+  mutation updateItemInfo (
+    $userid: String!
+    $itemid: String!
+    $description: String
+    $price: Int
+  ) {
+  updateItemInfo(
+    userid: $userid,
+    data: {
+      itemid: $itemid,
+      description: $description,
+      price: $price
+    }
+  ) {
+    id,
+    place {
+      name,
+      description,
+      price,
+    }
+  }
+}
+`
+
 export const DELETE_ITEM = gql`
   mutation deleteItem(
     $userid: String!

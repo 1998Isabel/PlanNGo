@@ -11,6 +11,7 @@ type Query {
 type Mutation {
   createItem(userid: String!, id: String!, data: CreateItemInput!): Item!
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
+  updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
   deleteItem(userid: String!, data: DeleteItemInput!): Users!
   createUser(data: CreateUserInput!): User!
   deleteUser(id: ID!): User!
@@ -25,6 +26,7 @@ type Mutation {
 
 type Subscription {
   item: ItemSubscriptionPayload!
+  iteminfo: ItemInfoSubscriptionPayload!
   mapitem: MapItemSubscriptionPayload!
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
@@ -80,6 +82,13 @@ input UpdateDnDItemInput {
   source_droppableId: String
   source_index: Int
 }
+
+input UpdateItemInfo {
+  itemid: String!
+  description: String
+  price: Int
+}
+
 input DeleteItemInput {
   itemId: String!
   columnId: String!
@@ -163,6 +172,10 @@ type CommentSubscriptionPayload {
 type ItemSubscriptionPayload {
   mutation: MutationType!
   data: [Day]!
+}
+type ItemInfoSubscriptionPayload {
+  mutation: MutationType!
+  data: Item!
 }
 type MapItemSubscriptionPayload {
   mutation: MutationType!

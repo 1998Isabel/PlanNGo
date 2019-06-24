@@ -146,6 +146,22 @@ header {
 .test-expandOpen {
   transform: rotate(180deg);
 }
+.test-button-root {
+  padding: 4px 4px;
+  display: flex;
+  align-items: center;
+  width: 400;
+  margin-left: 2px;
+}
+.test-button {
+  padding: 10;
+}
+.test-leftIcon {
+  margin-left: 5;
+}
+.test-iconSmall {
+  font-size: 20;
+}
 
 .info-media {
   height: 140;

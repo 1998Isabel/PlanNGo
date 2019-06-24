@@ -1,7 +1,40 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
+  createItem(parent, args, { db, pubsub }, info ) {
+    const { userid, id, data } = args
+    
+    const item = {
+      ...data
+    }
 
+    db[userid].days.find((day) => {
+      return (day.id === id)
+    }).itemsid.unshift(item.id)
+
+    db[userid].items.push(item)
+
+    console.log(db[userid].items)
+    console.log(db[userid].days.find((day) => {
+      return (day.id === id)
+    }))
+    
+    pubsub.publish('item', {
+      item: {
+        mutation: 'CREATED',
+        data: db[userid].days
+      }
+    })
+    pubsub.publish('mapitem', {
+      mapitem: {
+        mutation: 'CREATED',
+        data: item
+      }
+    })
+
+    return item
+
+  },
   updateDnDItem (parent, args, { db, pubsub }, info ) {
     const { userid, data } = args
     console.log("updateDnD", data)
@@ -39,39 +72,26 @@ const Mutation = {
 
     return db[userid].days
   },
-  createItem(parent, args, { db, pubsub }, info ) {
-    const { userid, id, data } = args
+  updateItemInfo (parent, args, { db, pubsub }, info ) {
+    const { userid, data } = args
+    console.log("updateInfo", data)
     
-    const item = {
-      ...data
-    }
-
-    db[userid].days.find((day) => {
-      return (day.id === id)
-    }).itemsid.unshift(item.id)
-
-    db[userid].items.push(item)
-
-    console.log(db[userid].items)
-    console.log(db[userid].days.find((day) => {
-      return (day.id === id)
-    }))
-    
-    pubsub.publish('item', {
-      item: {
-        mutation: 'CREATED',
-        data: db[userid].days
-      }
+    let updateindex = db[userid].items.findIndex(ele => {
+      return ele.id === data.itemid
     })
-    pubsub.publish('mapitem', {
-      mapitem: {
-        mutation: 'CREATED',
-        data: item
+    console.log(updateindex)
+    db[userid].items[updateindex].place.description = data.description;
+    db[userid].items[updateindex].place.price = data.price;
+
+    // for subscription
+    pubsub.publish('iteminfo', {
+      iteminfo: {
+        mutation: 'UPDATED',
+        data: db[userid].items[updateindex]
       }
     })
 
-    return item
-
+    return db[userid].items[updateindex]
   },
   deleteItem(parent, args, { db, pubsub }, info) {
     const { itemId, columnId } = args.data
