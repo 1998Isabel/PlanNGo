@@ -11,23 +11,23 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      User: undefined
+      user: undefined
     }
   }
 
   setUser = (userID) => {
     this.setState({
-      User: userID
+      user: userID
     })
   }
 
   render() {
-    console.log(this.state.User)
-    const mainPage = (User) => {
+    console.log(this.state.user)
+    const mainPage = () => {
       return(
         <div className="grid-container">
-          <Header User = {User}/>
-          <Main User = {User}/>
+          <Header user = {this.state.user}/>
+          <Main user = {this.state.user}/>
         </div>
       )
     }

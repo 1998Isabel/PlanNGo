@@ -5,6 +5,7 @@ import Schedule from './schedule/Schedule'
 import Spots from './spots/Spots'
 import Map from './map/Map'
 // import Map from './map/GmapObj' //for testing
+import { Redirect } from 'react-router-dom';
 import initial_state from '../Initial';
 import { Mutation } from 'react-apollo'
 import { UPDATE_DND_ITEM } from '../graphql';
@@ -84,6 +85,10 @@ class Main extends Component {
   }
   
   render() {
+    if (this.props.user == undefined) {
+      return <Redirect to="/login"/>;
+    }
+    
     return (
       <Mutation mutation={UPDATE_DND_ITEM}>{
         updateDnDItem => {
@@ -92,9 +97,9 @@ class Main extends Component {
           return (
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className="main">
-                <Schedule col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
-                <Spots col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
-                <Map />
+                <Schedule user = {this.props.user} col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
+                <Spots user = {this.props.user} col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
+                <Map user = {this.props.user}/>
               </div>
             </DragDropContext>
           );

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
+import {withRouter} from 'react-router-dom'
+import { withApollo } from 'react-apollo';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import MyDayPick from './../components/MyDayPick'
-
+import CryptoJS from 'crypto-js';
+import { LOGIN_MATCH } from '../graphql/queries';
 
 const styles = {
     fab: {
@@ -42,9 +44,48 @@ class NewProject extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-         
+            username: "",
+            password: "",
+            destination: "",
+            collision_error: false,
+            
         }
       }
+    handleUserChange = e => {this.setState({
+        username : e.target.value
+    })} 
+
+    handleDestinationrChange = e => {this.setState({
+        destination : e.target.value
+    })} 
+
+    handlePasswordChange = e => {this.setState({
+        password : e.target.value
+    })} 
+
+    onSubmit = e => {
+        let collision = false
+        const IDandPassword = this.state.username + this.state.password
+        const myHash = CryptoJS.SHA256(IDandPassword).toString(CryptoJS.enc.Hex)
+        this.props.client.query({query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
+            if(result.data.loginMatch){
+                collision = true
+            }
+            else{
+                // Mutation here
+            }  
+
+            if(this.state.username === "" || collision){
+                this.setState({
+                    collision_error: true
+                })
+                return
+            }
+
+            this.props.history.push('/login')
+        })
+       
+    }
 
     render() {
         const {classes} = this.props
@@ -56,6 +97,7 @@ class NewProject extends React.Component{
                                 id="project_name"
                                 label="Project Name"
                                 className={classes.textField}
+                                onChange={this.handleUserChange}
                                 margin="normal"
                                 variant="outlined"
                                 InputProps={{
@@ -66,18 +108,7 @@ class NewProject extends React.Component{
                                 id="password"
                                 label="Password"
                                 className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                variant="outlined"
-                                InputProps={{
-                                    className: classes.input
-                                }}
-                            /></div>
-                        <div><TextField
-                                id="repeat_password"
-                                label="Repeat Password"
-                                className={classes.textField}
+                                onChange={this.handlePasswordChange}
                                 type="password"
                                 autoComplete="current-password"
                                 margin="normal"
@@ -90,6 +121,7 @@ class NewProject extends React.Component{
                                 id="destination"
                                 label="Destination (optional)"
                                 className={classes.textField}
+                                onChange={this.handleDestinationChange}
                                 margin="normal"
                                 variant="outlined"
                                 InputProps={{
@@ -99,11 +131,9 @@ class NewProject extends React.Component{
                         <div><MyDayPick /></div>
                     </form>
                     <div className={classes.loginWrapper}>
-                        <Link to="/main" className={classes.link}>
-                            <Fab color="primary" variant="extended" aria-label="create" className={classes.fab}>
-                                <AddIcon className={classes.extendedIcon} />Create
-                            </Fab>
-                        </Link>
+                        <Fab onClick={this.onSubmit} color="primary" variant="extended" aria-label="create" className={classes.fab}>
+                            <AddIcon className={classes.extendedIcon} />Create
+                        </Fab>
                     </div>
                 </div>
             </div>
@@ -115,4 +145,4 @@ NewProject.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-export default withStyles(styles)(NewProject);
+export default withApollo(withRouter(withStyles(styles)(NewProject)));

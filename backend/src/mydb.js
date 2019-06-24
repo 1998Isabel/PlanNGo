@@ -1,6 +1,9 @@
 const mydb = {
-    userList: ["96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e"],
-    Henry: {
+    userList: ["96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+               "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2"],
+
+    "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e" : {
+        projectName: "Paris",
         token : "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
         items : [
@@ -69,30 +72,6 @@ const mydb = {
                     location: [25.0354792, 121.56810280000002]
                 },
             },
-            // {
-            //     id: 'item6',
-            //     place: {
-            //         description: '',
-            //         placeid: '',
-            //         name: 'Taipei601',
-            //         type: 'favorite',
-            //         duration: 1,
-            //         photo: '',
-            //         price: 0,
-            //     },
-            // },
-            // {
-            //     id: 'item7',
-            //     place: {
-            //         description: '',
-            //         placeid: '',
-            //         name: 'Taipei701',
-            //         type: 'favorite',
-            //         duration: 1,
-            //         photo: '',
-            //         price: 0,
-            //     },
-            // },
         ],
         days : [
             {
@@ -131,92 +110,75 @@ const mydb = {
             }
         ]
     },
-    Ariel: {
-        token: "1",
+
+    "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2": {
+        projectName: "Paris",
+        token : "1",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
         items : [
             {
                 id: 'item1',
                 place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei101',
+                    description: 'premise',
+                    placeid: '52ChIJH56c2rarQjQRphD9gvC8BhI',
+                    name: 'Taipei010',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0339639, 121.51423060000002]
                 },
             },
             {
                 id: 'item2',
                 place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei201',
+                    description: 'lodging',
+                    placeid: 'ChIJU-I5lQypQjQRIswONmg_Mos',
+                    name: 'Taipei AK Hotel',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0450608, 121.51271440000005]
                 },
             },
             {
                 id: 'item3',
                 place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei301',
+                    description: 'point_of_interest',
+                    placeid: 'ChIJy-qHObarQjQRdukyRsgZ-Xw',
+                    name: 'Taipei World Trade Center',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.033155, 121.56234700000005]
                 },
             },
             {
                 id: 'item4',
                 place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei401',
+                    description: 'route',
+                    placeid: 'EiFUYWl3YW4sIFRhaXBlaSBDaXR5LCDosaHlsbHmraXpgZMiLiosChQKEgmZakNWrKtCNBHKC3KxInPlaxIUChIJi73bYWusQjQRgqQGXK260bw',
+                    name: '象山步道',
                     type: 'favorite',
                     duration: 1,
                     photo: '',
                     price: 0,
+                    location: [25.0252002, 121.57967499999995]
                 },
             },
             {
                 id: 'item5',
                 place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei501',
-                    type: 'favorite',
+                    description: 'restaurant',
+                    placeid: 'ChIJaSOhhrCrQjQRl6ktXQKUF-E',
+                    name: '二幻拉麵',
+                    type: 'eat',
                     duration: 1,
                     photo: '',
                     price: 0,
-                },
-            },
-            {
-                id: 'item6',
-                place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei601',
-                    type: 'favorite',
-                    duration: 1,
-                    photo: '',
-                    price: 0,
-                },
-            },
-            {
-                id: 'item7',
-                place: {
-                    description: '',
-                    placeid: '',
-                    name: 'Taipei701',
-                    type: 'favorite',
-                    duration: 1,
-                    photo: '',
-                    price: 0,
+                    location: [25.0354792, 121.56810280000002]
                 },
             },
         ],
@@ -248,64 +210,15 @@ const mydb = {
 
             {
                 id: "droppable-2",
-                itemsid:['item6']
+                itemsid:[]
             },
 
             {
                 id: "droppable-3",
-                itemsid:['item7']
+                itemsid:[]
             }
         ]
-    }
+    },
 };
-/*
-const users = [
-    {
-        id: "Henry",
-        token: 1204
-    },
-    {
-        id: "Ariel",
-        token: 0717
-    }
-]
 
-const days = [ 
-    {
-
-    }
-]
-*/
 export default mydb;
-
-/*
-let items = [
-    {
-        id: 1,
-        description:'this is test 1'
-        // placeid: ,
-        // name: ,
-        // discription: ,
-        // type:,
-        // duration:,
-        // note: ,
-        // photo: ,
-        // price: ,
-    },
-    {
-        id: 2,
-        description:'this is test 2'
-    },
-    {
-        id: 3,
-        description:'this is test 3'
-    },
-    {
-        id: 4,
-        description:'this is test 4'
-    },
-    {
-        id: 5,
-        description:'this is test 5'
-    }
-]*/
