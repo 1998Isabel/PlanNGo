@@ -56,6 +56,7 @@ class Map extends Component {
         function lat() { return subplace.place.location[0] };
         function lng() { return subplace.place.location[1] };
         const place = {
+          id: subplace.id,
           name: subplace.place.name,
           geometry: { location: { lat, lng } },
           show: true,
@@ -64,7 +65,7 @@ class Map extends Component {
           price_level: subplace.place.price,
           spottype: subplace.place.type,
         }
-        this.addPlace(place);
+        this.addPlaceFromQuery(place);
       }
       else {
         const { places } = this.state;
@@ -83,13 +84,34 @@ class Map extends Component {
     });
   };
 
-  addPlace = (place) => {
+  addPlaceFromQuery = (place) => {
     const places = this.state.places
     let findplace = places.findIndex(ele => {
-      return ele.id === place.id
+      return (ele.place_id === place.place_id) && (ele.fromSearch)
     })
     if (findplace === -1) {
       place.show = true
+      places.push(place)
+    }
+    else {
+      console.log("Remove from search: ", findplace)
+      const remove = places.splice(findplace,1);
+      place.show = false;
+      console.log(place)
+      places.push(place);
+    }
+    this.setState({ places: places });
+  };
+
+  // addPlace for Search
+  addPlace = (place) => {
+    const places = this.state.places
+    let findplace = places.findIndex(ele => {
+      return ele.place_id === place.place_id
+    })
+    if (findplace === -1) {
+      place.show = true
+      place.fromSearch = true
       places.push(place)
     }
     else {

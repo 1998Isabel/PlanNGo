@@ -7,13 +7,13 @@ export const MAPITEM_SUBSCRIPTION = gql`
       data {
         id,
         place {
-                placeid
-                location
-                description
-                name
-                price
-                type
-            }
+          placeid
+          location
+          description
+          name
+          price
+          type
+      }
       }
     }
   }
@@ -27,17 +27,17 @@ export const ITEM_SUBSCRIPTION = gql`
         id 
         itemsid
         items(id: $id) {
-                id
-                place {
-                    name
-                    description
-                    placeid
-                    name
-                    type
-                    duration
-                    photo
-                    price
-                }
+          id
+          place {
+              name
+              description
+              placeid
+              name
+              type
+              duration
+              photo
+              price
+          }
         }
       }
     }
