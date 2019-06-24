@@ -15,6 +15,8 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 
 import { Draggable } from 'react-beautiful-dnd';
 import '../App.css';
+import { Mutation } from 'react-apollo'
+import { DELETE_ITEM } from '../graphql';
 
 // export default function SimpleCard() {
 class SimpleCard extends Component {
@@ -30,37 +32,52 @@ class SimpleCard extends Component {
     this.setState({expanded: !expand});
   }
   handleDeleteClick = () => {
-    this.props.handleDelete(this.props.id, this.props.colid)
+    this.deleteItem({
+      variables: {
+        itemId: this.props.id,
+        columnId: this.props.colid
+      }
+    })
   }
   render() {
     const { place } = this.props;
     return (
-      <Draggable draggableId={this.props.id} index={this.props.index}>
-        {provided => (
-          <Card className="test-card-root" {...provided.dragHandleProps}
-            {...provided.draggableProps}
-            ref={provided.innerRef}>
-            <CardContent>
-              {/* <Typography className="test-card-title" color="textSecondary" gutterBottom>
-                {place.type}
-                
-              </Typography> */}
-              <Typography variant="h5" component="h2">
-                {place.name}
-                <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
-                  <DeleteOutlinedIcon  onClick={this.handleDeleteClick}/>
-                </IconButton>
-              </Typography>
-              <Typography className="test-card-pos" color="textSecondary">
-                Staying time: {place.duration} hr
-                </Typography>
-              <Typography variant="body2" component="p">
-                {this.props.description}
-              </Typography>
-            </CardContent>
-          </Card>)}
-      </Draggable>
-    );
+    <Mutation mutation={DELETE_ITEM}>{
+      deleteItem => {
+        console.log("Mutation deleteItem");
+        this.deleteItem = deleteItem;
+        
+        return (
+          <Draggable draggableId={this.props.id} index={this.props.index}>
+            {provided => (
+              <Card className="test-card-root" {...provided.dragHandleProps}
+                {...provided.draggableProps}
+                ref={provided.innerRef}>
+                <CardContent>
+                  {/* <Typography className="test-card-title" color="textSecondary" gutterBottom>
+                    {place.type}
+                    
+                  </Typography> */}
+                  <Typography variant="h5" component="h2">
+                    {place.name}
+                    <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
+                      <DeleteOutlinedIcon  onClick={this.handleDeleteClick}/>
+                    </IconButton>
+                  </Typography>
+                  <Typography className="test-card-pos" color="textSecondary">
+                    Staying time: {place.duration} hr
+                    </Typography>
+                  <Typography variant="body2" component="p">
+                    {this.props.description}
+                  </Typography>
+                </CardContent>
+              </Card>)}
+          </Draggable>
+        );
+
+      }
+    }</Mutation>
+    ); 
   }
 }
 export default SimpleCard;
