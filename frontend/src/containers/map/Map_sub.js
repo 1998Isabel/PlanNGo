@@ -9,6 +9,7 @@ import MarkerInfo from './MarkerInfo'
 import GoogleMap from './GoogleMap';
 import Search from './Search';
 import { withApollo } from 'react-apollo';
+import { Query } from 'react-apollo'
 import { MAP_ITEMS, MAPITEM_SUBSCRIPTION } from '../../graphql';
 
 // consts
@@ -23,48 +24,6 @@ class Map extends Component {
       mapApi: null,
       places: [],
     };
-  }
-
-  componentDidMount() {
-    this.props.client.query({query: MAP_ITEMS}).then(result => {
-      const queryplaces = result.data.items.map(item => {
-        function lat() {return item.place.location[0]};
-        function lng() {return item.place.location[1]};
-        console.log(item.place.type)
-        const place = {
-          name: item.place.name,
-          geometry: {location: {lat, lng}},
-          show: false,
-          place_id: item.place.placeid,
-          types: [item.place.description],
-          price_level: item.place.price,
-          spottype: item.place.type,
-        }
-        // console.log(place.types)
-        return place
-      })
-      // console.log("Query places in map", queryplaces)
-      this.setState({places: queryplaces})
-      // console.log("query: ",this.state.places)
-    })
-    this.props.client.subscribe({
-      query: MAPITEM_SUBSCRIPTION
-    }).subscribe(response => {
-      console.log("Sub", response.data.mapitem)
-      let subplace = response.data.mapitem.data.place;
-      function lat() {return subplace.location[0]};
-      function lng() {return subplace.location[1]};
-      const place = {
-        name: subplace.name,
-        geometry: {location: {lat, lng}},
-        show: true,
-        place_id: subplace.placeid,
-        types: [subplace.description],
-        price_level: subplace.price,
-        spottype: subplace.type,
-      }
-      this.addPlace(place);
-    })
   }
 
   apiHasLoaded = (map, maps) => {
@@ -98,12 +57,22 @@ class Map extends Component {
       const index = state.places.findIndex(e => e.place_id === key);
       // console.log(index)
       // console.log(index)
-      if (index < 0){
-        return;}
+      if (index < 0) {
+        return;
+      }
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
   };
+
+  handelQuery = (newplaces) => {
+    const places = this.state.places
+    newplaces.forEach(ele => {
+      //this.addPlace(ele)
+    });
+  }
+
+  unsubscribe = null
 
   render() {
     const {
@@ -112,7 +81,7 @@ class Map extends Component {
     return (
       <div id="right_map">
         {mapApiLoaded && (
-            <Search map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
+          <Search map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
         )}
         <GoogleMap
           defaultZoom={12}
@@ -125,6 +94,42 @@ class Map extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
+          {/* <Query query={MAP_ITEMS}>{
+            ({ loading, error, data, subscribeToMore }) => {
+              if (loading || error)
+                return <></>;
+              const queryplaces = data.items.map(item => {
+                function lat() { return item.place.location[0] };
+                function lng() { return item.place.location[1] };
+                //console.log(item.place.type)
+                const place = {
+                  name: item.place.name,
+                  geometry: { location: { lat, lng } },
+                  show: false,
+                  place_id: item.place.placeid,
+                  types: [item.place.description],
+                  price_level: item.place.price,
+                  spottype: item.place.type,
+                }
+                return place
+              })
+
+              if (!this.unsubscribe)
+                this.unsubscribe = subscribeToMore({
+                  document: MAPITEM_SUBSCRIPTION,
+                  updateQuery: (prev, { subscriptionData }) => {
+                    if (!subscriptionData.data) return prev
+                    const newItem = subscriptionData.data.data
+                    return {
+                      ...prev,
+                      items: [newItem, ...prev.items]
+                    }
+                  }
+                })
+              this.handelQuery(queryplaces);
+              return <></>
+            }
+          }</Query> */}
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo
@@ -141,4 +146,4 @@ class Map extends Component {
   }
 }
 
-export default withApollo(Map);
+export default Map;
