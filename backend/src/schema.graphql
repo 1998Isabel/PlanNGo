@@ -69,6 +69,7 @@ input PlaceInput {
 }
 
 input CreateItemInput {
+  id: String!
   place: PlaceInput
 }
 

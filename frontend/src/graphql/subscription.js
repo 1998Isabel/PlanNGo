@@ -5,6 +5,7 @@ export const MAPITEM_SUBSCRIPTION = gql`
     mapitem {
       mutation
       data {
+        id,
         place {
                 placeid
                 location

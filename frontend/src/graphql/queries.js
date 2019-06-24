@@ -25,6 +25,7 @@ export const LOGIN_MATCH = gql`
 export const MAP_ITEMS = gql`
     query {
         items {
+            id
             place {
                 placeid
                 location

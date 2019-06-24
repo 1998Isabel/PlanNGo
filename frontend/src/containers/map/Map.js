@@ -32,6 +32,7 @@ class Map extends Component {
         function lng() { return item.place.location[1] };
         console.log(item.place.type)
         const place = {
+          id: item.id,
           name: item.place.name,
           geometry: { location: { lat, lng } },
           show: false,
@@ -50,24 +51,24 @@ class Map extends Component {
     this.props.client.subscribe({
       query: MAPITEM_SUBSCRIPTION
     }).subscribe(response => {
-      let subplace = response.data.mapitem.data.place;
+      let subplace = response.data.mapitem.data;
       if (response.data.mapitem.mutation === "CREATED") {
-        function lat() { return subplace.location[0] };
-        function lng() { return subplace.location[1] };
+        function lat() { return subplace.place.location[0] };
+        function lng() { return subplace.place.location[1] };
         const place = {
-          name: subplace.name,
+          name: subplace.place.name,
           geometry: { location: { lat, lng } },
           show: true,
-          place_id: subplace.placeid,
-          types: [subplace.description],
-          price_level: subplace.price,
-          spottype: subplace.type,
+          place_id: subplace.place.placeid,
+          types: [subplace.place.description],
+          price_level: subplace.place.price,
+          spottype: subplace.place.type,
         }
         this.addPlace(place);
       }
       else {
         const { places } = this.state;
-          const delindex = places.findIndex(ele => ele.key === subplace.place_id)
+          const delindex = places.findIndex(ele => ele.key === subplace.id)
           places.splice(delindex, 1);
           this.setState({places: places});
       }
@@ -85,7 +86,7 @@ class Map extends Component {
   addPlace = (place) => {
     const places = this.state.places
     let findplace = places.findIndex(ele => {
-      return ele.place_id === place.place_id
+      return ele.id === place.id
     })
     if (findplace === -1) {
       place.show = true
@@ -102,7 +103,7 @@ class Map extends Component {
   onChildClickCallback = (key) => {
     this.setState((state) => {
       // console.log(state)
-      const index = state.places.findIndex(e => e.place_id === key);
+      const index = state.places.findIndex(e => e.id === key);
       // console.log(index)
       // console.log(index)
       if (index < 0) {
@@ -136,7 +137,7 @@ class Map extends Component {
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo
-                key={place.place_id}
+                key={place.id}
                 lat={place.geometry.location.lat()}
                 lng={place.geometry.location.lng()}
                 show={place.show}
