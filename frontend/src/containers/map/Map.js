@@ -26,14 +26,14 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this.props.client.query({query: MAP_ITEMS}).then(result => {
+    this.props.client.query({ query: MAP_ITEMS }).then(result => {
       const queryplaces = result.data.items.map(item => {
-        function lat() {return item.place.location[0]};
-        function lng() {return item.place.location[1]};
+        function lat() { return item.place.location[0] };
+        function lng() { return item.place.location[1] };
         console.log(item.place.type)
         const place = {
           name: item.place.name,
-          geometry: {location: {lat, lng}},
+          geometry: { location: { lat, lng } },
           show: false,
           place_id: item.place.placeid,
           types: [item.place.description],
@@ -44,26 +44,33 @@ class Map extends Component {
         return place
       })
       // console.log("Query places in map", queryplaces)
-      this.setState({places: queryplaces})
+      this.setState({ places: queryplaces })
       // console.log("query: ",this.state.places)
     })
     this.props.client.subscribe({
       query: MAPITEM_SUBSCRIPTION
     }).subscribe(response => {
-      console.log("Sub", response.data.mapitem)
       let subplace = response.data.mapitem.data.place;
-      function lat() {return subplace.location[0]};
-      function lng() {return subplace.location[1]};
-      const place = {
-        name: subplace.name,
-        geometry: {location: {lat, lng}},
-        show: true,
-        place_id: subplace.placeid,
-        types: [subplace.description],
-        price_level: subplace.price,
-        spottype: subplace.type,
+      if (response.data.mapitem.mutation === "CREATED") {
+        function lat() { return subplace.location[0] };
+        function lng() { return subplace.location[1] };
+        const place = {
+          name: subplace.name,
+          geometry: { location: { lat, lng } },
+          show: true,
+          place_id: subplace.placeid,
+          types: [subplace.description],
+          price_level: subplace.price,
+          spottype: subplace.type,
+        }
+        this.addPlace(place);
       }
-      this.addPlace(place);
+      else {
+        const { places } = this.state;
+          const delindex = places.findIndex(ele => ele.key === subplace.place_id)
+          places.splice(delindex, 1);
+          this.setState({places: places});
+      }
     })
   }
 
@@ -80,12 +87,12 @@ class Map extends Component {
     let findplace = places.findIndex(ele => {
       return ele.place_id === place.place_id
     })
-    if (findplace === -1){
+    if (findplace === -1) {
       place.show = true
       places.push(place)
     }
     else {
-      console.log("find exist: ",findplace)
+      console.log("find exist: ", findplace)
       places[findplace].show = true
     }
     this.setState({ places: places });
@@ -98,8 +105,9 @@ class Map extends Component {
       const index = state.places.findIndex(e => e.place_id === key);
       // console.log(index)
       // console.log(index)
-      if (index < 0){
-        return;}
+      if (index < 0) {
+        return;
+      }
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
@@ -112,7 +120,7 @@ class Map extends Component {
     return (
       <div id="right_map">
         {mapApiLoaded && (
-            <Search map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
+          <Search map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
         )}
         <GoogleMap
           defaultZoom={12}
