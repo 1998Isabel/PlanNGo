@@ -43,7 +43,6 @@ const Mutation = {
     const { id, data } = args
     
     const item = {
-      id: uuidv4(),
       ...data
     }
 
@@ -77,11 +76,12 @@ const Mutation = {
   deleteItem(parent, args, { db, pubsub }, info) {
     const { itemId, columnId } = args.data
     const itemsIndex = db["Henry"].items.findIndex(item=> item.id === itemId);
-
+    
     // delete items
     if (itemsIndex === -1) {
       throw new Error('Item not found')
     }
+    const delItem = db["Henry"].items[itemsIndex]
     const deletedItems = db["Henry"].items.splice(itemsIndex, 1);
 
     // delete items index in day
@@ -96,6 +96,12 @@ const Mutation = {
       item: {
         mutation: 'DELETED',
         data: db["Henry"].days
+      }
+    })
+    pubsub.publish('mapitem', {
+      mapitem: {
+        mutation: 'DELETED',
+        data: delItem
       }
     })
 
