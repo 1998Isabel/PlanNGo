@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
+import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 import './../App.css'
 
@@ -11,10 +12,23 @@ export default class MyDayPick extends Component {
     super(props);
     this.state = this.getInitialState();
   }
+  getRangeDays = () => {
+    let days = []
+    let day = this.state.from
+    days.push(day.toLocaleDateString())
+    while (!moment(day).isSame(this.state.to)) {
+      day = moment(day).add(1, 'days').toDate()
+      // console.log(day)
+      days.push(day.toLocaleDateString());
+      // console.log(days)
+    }
+    this.setState({days: days})
+  }
   getInitialState = () => {
     return {
       from: undefined,
       to: undefined,
+      days: [],
     };
   }
   handleDayClick = (day) => {
@@ -29,7 +43,7 @@ export default class MyDayPick extends Component {
     const modifiers = { start: from, end: to };
     return (
       <div className="RangeExample">
-        <p style={{textAlign: "center"}}>
+        <p style={{ textAlign: "center" }}>
           {!from && !to && 'Please select the first day.'}
           {from && !to && 'Please select the last day.'}
           {from &&
@@ -42,6 +56,12 @@ export default class MyDayPick extends Component {
                 Reset
               </button>
             )}
+          {from &&
+            to && (
+          <button className="link" onClick={this.getRangeDays}>
+            Submit
+          </button>
+          )}
         </p>
         <DayPicker
           className="Selectable"

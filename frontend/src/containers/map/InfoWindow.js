@@ -61,13 +61,9 @@ class InfoWindow extends Component {
 	showphoto = () => {
 		//console.log(place.photos[0].getUrl())
 		if (this.props.place.photos)
-			return (
-				<div>
-					<img className="image-img" height="30vh" minWidth="32vh" src={this.props.place.photos[0].getUrl()} />
-				</div>
-			);
+			return this.props.place.photos[0].getUrl();
 		else
-			return;
+			return "";
 	}
 
 	buttoncolor = (type) => {
@@ -95,7 +91,7 @@ class InfoWindow extends Component {
 				placeid: place.place_id,
 				name: place.name,
 				type: typeid,
-				photo: this.showphoto,
+				photo: this.showphoto(),
 				price: place.price_level,
 				lat: place.geometry.location.lat(),
 				lng: place.geometry.location.lng()
