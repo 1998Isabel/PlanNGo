@@ -38,6 +38,7 @@ class SimpleCard extends Component {
     this.setState({ expanded: !expand });
   }
   handleDeleteClick = () => {
+    console.log("Delete")
     this.deleteItem({
       variables: {
         userid: this.props.user,

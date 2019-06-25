@@ -94,7 +94,7 @@ class InfoWindow extends Component {
 				name: place.name,
 				type: typeid,
 				photo: this.showphoto(),
-				price: place.price_level,
+				price: place.price_level*250,
 				lat: place.geometry.location.lat(),
 				lng: place.geometry.location.lng(),
 				duration: 0,

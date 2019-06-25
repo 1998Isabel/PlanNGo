@@ -25,9 +25,9 @@ type Mutation {
 }
 
 type Subscription {
-  item: ItemSubscriptionPayload!
-  iteminfo: ItemInfoSubscriptionPayload!
-  mapitem: MapItemSubscriptionPayload!
+  item(userid: String!): ItemSubscriptionPayload!
+  iteminfo(userid: String!): ItemInfoSubscriptionPayload!
+  mapitem(userid: String!): MapItemSubscriptionPayload!
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
 }

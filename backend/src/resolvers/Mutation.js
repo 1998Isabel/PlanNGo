@@ -19,13 +19,13 @@ const Mutation = {
       return (day.id === id)
     }))
     
-    pubsub.publish('item', {
+    pubsub.publish(`item ${userid}`, {
       item: {
         mutation: 'CREATED',
         data: db[userid].days
       }
     })
-    pubsub.publish('mapitem', {
+    pubsub.publish(`mapitem ${userid}`, {
       mapitem: {
         mutation: 'CREATED',
         data: item
@@ -63,7 +63,7 @@ const Mutation = {
     db[userid].days = update_days;
 
     // for subscription
-    pubsub.publish('item', {
+    pubsub.publish(`item ${userid}`, {
       item: {
         mutation: 'UPDATED',
         data: db[userid].days
@@ -85,7 +85,7 @@ const Mutation = {
     db[userid].items[updateindex].place.duration = data.duration;
 
     // for subscription
-    pubsub.publish('iteminfo', {
+    pubsub.publish(`iteminfo ${userid}`, {
       iteminfo: {
         mutation: 'UPDATED',
         data: db[userid].items[updateindex]
@@ -114,13 +114,13 @@ const Mutation = {
     const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
     db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
     
-    pubsub.publish('item', {
+    pubsub.publish(`item ${userid}`, {
       item: {
         mutation: 'DELETED',
         data: db[userid].days
       }
     })
-    pubsub.publish('mapitem', {
+    pubsub.publish(`mapitem ${userid}`, {
       mapitem: {
         mutation: 'DELETED',
         data: delItem

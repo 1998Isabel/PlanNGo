@@ -11,23 +11,39 @@ const Subscription = {
     }
   },
   post: {
-    subscribe(parent, args, { pubsub }, info) {
+    subscribe(parent, args, { db, pubsub }, info) {
       return pubsub.asyncIterator('post')
     }
   },
   item: {
-    subscribe(parent, args, { pubsub }, info) {
-      return pubsub.asyncIterator('item')
+    subscribe(parent, { userid }, { db, pubsub }, info) {
+      const user = db[userid]
+
+      if (!user) {
+        throw new Error('User not found')
+      }
+
+      return pubsub.asyncIterator(`item ${userid}`)
     }
   },
   iteminfo: {
-    subscribe(parent, args, { pubsub }, info) {
-      return pubsub.asyncIterator('iteminfo')
+    subscribe(parent, { userid }, { db, pubsub }, info) {
+      const user = db[userid]
+
+      if (!user) {
+        throw new Error('User not found')
+      }
+      return pubsub.asyncIterator(`iteminfo ${userid}`)
     }
   },
   mapitem: {
-    subscribe(parent, args, { pubsub }, info) {
-      return pubsub.asyncIterator('mapitem')
+    subscribe(parent, { userid }, { db, pubsub }, info) {
+      const user = db[userid]
+
+      if (!user) {
+        throw new Error('User not found')
+      }
+      return pubsub.asyncIterator(`mapitem ${userid}`)
     }
   }
 }

@@ -73,7 +73,7 @@ class Spots extends Component {
         if (!this.unsubscribe) {
           this.unsubscribe = [subscribeToMore({
             document: ITEM_SUBSCRIPTION,
-            variables: { id: userID },
+            variables: { userid: userID, id: userID },
             updateQuery: (prev, { subscriptionData }) => {
               console.log("prev", prev)
               console.log("subscriptionData.data", subscriptionData.data)
@@ -102,27 +102,28 @@ class Spots extends Component {
         }),
         subscribeToMore({
           document: ITEMINFO_SUBSCRIPTION,
-          // variables: { id: userID },
+          variables: { userid: userID },
           updateQuery: (prev, { subscriptionData }) => {
             console.log("prev", prev)
             console.log("subscriptionData.data", subscriptionData.data)
             if (!subscriptionData.data) return prev
             const newItem = subscriptionData.data.iteminfo.data
             console.log("newItem", newItem);
-            const updatedayindex = prev.users.days.findIndex(day => {
+            const updatedays = prev.users.days
+            const updatedayindex = updatedays.findIndex(day => {
               return day.items.find(item => {
                 return item.id === newItem.id
               })
             })
-            const updateitemindex = prev.users.days[updatedayindex].items.findIndex(item => {
+            const updateitemindex = updatedays[updatedayindex].items.findIndex(item => {
               return item.id === newItem.id
             })
-            prev.users.days[updatedayindex].items[updateitemindex].place = newItem.place
-            console.log(prev.users.days)
+            updatedays[updatedayindex].items[updateitemindex].place = newItem.place
+            prev.users.days = updatedays
 
             return {
               ...prev,
-              days: prev.users.days
+              days: updatedays
             }
           }
       })]

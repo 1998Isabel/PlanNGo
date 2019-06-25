@@ -49,7 +49,8 @@ class Map extends Component {
       // console.log("query: ",this.state.places)
     })
     this.props.client.subscribe({
-      query: MAPITEM_SUBSCRIPTION
+      query: MAPITEM_SUBSCRIPTION,
+      variables: { userid: this.props.user },
     }).subscribe(response => {
       let subplace = response.data.mapitem.data;
       if (response.data.mapitem.mutation === "CREATED") {

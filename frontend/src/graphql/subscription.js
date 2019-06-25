@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost'
 
 export const MAPITEM_SUBSCRIPTION = gql`
-  subscription {
-    mapitem {
+  subscription mapitem($userid: String!){
+    mapitem(userid: $userid) {
       mutation
       data {
         id,
@@ -20,8 +20,11 @@ export const MAPITEM_SUBSCRIPTION = gql`
 `
 
 export const ITEM_SUBSCRIPTION = gql`
-  subscription item($id:String!){
-    item {
+  subscription item(
+    $userid: String!
+    $id: String!
+    ){
+    item(userid: $userid) {
       mutation
       data {
         id 
@@ -45,8 +48,8 @@ export const ITEM_SUBSCRIPTION = gql`
 `
 
 export const ITEMINFO_SUBSCRIPTION = gql`
-  subscription {
-    iteminfo {
+  subscription iteminfo($userid: String!) {
+    iteminfo(userid: $userid) {
       mutation
       data {
         id
