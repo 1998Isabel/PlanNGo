@@ -9,11 +9,11 @@ type Query {
 }
 
 type Mutation {
+  createUser(data: CreateUserInput!): String
   createItem(userid: String!, id: String!, data: CreateItemInput!): Item!
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
   deleteItem(userid: String!, data: DeleteItemInput!): Users!
-  createUser(data: CreateUserInput!): User!
   deleteUser(id: ID!): User!
   updateUser(id: ID!, data: UpdateUserInput!): User!
   createPost(data: CreatePostInput!): Post!
@@ -71,6 +71,12 @@ input PlaceInput {
   duration: Int
 }
 
+input CreateUserInput {
+  hash: String!
+  projectName: String!
+  totalDays: [String]
+}
+
 input CreateItemInput {
   id: String!
   place: PlaceInput
@@ -94,12 +100,6 @@ input UpdateItemInfo {
 input DeleteItemInput {
   itemId: String!
   columnId: String!
-}
-
-input CreateUserInput {
-  name: String!
-  email: String!
-  age: Int
 }
 
 input UpdateUserInput {

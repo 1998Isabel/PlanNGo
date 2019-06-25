@@ -63,7 +63,9 @@ class Login extends React.Component{
             error: false
         }
     }
-
+    componentDidMount(){
+        this.props.client.resetStore()
+    }
     handleUserChange = e => {
         this.setState({
         username : e.target.value
@@ -76,6 +78,7 @@ class Login extends React.Component{
     onSubmit = e => {
         const IDandPassword = this.state.username + this.state.password
         const myHash = CryptoJS.SHA256(IDandPassword).toString(CryptoJS.enc.Hex)
+        console.log("ID and Hash",IDandPassword,myHash)
         this.props.client.query({query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
             if(result.data.loginMatch){
                 this.props.setUser(myHash)
@@ -139,6 +142,7 @@ class Login extends React.Component{
                             <NavigationIcon className={classes.extendedIcon} />Login
                         </Fab>
                     </div>
+                    {this.state.error && <span>username or password incorrect</span>}
                 </div>
             </div>
         )

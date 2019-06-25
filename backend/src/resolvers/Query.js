@@ -1,5 +1,6 @@
 const Query = {
   loginMatch(parent,args,{db}, info){
+    console.log(args.id)
     const result = db["userList"].find((ele) => {
       return ele === args.id
     })

@@ -23,6 +23,7 @@ export default class MyDayPick extends Component {
       // console.log(days)
     }
     this.setState({days: days})
+    this.props.handleDaySubmit(days)
   }
   getInitialState = () => {
     return {

@@ -1,6 +1,18 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
+  createUser(parent, args, {db}, info){
+    const {data} = args
+    console.log(db.userList)
+    db.userList.push(data.hash)
+    db[data.hash] = {
+      projectName: data.projectName,
+      totalDays: [],
+      items: [],
+      days: []
+    }
+    console.log("User created",data.hash,db)
+  },
   createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args
     
@@ -130,22 +142,16 @@ const Mutation = {
     return db[userid]
 
   },
-  createUser(parent, args, { db }, info) {
-    const emailTaken = db.users.some(user => user.email === args.data.email)
 
-    if (emailTaken) {
-      throw new Error('Email taken')
-    }
 
-    const user = {
-      id: uuidv4(),
-      ...args.data
-    }
 
-    db.users.push(user)
 
-    return user
-  },
+
+
+
+
+
+
   deleteUser(parent, args, { db }, info) {
     const userIndex = db.users.findIndex(user => user.id === args.id)
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import {withRouter} from 'react-router-dom'
-import { withApollo } from 'react-apollo';
+import { withApollo, Mutation } from 'react-apollo';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import MyDayPick from './../components/MyDayPick'
 import CryptoJS from 'crypto-js';
 import { LOGIN_MATCH } from '../graphql/queries';
-
+import { CREATE_USER } from '../graphql';
 const styles = {
     fab: {
       margin: 1
@@ -48,6 +48,7 @@ class NewProject extends React.Component{
             password: "",
             destination: "",
             collision_error: false,
+            days: []
             
         }
       }
@@ -63,6 +64,11 @@ class NewProject extends React.Component{
         password : e.target.value
     })} 
 
+    handleDaySubmit = days => {
+        this.days = days
+        console.log("DAYS",days)
+    }
+
     onSubmit = e => {
         let collision = false
         const IDandPassword = this.state.username + this.state.password
@@ -73,6 +79,12 @@ class NewProject extends React.Component{
             }
             else{
                 // Mutation here
+                this.userSubmit({
+                    variables: {
+                        hash: myHash,
+                        projectName: this.state.username
+                    }
+                })
             }  
 
             if(this.state.username === "" || collision){
@@ -90,53 +102,58 @@ class NewProject extends React.Component{
     render() {
         const {classes} = this.props
         return(
-            <div className={classes.outWrapper}>
-                <div className={classes.innerWrapper}>
-                    <form className={classes.container} noValidate autoComplete="off">
-                        <div><TextField
-                                id="project_name"
-                                label="Project Name"
-                                className={classes.textField}
-                                onChange={this.handleUserChange}
-                                margin="normal"
-                                variant="outlined"
-                                InputProps={{
-                                    className: classes.input
-                                }}
-                            /></div>
-                        <div><TextField
-                                id="password"
-                                label="Password"
-                                className={classes.textField}
-                                onChange={this.handlePasswordChange}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                variant="outlined"
-                                InputProps={{
-                                    className: classes.input
-                                }}
-                            /></div>
-                        <div><TextField
-                                id="destination"
-                                label="Destination (optional)"
-                                className={classes.textField}
-                                onChange={this.handleDestinationChange}
-                                margin="normal"
-                                variant="outlined"
-                                InputProps={{
-                                    className: classes.input
-                                }}
-                            /></div>
-                        <div><MyDayPick /></div>
-                    </form>
-                    <div className={classes.loginWrapper}>
-                        <Fab onClick={this.onSubmit} color="primary" variant="extended" aria-label="create" className={classes.fab}>
-                            <AddIcon className={classes.extendedIcon} />Create
-                        </Fab>
+            <Mutation mutation={CREATE_USER}>{
+                submit => {
+                this.userSubmit = submit
+                return(
+                <div className={classes.outWrapper}>
+                    <div className={classes.innerWrapper}>
+                        <form className={classes.container} noValidate autoComplete="off">
+                            <div><TextField
+                                    id="project_name"
+                                    label="Project Name"
+                                    className={classes.textField}
+                                    onChange={this.handleUserChange}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input
+                                    }}
+                                /></div>
+                            <div><TextField
+                                    id="password"
+                                    label="Password"
+                                    className={classes.textField}
+                                    onChange={this.handlePasswordChange}
+                                    type="password"
+                                    autoComplete="current-password"
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input
+                                    }}
+                                /></div>
+                            <div><TextField
+                                    id="destination"
+                                    label="Destination (optional)"
+                                    className={classes.textField}
+                                    onChange={this.handleDestinationChange}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input
+                                    }}
+                                /></div>
+                            <div><MyDayPick daySubmit = {this.handleDaySubmit}/></div>
+                        </form>
+                        <div className={classes.loginWrapper}>
+                            <Fab onClick={this.onSubmit} color="primary" variant="extended" aria-label="create" className={classes.fab}>
+                                <AddIcon className={classes.extendedIcon} />Create
+                            </Fab>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>)}
+            }</Mutation>
         )
     }
 }

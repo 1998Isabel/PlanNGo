@@ -1,5 +1,21 @@
 import { gql } from 'apollo-boost'
 
+export const CREATE_USER = gql`
+  mutation createUser(
+    $projectName: String!
+    $hash: String!
+    $totalDays: [String]
+    ){
+    createUser(
+      data: {
+        hash: $hash
+        projectName: $projectName
+        totalDays: $totalDays
+      }
+    )
+  }
+
+`
 export const CREATE_ITEM = gql`
   mutation createItem(
     $userid: String!

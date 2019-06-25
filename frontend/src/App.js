@@ -7,7 +7,6 @@ import Main from './containers/Main'
 import Home from './components/Home'
 import Login from './containers/Login'
 import NewProject from './containers/NewProject'
-import { Redirect } from 'react-router-dom';
 class App extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +19,6 @@ class App extends Component {
       this.setState({
         user: sessionStorage.getItem("userID")
       })
-      console.log("sess",sessionStorage.getItem("userID"))
     }
   }
 
@@ -34,7 +32,6 @@ class App extends Component {
   render() {
 
     const mainPage = () => {
-      console.log("TO main",this.state.user)
       return(
         <div className="grid-container">
           <Header user = {this.state.user}/>
@@ -46,7 +43,7 @@ class App extends Component {
     return (
       <div>
         <Route exact path="/"      component={Home}/>
-        <Route path="/Login"  render={(props) => <Login setUser = {this.setUser}/>} />
+        <Route path="/Login"  render={() => <Login setUser = {this.setUser}/>} />
         <Route path="/NewProject" component={NewProject} />
         <Route path="/main" component={mainPage}/>
       </div>
