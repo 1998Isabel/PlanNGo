@@ -60,12 +60,10 @@ class Spots extends Component {
       ({loading, error, data, subscribeToMore}) => {
         if (error) return <div id="middle_spot">error!</div>
         if (loading) return <div id="middle_spot">loading...</div>
-        // console.log("in spots.js", data)
         const daysInfo = listToObjbyID(data.users.days)
         let renderCols = totalTypes.map(colId => {
           const column = daysInfo[colId];
           const items = column.items;
-          // console.log(items)
           return (<Col user={userID} key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
         })
 
@@ -75,14 +73,9 @@ class Spots extends Component {
             document: ITEM_SUBSCRIPTION,
             variables: { userid: userID, id: userID },
             updateQuery: (prev, { subscriptionData }) => {
-              console.log("prev", prev)
-              console.log("subscriptionData.data", subscriptionData.data)
               if (!subscriptionData.data) return prev
               const newDays = subscriptionData.data.item.data
-              console.log("newDays", newDays);
-
               prev.users.days = newDays;
-              console.log("update prev", prev)
               return {
                 ...prev,
                 days: newDays 
@@ -104,11 +97,10 @@ class Spots extends Component {
           document: ITEMINFO_SUBSCRIPTION,
           variables: { userid: userID },
           updateQuery: (prev, { subscriptionData }) => {
-            console.log("prev", prev)
-            console.log("subscriptionData.data", subscriptionData.data)
+         
             if (!subscriptionData.data) return prev
             const newItem = subscriptionData.data.iteminfo.data
-            console.log("newItem", newItem);
+            
             const updatedays = prev.users.days
             const updatedayindex = updatedays.findIndex(day => {
               return day.items.find(item => {

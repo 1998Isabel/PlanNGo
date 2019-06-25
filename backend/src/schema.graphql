@@ -2,9 +2,6 @@ type Query {
   items(id: String!): [Item!]!
   users(id: String!): Users!
   days: [Day!]!
-  posts(query: String): [Post!]!
-  comments: [Comment!]!
-  post: Post!
   loginMatch(id: String!): String
 }
 
@@ -14,22 +11,12 @@ type Mutation {
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
   deleteItem(userid: String!, data: DeleteItemInput!): Users!
-  deleteUser(id: ID!): User!
-  updateUser(id: ID!, data: UpdateUserInput!): User!
-  createPost(data: CreatePostInput!): Post!
-  deletePost(id: ID!): Post!
-  updatePost(id: ID!, data: UpdatePostInput!): Post!
-  createComment(data: CreateCommentInput!): Comment!
-  deleteComment(id: ID!): Comment!
-  updateComment(id: ID!, data: UpdateCommentInput!): Comment!
 }
 
 type Subscription {
   item(userid: String!): ItemSubscriptionPayload!
   iteminfo(userid: String!): ItemInfoSubscriptionPayload!
   mapitem(userid: String!): MapItemSubscriptionPayload!
-  comment(postId: ID!): CommentSubscriptionPayload!
-  post: PostSubscriptionPayload!
 }
 type Users {
   projectName: String!
@@ -103,75 +90,12 @@ input DeleteItemInput {
   columnId: String!
 }
 
-input UpdateUserInput {
-  name: String
-  email: String
-  age: Int
-}
-
-input CreatePostInput {
-  title: String!
-  body: String!
-  published: Boolean!
-  author: ID!
-}
-
-input UpdatePostInput {
-  title: String
-  body: String
-  published: Boolean
-}
-
-input CreateCommentInput {
-  text: String!
-  author: ID!
-  post: ID!
-}
-
-input UpdateCommentInput {
-  text: String
-}
-
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  age: Int
-  posts: [Post!]!
-  comments: [Comment!]!
-}
-
-type Post {
-  id: ID!
-  title: String!
-  body: String!
-  published: Boolean!
-  author: User!
-  comments: [Comment!]!
-}
-
-type Comment {
-  id: ID!
-  text: String!
-  author: User!
-  post: Post!
-}
-
 enum MutationType {
   CREATED
   UPDATED
   DELETED
 }
 
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  data: Post!
-}
-
-type CommentSubscriptionPayload {
-  mutation: MutationType!
-  data: Comment!
-}
 type ItemSubscriptionPayload {
   mutation: MutationType!
   data: [Day]!

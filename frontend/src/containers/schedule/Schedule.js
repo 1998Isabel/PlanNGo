@@ -55,10 +55,10 @@ class Schedule extends Component {
       ({loading, error, data, subscribeToMore}) => {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>
-        console.log("userID",userID)
+  
         const totalDays = data.users.totalDays
         const daysInfo = listToObjbyID(data.users.days)
-        console.log(daysInfo)
+
         let renderCols = totalDays.map((colId, index) => {
           const column = daysInfo[colId];
           const items = column.items
@@ -75,14 +75,13 @@ class Schedule extends Component {
             document: ITEM_SUBSCRIPTION,
             variables: { userid: userID, id: userID },
             updateQuery: (prev, { subscriptionData }) => {
-              console.log("prev", prev)
-              console.log("subscriptionData.data", subscriptionData.data)
+             
               if (!subscriptionData.data) return prev
               const newDays = subscriptionData.data.item.data
-              console.log("newDays", newDays);
+          
 
               prev.users.days = newDays;
-              console.log("update prev", prev)
+           
               return {
                 ...prev,
                 days: newDays 

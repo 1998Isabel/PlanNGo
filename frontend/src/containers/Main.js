@@ -68,10 +68,8 @@ class Main extends Component {
   }
 
   onDragEnd = (result)=> {
-    console.log("dnd result", result);
 		const { destination, source, draggableId } = result;
 		if (!destination) {
-            console.log("destination empty");
             return
 		}
 		if (destination.droppableId === source.droppableId &&
@@ -98,7 +96,6 @@ class Main extends Component {
     return (
       <Mutation mutation={UPDATE_DND_ITEM}>{
         updateDnDItem => {
-          console.log("updateDnDItem")
           this.updateDnD = updateDnDItem;
           return (
             <DragDropContext onDragEnd={this.onDragEnd}>
