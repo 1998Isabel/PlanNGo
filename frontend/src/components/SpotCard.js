@@ -102,7 +102,9 @@ class SimpleCard extends Component {
                   onChange={this.handleChange('duration')}
                 />
                 hr
-                <IconButton
+              </Typography>
+              <div classname="test-expand-wrapper">
+              <IconButton
                   className={clsx("test-expand", {
                     "test-expandOpen": this.state.expanded,
                   })}
@@ -111,8 +113,8 @@ class SimpleCard extends Component {
                   aria-label="Show more"
                 >
                   <ExpandMoreIcon className="test-iconSmall" />
-                </IconButton>
-              </Typography>
+              </IconButton>
+              </div>
             </CardContent>
             {/* <CardActions>
               <Button size="small">Learn More</Button>

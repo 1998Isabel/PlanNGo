@@ -111,8 +111,11 @@ class SimpleCard extends Component {
                   inputProps={{ 'aria-label': 'duration' }}
                   style={{ width: '20%', textAlign: 'center' }}
                   onChange={this.handleChange('duration')}
-                />
+                /> 
                 hr
+                
+              </Typography>
+              <div classname="test-expand-wrapper">
                 <IconButton
                   className={clsx("test-expand", {
                     "test-expandOpen": this.state.expanded,
@@ -123,7 +126,7 @@ class SimpleCard extends Component {
                 >
                   <ExpandMoreIcon className="test-iconSmall" />
                 </IconButton>
-              </Typography>
+              </div>
               {/* <Typography variant="body2" component="p">
                 {place.description}
                 

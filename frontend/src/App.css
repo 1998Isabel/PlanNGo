@@ -101,11 +101,14 @@ header {
   float: center;
 }
 .test-card-delete {
-  display: none !important;
+  /* display: none !important; */
+  display: inline !important;
+  visibility:hidden !important;
   float: right;
   transition: all 0.2s ease;
 }
 .test-card-root:hover .test-card-delete {
+  visibility: visible !important;
   display: inline !important;
 }
 .test-card-root:hover .test-card-delete:hover {
@@ -142,10 +145,15 @@ header {
 }
 .test-expand {
   transform: rotate(0deg);
-  margin-left: auto;
+  float: right;
+  /* margin-left: auto !important; */
   /* transition: transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }) */
+}
+.test-expand-wrapper{
+  width: 100%;
+  text-align: center;
 }
 .test-expandOpen {
   transform: rotate(180deg);
