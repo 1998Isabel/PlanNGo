@@ -1,6 +1,5 @@
 const Day = {
     items(parent, args, { db }, info) {
-        console.log("day items call!!")
         // return db["Henry"].items.filter(post => {
         //   return post.author === parent.id
         // })

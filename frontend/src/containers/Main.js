@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import initial_state from '../Initial';
 import { Mutation } from 'react-apollo'
 import { UPDATE_DND_ITEM } from '../graphql';
-
+import { withApollo } from 'react-apollo';
 
 function IndexofProperty(array, attr, value) {
   for(var i = 0; i < array.length; i += 1) {
@@ -28,7 +28,12 @@ class Main extends Component {
   constructor(props) {
 		super(props);
 		this.state = initial_state;
-	}
+  }
+  
+  componentDidMount(){
+    this.props.client.resetStore() // Clear cache 
+  }
+
   handleDelete = (id, colid) => {
     console.log(id, colid);
     let col;
@@ -111,4 +116,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withApollo(Main);

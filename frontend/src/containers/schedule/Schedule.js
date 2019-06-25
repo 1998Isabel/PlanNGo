@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import { Droppable } from 'react-beautiful-dnd';
 import './../../App.css';
 import RouteButton from './../../components/RouteButton'
 import DayBox from './DayBox'
-// import Col from '../spots/Spots_col'
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -14,7 +11,6 @@ import { Element, scrollSpy, Events, Link, scroller  } from 'react-scroll';
 import { DAYS_INFO , ITEM_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import {listToObjbyID} from '../../util'
-
 class Schedule extends Component {
   constructor(props) {
     super(props);
@@ -59,10 +55,10 @@ class Schedule extends Component {
       ({loading, error, data, subscribeToMore}) => {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>
-        
+        console.log("userID",userID)
         const totalDays = data.users.totalDays
         const daysInfo = listToObjbyID(data.users.days)
-
+        console.log(daysInfo)
         let renderCols = totalDays.map((colId, index) => {
           const column = daysInfo[colId];
           const items = column.items
