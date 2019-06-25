@@ -46,3 +46,11 @@ export const DAYS_INFO = gql`
       }
   }
 `
+
+export const PROJECT_NAME = gql`
+  query users($userID: String!){
+      users(id: $userID) {
+          projectName
+      }
+  }
+`

@@ -42,7 +42,7 @@ class App extends Component {
 
     return (
       <div>
-        <Route exact path="/"      component={Home}/>
+        <Route exact path="/" component={Home}/>
         <Route path="/Login"  render={() => <Login setUser = {this.setUser}/>} />
         <Route path="/NewProject" component={NewProject} />
         <Route path="/main" component={mainPage}/>

@@ -32,6 +32,7 @@ type Subscription {
   post: PostSubscriptionPayload!
 }
 type Users {
+  projectName: String!
   totalDays: [String!]
   items: [Item]
   # name: String!
