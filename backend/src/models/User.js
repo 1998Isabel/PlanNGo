@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 // Creating a schema, sort of like working with an ORM
 const userSchema = new Schema({
+    usertoken: String,
     projectName : String,
     firstDay: String,
     totalDays: [String],
