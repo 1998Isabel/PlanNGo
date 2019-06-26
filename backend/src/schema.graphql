@@ -11,6 +11,7 @@ type Mutation {
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
   deleteItem(userid: String!, data: DeleteItemInput!): Users!
+  # updateDate(days: [String]!): [String]!
 }
 
 type Subscription {
@@ -23,7 +24,7 @@ type Users {
   totalDays: [String!]
   items: [Item]
   name: String!
-  token: String!
+  firstDay: String!
   days: [Day!]
 }
 type Day {
@@ -62,7 +63,7 @@ input PlaceInput {
 input CreateUserInput {
   hash: String!
   projectName: String!
-  totalDays: [String]
+  totalDays: [String]!
 }
 
 input CreateItemInput {

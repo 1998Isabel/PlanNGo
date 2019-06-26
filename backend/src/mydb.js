@@ -4,7 +4,7 @@ const mydb = {
 
     "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e" : {
         projectName: "Paris",
-        token : "1",
+        firstDay : "2019/6/26",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
         items : [
             {
@@ -113,7 +113,7 @@ const mydb = {
 
     "1718c24b10aeb8099e3fc44960ab6949ab76a267352459f203ea1036bec382c2": {
         projectName: "Paris",
-        token : "1",
+        firstDay : "2019/6/26",
         totalDays : ["droppable-4","droppable-5","droppable-6","droppable-7"],
         items : [
             {

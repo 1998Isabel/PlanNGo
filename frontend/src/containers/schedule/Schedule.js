@@ -11,6 +11,8 @@ import { Element, scrollSpy, Events, Link, scroller  } from 'react-scroll';
 import { DAYS_INFO , ITEM_SUBSCRIPTION } from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import {listToObjbyID} from '../../util'
+import moment from 'moment';
+
 class Schedule extends Component {
   constructor(props) {
     super(props);
@@ -56,16 +58,22 @@ class Schedule extends Component {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>
   
-        const totalDays = data.users.totalDays
-        const daysInfo = listToObjbyID(data.users.days)
+        const totalDays = data.users.totalDays;
+        const daysInfo = listToObjbyID(data.users.days);
+        //string to date object
+        const firstDay = data.users.firstDay.split("/");
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var date_obj = new Date(Date.UTC(firstDay[0], firstDay[1], firstDay[2]));
 
         let renderCols = totalDays.map((colId, index) => {
           const column = daysInfo[colId];
           const items = column.items
           const dayelement = "DAY" + (index + 1)
+          const date = moment(date_obj).add(index, 'days').toDate().toLocaleDateString('en-US', options);
+          console.log("schedule", date)
           return (
             <Element key={column.id} name={dayelement} className="element">
-              <DayBox user={userID} key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
+              <DayBox date={date} user={userID} key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
             </Element>
           );
         })
@@ -98,7 +106,7 @@ class Schedule extends Component {
                 variant="scrollable"
                 scrollButtons="auto"
               >
-                {this.props.columnOrder.map((colId, index) => {
+                {totalDays.map((colId, index) => {
                   const column = this.props.col[colId];
                   const dayelement = "DAY" + (index + 1)
 

@@ -1,14 +1,30 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
+  // updateDate(parent, args, {db}, info){
+  //   const { days } = args
+  //   console.log("in updateDate, days: ", days);
+  // },
   createUser(parent, args, {db}, info){
-    const {data} = args
+    const { data } = args
+    // data.totalDays -> from days of MyDayPick
     db.userList.push(data.hash)
+    const totalDays = data.totalDays.map((day,idx)=>{
+      return "droppable-" + (idx+4).toString();
+    })
+    let days = [];
+    for(var i = 0; i < data.totalDays.length+3; i++){
+      days.push({
+        id: "droppable-"+(i+1).toString(),
+        itemsid:[]
+      })
+    }
     db[data.hash] = {
       projectName: data.projectName,
-      totalDays: [],
+      firstDay: data.totalDays[0],
+      totalDays: totalDays,
       items: [],
-      days: []
+      days: days
     }
   },
   createItem(parent, args, { db, pubsub }, info ) {

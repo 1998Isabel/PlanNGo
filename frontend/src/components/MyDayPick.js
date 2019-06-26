@@ -12,7 +12,9 @@ export default class MyDayPick extends Component {
     super(props);
     this.state = this.getInitialState();
   }
-  getRangeDays = () => {
+  getRangeDays = (e) => {
+    e.preventDefault(); // do not redirect
+
     let days = []
     let day = this.state.from
     days.push(day.toLocaleDateString())
@@ -23,7 +25,9 @@ export default class MyDayPick extends Component {
       // console.log(days)
     }
     this.setState({days: days})
-    this.props.handleDaySubmit(days)
+    if (this.props.InNewProject) {
+      this.props.daySubmit(days);
+    }
   }
   getInitialState = () => {
     return {
@@ -42,6 +46,7 @@ export default class MyDayPick extends Component {
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
+    console.log("In my day pick", this.state)
     return (
       <div className="RangeExample">
         <p style={{ textAlign: "center" }}>

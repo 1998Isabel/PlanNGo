@@ -31,7 +31,7 @@ class DayBox extends Component {
     return (
       <div>
         <ListItem>
-          <ListItemText primary={day} secondary="Jan 9, 2014" />
+          <ListItemText primary={day} secondary={this.props.date} />
         </ListItem>
         <Divider component="li" variant="inset"/>
         <li>

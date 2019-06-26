@@ -25,7 +25,7 @@ export const MAP_ITEMS = gql`
 export const DAYS_INFO = gql`
   query users($userID: String!){
       users(id: $userID) {
-          token
+          firstDay
           totalDays
           days {
               id

@@ -65,7 +65,9 @@ class NewProject extends React.Component{
     })} 
 
     handleDaySubmit = days => {
-        this.days = days
+        this.setState({
+            days: days
+        })
         console.log("DAYS",days)
     }
 
@@ -79,12 +81,16 @@ class NewProject extends React.Component{
             }
             else{
                 // Mutation here
-                this.userSubmit({
-                    variables: {
-                        hash: myHash,
-                        projectName: this.state.username
-                    }
-                })
+                if (this.state.days.length !== 0){
+                    this.userSubmit({
+                        variables: {
+                            hash: myHash,
+                            projectName: this.state.username,
+                            totalDays: this.state.days,
+                            // firstDay: this.state.days[0]
+                        }
+                    })
+                }
             }  
 
             if(this.state.username === "" || collision){
@@ -101,6 +107,7 @@ class NewProject extends React.Component{
 
     render() {
         const {classes} = this.props
+        console.log("NewProject state", this.state.days)
         return(
             <Mutation mutation={CREATE_USER}>{
                 submit => {
@@ -144,7 +151,7 @@ class NewProject extends React.Component{
                                         className: classes.input
                                     }}
                                 /></div>
-                            <div><MyDayPick daySubmit = {this.handleDaySubmit}/></div>
+                            <div><MyDayPick daySubmit={this.handleDaySubmit} InNewProject={true}/></div>
                         </form>
                         <div className={classes.loginWrapper}>
                             <Fab onClick={this.onSubmit} color="primary" variant="extended" aria-label="create" className={classes.fab}>
