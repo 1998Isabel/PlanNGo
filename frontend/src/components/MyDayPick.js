@@ -28,6 +28,12 @@ export default class MyDayPick extends Component {
     if (this.props.InNewProject) {
       this.props.daySubmit(days);
     }
+    else {
+      // if days.length >= 1, 
+      // updateDate mutation here
+      // userid = this.props.user
+      // variables:{userid: this.props.user, days:days}
+    }
   }
   getInitialState = () => {
     return {

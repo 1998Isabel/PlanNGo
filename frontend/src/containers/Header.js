@@ -77,9 +77,9 @@ export default function Header(props) {
                       horizontal: 'center',
                     }}
                   >
-                    <MyDayPick InNewProject={false}/>
+                    <MyDayPick InNewProject={false} user={userID}/>
                   </Popover>
-                </IconButton>
+                </IconButton>/
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
                   <PrintIcon/>
                 </IconButton>

@@ -11,7 +11,7 @@ type Mutation {
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
   deleteItem(userid: String!, data: DeleteItemInput!): Users!
-  # updateDate(days: [String]!): [String]!
+  updateDate(userid: String!, days: [String]!): Users!
 }
 
 type Subscription {
