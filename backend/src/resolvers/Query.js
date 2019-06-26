@@ -23,7 +23,7 @@ const Query = {
       console.log("in Query items", result);
       return result.items;
     }
-    return process(await User.find({usertoken: args.id}));
+    return process(await User.findOne({usertoken: args.id}));
     // return db[args.id].items
   },
   
@@ -33,7 +33,7 @@ const Query = {
       console.log("in Query users", result);
       return result;
     }
-    return process(await User.find({usertoken: args.id}));
+    return process(await User.findOne({usertoken: args.id}));
   },
 }
 
