@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4'
-
+const userList = require('../models/UserList')
 const Mutation = {
   updateDate(parent, args, {db}, info){
     const { userid, days } = args
@@ -55,25 +55,31 @@ const Mutation = {
   },
   createUser(parent, args, {db}, info){
     const { data } = args
+    const hash = data.hash
     // data.totalDays -> from days of MyDayPick
-    db.userList.push(data.hash)
-    const totalDays = data.totalDays.map((day,idx)=>{
-      return "droppable-" + (idx+4).toString();
+    //db.userList.push(data.hash)
+    console.log("Create hash",hash)
+    const newUser = new userList({hash})
+    newUser.save(() => {
+      console.log("Create User",hash)
     })
-    let days = [];
-    for(var i = 0; i < data.totalDays.length+3; i++){
-      days.push({
-        id: "droppable-"+(i+1).toString(),
-        itemsid:[]
-      })
-    }
-    db[data.hash] = {
-      projectName: data.projectName,
-      firstDay: data.totalDays[0],
-      totalDays: totalDays,
-      items: [],
-      days: days
-    }
+    // const totalDays = data.totalDays.map((day,idx)=>{
+    //   return "droppable-" + (idx+4).toString();
+    // })
+    // let days = [];
+    // for(var i = 0; i < data.totalDays.length+3; i++){
+    //   days.push({
+    //     id: "droppable-"+(i+1).toString(),
+    //     itemsid:[]
+    //   })
+    // }
+    // db[data.hash] = {
+    //   projectName: data.projectName,
+    //   firstDay: data.totalDays[0],
+    //   totalDays: totalDays,
+    //   items: [],
+    //   days: days
+    // }
   },
   createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args

@@ -1,9 +1,19 @@
+const userList = require('../models/UserList')
+
 const Query = {
-  loginMatch(parent,args,{db}, info){
-    const result = db["userList"].find((ele) => {
-      return ele === args.id
-    })
-    return result
+  async loginMatch(parent,args,{db}, info){
+    const process = (result) => {
+      if(result.length !== 0){
+        return result[0].hash
+      }
+      return 
+    }
+
+    return process(await userList.find({hash: args.id}))
+    // const result = db["userList"].find((ele) => {
+    //   return ele === args.id
+    // })
+    // return result
     
   },
 
