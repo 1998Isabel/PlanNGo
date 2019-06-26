@@ -94,7 +94,7 @@ class NewProject extends React.Component{
                 }
             }  
 
-            if(this.state.username === "" || collision){
+            if(this.state.username === "" || collision || this.state.days.length === 0){
                 this.setState({
                     collision_error: true
                 })

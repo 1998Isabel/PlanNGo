@@ -79,7 +79,7 @@ class Login extends React.Component{
         const IDandPassword = this.state.username + this.state.password
         const myHash = CryptoJS.SHA256(IDandPassword).toString(CryptoJS.enc.Hex)
         console.log("ID and Hash",IDandPassword,myHash)
-        this.props.client.query({query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
+        this.props.client.query({fetchPolicy: 'network-only', query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
             if(result.data.loginMatch){
                 this.props.setUser(myHash)
                 this.props.history.push('/main')
