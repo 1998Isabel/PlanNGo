@@ -76,7 +76,7 @@ class NewProject extends React.Component{
         let collision = false
         const IDandPassword = this.state.username + this.state.password
         const myHash = CryptoJS.SHA256(IDandPassword).toString(CryptoJS.enc.Hex)
-        this.props.client.query({query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
+        this.props.client.query({fetchPolicy: 'network-only', query: LOGIN_MATCH, variables:{hash: myHash}}).then(result => {
             if(result.data.loginMatch){
                 collision = true
                 console.log("loginMatch",result.data.loginMatch)
