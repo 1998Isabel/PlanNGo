@@ -1,5 +1,7 @@
 const UserList = require('../models/UserList')
-const User = require('../models/User')
+const MyMethods = require('../models/User')
+const User = MyMethods.user
+const Place = MyMethods.place
 
 const Query = {
   async loginMatch(parent,args,{db}, info){

@@ -1,6 +1,8 @@
 import uuidv4 from 'uuid/v4'
 const UserList = require('../models/UserList')
-const User = require('../models/User')
+const MyMethods = require('../models/User')
+const User = MyMethods.user
+const Place = MyMethods.place
 
 const Mutation = {
   createUser(parent, args, {db}, info){
@@ -103,25 +105,31 @@ const Mutation = {
   async createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args
     
-    const item = {
-      ...data
-    }
     // const item = {
-    //   id: data.id,
-    //   place: {
-    //     description: data.place.description,
-    //     placeid: data.place.placeid,
-    //     name: data.place.name,
-    //     type: data.place.type,
-    //     duration: data.place.duration,
-    //     photo: data.place.photo,
-    //     price: data.place.price,
-    //     location: data.place.location
-    //   }
+    //   ...data
     // }
+    const newPlace = new Place(data.place)
+    const item = {
+      id: data.id,
+      place: newPlace
+      // place: {
+        // description: data.place.description,
+        // placeid: data.place.placeid,
+        // name: data.place.name,
+        // type: data.place.type,
+        // duration: data.place.duration,
+        // photo: data.place.photo,
+        // price: data.place.price,
+        // location: data.place.location
+      // }
+    }
     
     console.log(item)
     
+    
+    // newItem.save(() => {
+    //   console.log("newItem", newItem)
+    // })
 
     const process = (result) => {
       //console.log(userid)
@@ -130,6 +138,7 @@ const Mutation = {
     }
 
     process(await User.update({usertoken: userid}, {$push: {items: item}}))
+    
 
     // db[userid].days.find((day) => {
     //   return (day.id === id)

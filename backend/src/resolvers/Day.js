@@ -1,4 +1,5 @@
-const User = require('../models/User')
+const MyMethods = require('../models/User')
+const User = MyMethods.user
 
 const Day = {
     async items(parent, args, { db }, info) {
