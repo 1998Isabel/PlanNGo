@@ -81,6 +81,7 @@ class NewProject extends React.Component{
             }
             else{
                 // Mutation here
+                console.log("onSubmit mutation", this.state.days)
                 if (this.state.days.length !== 0){
                     this.userSubmit({
                         variables: {

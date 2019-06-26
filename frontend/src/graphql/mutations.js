@@ -4,7 +4,7 @@ export const CREATE_USER = gql`
   mutation createUser(
     $projectName: String!
     $hash: String!
-    $totalDays: [String]
+    $totalDays: [String]!
     ){
     createUser(
       data: {
