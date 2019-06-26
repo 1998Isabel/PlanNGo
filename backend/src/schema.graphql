@@ -22,7 +22,7 @@ type Users {
   projectName: String!
   totalDays: [String!]
   items: [Item]
-  # name: String!
+  name: String!
   token: String!
   days: [Day!]
 }

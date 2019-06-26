@@ -64,7 +64,7 @@ class Login extends React.Component{
         }
     }
     componentDidMount(){
-        this.props.client.resetStore()
+        // resetStore   
     }
     handleUserChange = e => {
         this.setState({

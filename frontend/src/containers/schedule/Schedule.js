@@ -51,7 +51,7 @@ class Schedule extends Component {
 
   render() {
     const userID = this.props.user
-    return (<Query query={DAYS_INFO} variables={{userID}} partialRefetch={true}>{
+    return (<Query query={DAYS_INFO} variables={{userID}} fetchPolicy='network-only' partialRefetch={true}>{
       ({loading, error, data, subscribeToMore}) => {
         if(error) return <div id="left_schedule">error</div>
         if(loading) return <div id="left_schedule">loading...</div>

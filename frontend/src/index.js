@@ -40,7 +40,7 @@ const httpLink = new HttpLink({
   
   const client = new ApolloClient({
     link,
-    cache: new InMemoryCache().restore({})
+   cache: new InMemoryCache().restore({})
   })
   
   const wrappedApp = (
@@ -54,24 +54,6 @@ const httpLink = new HttpLink({
 )
 
 ReactDOM.render(wrappedApp, document.getElementById('root'));
-client.query({
-    query: gql`
-      {
-        users{
-          token
-          totalDays
-          days {
-            id
-          }
-        }
-      }
-    `
-  })
-  .then(result => {
-      let str = JSON.stringify(result)
-      console.log(str)
-    });
-console.log("Hii")
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

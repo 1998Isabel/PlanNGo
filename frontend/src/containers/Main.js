@@ -31,7 +31,7 @@ class Main extends Component {
   }
   
   componentDidMount(){
-    this.props.client.resetStore() // Clear cache 
+    // this.props.client.resetStore() 
   }
 
   handleDelete = (id, colid) => {
