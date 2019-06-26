@@ -137,6 +137,32 @@ class Map extends Component {
     });
   };
 
+  handleDirection = () => {
+    let map = this.state.mapInstance;
+    let maps = this.state.mapApi;
+    console.log(this.state.places[0].geometry.location)
+    let directionsService = new maps.DirectionsService();
+    let directionsDisplay = new maps.DirectionsRenderer();
+    directionsDisplay.setMap(map)
+    const waypts = [{location: "Taipei Main Station", stopover: true}]
+    directionsService.route(
+      {
+        origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
+        destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
+        waypoints: waypts,
+        travelMode: maps.TravelMode.DRIVING
+      },
+      function(response, status) {
+        console.log(response)
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      }
+    )
+  }
+
   render() {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
@@ -158,6 +184,7 @@ class Map extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
+          <button onClick={this.handleDirection}>Route</button>
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo
