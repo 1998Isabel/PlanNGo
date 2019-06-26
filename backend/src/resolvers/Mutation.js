@@ -39,14 +39,6 @@ const Mutation = {
     newUser.save(() => {
       console.log("Creat User Detail", userdetail)
     })
-    // db[data.hash] = {
-    //   projectName: data.projectName,
-    //   firstDay: data.totalDays[0],
-    //   totalDays: totalDays,
-    //   items: [],
-    //   days: days
-    // }
-
   },
 
   updateDate(parent, args, {db}, info){
@@ -104,10 +96,9 @@ const Mutation = {
   
   async createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args
-    
-    // const item = {
-    //   ...data
-    // }
+    console.log("DATA",data)
+    const mapping = {"eat": "days.0.itemsid", "favorite": "days.1.itemsid", "accommodation": "days.2.itemsid"}
+    const category = mapping[data.place.type]
     const newPlace = new Place(data.place)
     const item = {
       id: data.id,
@@ -124,20 +115,12 @@ const Mutation = {
       // }
     }
     
-    console.log(item)
-    
-    
-    // newItem.save(() => {
-    //   console.log("newItem", newItem)
-    // })
-
-    const process = (result) => {
-      //console.log(userid)
-      console.log(result)
-      
-    }
-
-    process(await User.update({usertoken: userid}, {$push: {items: item}}))
+    await User.updateOne({usertoken: userid}, {$addToSet: {items: item}},(err,result) =>{
+      console.log(err,result)
+    })
+    await User.updateOne({usertoken: userid}, { $push:{[category]: data.id}},(err,result) => {
+      console.log(err,result)
+    })
     
 
     // db[userid].days.find((day) => {
