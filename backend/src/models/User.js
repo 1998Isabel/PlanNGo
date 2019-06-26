@@ -19,7 +19,11 @@ const userSchema = new Schema({
             price: Number,
             location: [Number]
         }
-    }], 
+    }],
+    days: [{
+        id: String, 
+        itemsid: [String]
+    }] 
 })
 // Creating a table within database with the defined schema
 const user = mongoose.model('user', userSchema)

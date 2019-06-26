@@ -1,4 +1,5 @@
-const userList = require('../models/UserList')
+const UserList = require('../models/UserList')
+const User = require('../models/User')
 
 const Query = {
   async loginMatch(parent,args,{db}, info){
@@ -9,7 +10,7 @@ const Query = {
       return 
     }
 
-    return process(await userList.find({hash: args.id}))
+    return process(await UserList.find({hash: args.id}))
     // const result = db["userList"].find((ele) => {
     //   return ele === args.id
     // })
@@ -17,12 +18,22 @@ const Query = {
     
   },
 
-  items(parent, args, {db}, info){
-    return db[args.id].items
+  async items(parent, args, {db}, info){
+    const process = (result) => {
+      console.log("in Query items", result);
+      return result.items;
+    }
+    return process(await User.find({usertoken: args.id}));
+    // return db[args.id].items
   },
   
-  users(parent, args, { db }, info) {
-    return db[args.id]
+  async users(parent, args, { db }, info) {
+    // return db[args.id]
+    const process = (result) => {
+      console.log("in Query users", result);
+      return result;
+    }
+    return process(await User.find({usertoken: args.id}));
   },
 }
 
