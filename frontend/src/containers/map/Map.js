@@ -26,7 +26,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this.props.client.query({ query: MAP_ITEMS, variables: {userID: this.props.user}}).then(result => {
+    this.props.client.query({fetchPolicy='network-only', query: MAP_ITEMS, variables: {userID: this.props.user}}).then(result => {
       const queryplaces = result.data.items.map(item => {
         function lat() { return item.place.location[0] };
         function lng() { return item.place.location[1] };
