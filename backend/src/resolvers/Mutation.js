@@ -18,24 +18,29 @@ const Mutation = {
     }
     else {
       console.log("less days");
-      let days = [];
+      let update_days = [];
       const types = ["eat", "favorite", "accommodation"]
-      for(var i = 0; i < db[userid].totalDays.length+3; i++){
+      for(var i = 0; i < days.length+3; i++){
         if (i>=3) {
-          days.push({
+          update_days.push({
             id: "droppable-"+(i+1).toString(),
             itemsid:[]
           })
         }
         else {
-          const itemsid = db[userid].items.filter(item => item.place.type === types[i]).map(filtered_item=>{return filtered_item.id});
-          days.push({
+          const items = db[userid].items.filter(item => item.place.type === types[i]);
+          console.log("items", items);
+          const itemsid = items.map(item=>{
+            return item.id
+          })
+          console.log("itemsid", itemsid)
+          update_days.push({
             id: "droppable-"+(i+1).toString(),
             itemsid: itemsid
           })
         }
       }
-      db[userid].days = days;
+      db[userid].days = update_days;
     }
 
     // change firstday
