@@ -123,8 +123,8 @@ const Mutation = {
     })
 
     const process = (result) => {
-      console.log("DAYS: ", result.days)
-      console.log("DAYS: ", item)
+      // console.log("DAYS: ", result.days)
+      // console.log("DAYS: ", item)
       pubsub.publish(`item ${userid}`, {
         item: {
           mutation: 'CREATED',
@@ -229,18 +229,27 @@ const Mutation = {
     // const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
     // db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
     
-    // pubsub.publish(`item ${userid}`, {
-    //   item: {
-    //     mutation: 'DELETED',
-    //     data: db[userid].days
-    //   }
-    // })
-    // pubsub.publish(`mapitem ${userid}`, {
-    //   mapitem: {
-    //     mutation: 'DELETED',
-    //     data: delItem
-    //   }
-    // })
+    const process1 = (result) => {
+      pubsub.publish(`item ${userid}`, {
+        item: {
+          mutation: 'DELETED',
+          data: result.days
+        }
+      })
+    }
+    const process2 = (result) => {
+      console.log("Delete Sub",result)
+      // pubsub.publish(`mapitem ${userid}`, {
+      //   mapitem: {
+      //     mutation: 'DELETED',
+      //     data: delItem
+      //   }
+      // })
+    }
+    process1(await User.findOne({usertoken: userid}, "days"))
+    process2(await User.findOne({usertoken: userid}, {"items.$.id":itemId}))
+    
+
 
     //return db[userid]
 
