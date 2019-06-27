@@ -118,7 +118,6 @@ const Mutation = {
     await User.updateOne({usertoken: userid}, {$addToSet: {items: item}},(err,result) =>{
       console.log(err,result)
     })
-    // BUG HERE, ADD TWICE? TO SEE THE BUG CHANGE $addToSet to $push
     await User.updateOne({usertoken: userid}, { $addToSet:{[category]: data.id}},(err,result) => {
       console.log(err,result)
     })
@@ -129,56 +128,73 @@ const Mutation = {
     // }).itemsid.unshift(item.id)
 
     // db[userid].items.push(item)
+    const process = (result) => {
+      console.log("DAYS: ", result.days)
+      console.log("DAYS: ", item)
+      pubsub.publish(`item ${userid}`, {
+        item: {
+          mutation: 'CREATED',
+          data: result.days,
+        }
+      })
+      pubsub.publish(`mapitem ${userid}`, {
+        mapitem: {
+          mutation: 'CREATED',
+          data: item
+        }
+      })
+    }
 
-    // pubsub.publish(`item ${userid}`, {
-    //   item: {
-    //     mutation: 'CREATED',
-    //     data: db[userid].days
-    //   }
-    // })
-    // pubsub.publish(`mapitem ${userid}`, {
-    //   mapitem: {
-    //     mutation: 'CREATED',
-    //     data: item
-    //   }
-    // })
+    process(await User.findOne({usertoken: userid}, "days"));
 
     return item
 
   },
-  updateDnDItem (parent, args, { db, pubsub }, info ) {
+  async updateDnDItem (parent, args, { db, pubsub }, info ) {
     const { userid, data } = args
-    let update_days = db[userid].days
+
+    // let update_days = db[userid].days
+    let update_Days = (await User.findOne({usertoken: userid}, "days"))
+    console.log("CheckDays First",update_Days.days)
     let start_idx;
     let finish_idx;
-    for (var i=0; i < update_days.length; i++) {
-      if (update_days[i].id === data.source_droppableId) {
+    for (var i=0; i < update_Days.days.length; i++) {
+      if (update_Days.days[i].id === data.source_droppableId) {
         start_idx = i;
       }
-      if (update_days[i].id === data.destination_droppableId){
+      if (update_Days.days[i].id === data.destination_droppableId){
         finish_idx = i;
       }
     }
 
     if (start_idx === finish_idx) {
-      update_days[start_idx].itemsid.splice(data.source_index, 1);
-      update_days[start_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+      update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
+      update_Days.days[start_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
     }
     else {
-      update_days[start_idx].itemsid.splice(data.source_index, 1);
-      update_days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+      update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
+      update_Days.days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
     }
-    db[userid].days = update_days;
 
-    // for subscription
-    pubsub.publish(`item ${userid}`, {
-      item: {
-        mutation: 'UPDATED',
-        data: db[userid].days
-      }
+    console.log("CheckDays",update_Days.days)
+    // db[userid].days = update_days;
+    await User.updateOne({usertoken: userid}, {$set: {days: update_Days}},(err,result) =>{
+      console.log("Drag",err,result)
     })
 
-    return db[userid].days
+    // for subscription
+    const process = (result) => {
+      console.log("Drag Sub",result)
+      pubsub.publish(`item ${userid}`, {
+        item: {
+          mutation: 'UPDATED',
+          data: result.days
+        }
+      })
+      return result.days
+    }
+    process(await User.findOne({usertoken: userid}, "days"))
+
   },
   updateItemInfo (parent, args, { db, pubsub }, info ) {
     const { userid, data } = args
@@ -212,7 +228,7 @@ const Mutation = {
     await User.updateOne({usertoken: userid}, { $pull:{[dayID]: itemId}},(err,result) => {
       console.log("DELETE itemid",err,result)
     })
-    //User.deleteOne({usertoken: userid, days: "dro"})
+    // User.deleteOne({usertoken: userid, days: "dro"})
     // const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
     // db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
     
