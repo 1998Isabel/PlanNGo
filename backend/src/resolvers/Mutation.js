@@ -115,12 +115,8 @@ const Mutation = {
       // }
     }
     console.log("CREATING ITEM")
-    await User.updateOne({usertoken: userid}, {$addToSet: {items: item}},(err,result) =>{
-      console.log(err,result)
-    })
-    await User.updateOne({usertoken: userid}, { $addToSet:{[category]: data.id}},(err,result) => {
-      console.log(err,result)
-    })
+    await User.updateOne({usertoken: userid}, {$addToSet: {items: item}})
+    await User.updateOne({usertoken: userid}, {$addToSet:{[category]: data.id}})
 
     const process = (result) => {
       // console.log("DAYS: ", result.days)
@@ -151,13 +147,11 @@ const Mutation = {
     const toPullCol = "days." +  (toPullbuf-1)  + ".itemsid"
     const toPushbuf = data.destination_droppableId.replace( /^\D+/g, '')
     const toPushCol = "days." +  (toPushbuf-1)  + ".itemsid"
+    const dest_id = data.destination_index
     console.log("from,to",toPullCol,toPushCol,data.draggableId)
-    await User.updateOne({usertoken: userid}, { $pull:{[toPullCol]: data.draggableId}},(err,result) => {
-      console.log("Dragged from",err,result)
-    })
-    await User.updateOne({usertoken: userid}, { $addToSet:{[toPushCol]: data.draggableId}},(err,result) => {
-      console.log("Dragged to",err,result)
-    })
+    await User.updateOne({usertoken: userid}, { $pull:{[toPullCol]: data.draggableId}})
+    await User.updateOne({usertoken: userid}, { $push:{[toPushCol]: {$each: [data.draggableId], $position : dest_id}}})
+     
     // let start_idx;
     // let finish_idx;
     // for (var i=0; i < update_Days.days.length; i++) {
