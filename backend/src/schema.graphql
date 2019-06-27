@@ -10,7 +10,7 @@ type Mutation {
   createItem(userid: String!, id: String!, data: CreateItemInput!): Item!
   updateDnDItem(userid: String!, data: UpdateDnDItemInput!): [Day]!
   updateItemInfo(userid: String!, data: UpdateItemInfo!): Item!
-  deleteItem(userid: String!, data: DeleteItemInput!): Users!
+  deleteItem(userid: String!, data: DeleteItemInput!): Users
   updateDate(userid: String!, days: [String]!): Users!
 }
 

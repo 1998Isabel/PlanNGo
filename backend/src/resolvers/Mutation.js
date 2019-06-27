@@ -114,11 +114,12 @@ const Mutation = {
         // location: data.place.location
       // }
     }
-    
+    console.log("CREATING ITEM")
     await User.updateOne({usertoken: userid}, {$addToSet: {items: item}},(err,result) =>{
       console.log(err,result)
     })
-    await User.updateOne({usertoken: userid}, { $push:{[category]: data.id}},(err,result) => {
+    // BUG HERE, ADD TWICE? TO SEE THE BUG CHANGE $addToSet to $push
+    await User.updateOne({usertoken: userid}, { $addToSet:{[category]: data.id}},(err,result) => {
       console.log(err,result)
     })
     
@@ -128,6 +129,7 @@ const Mutation = {
     // }).itemsid.unshift(item.id)
 
     // db[userid].items.push(item)
+
     // pubsub.publish(`item ${userid}`, {
     //   item: {
     //     mutation: 'CREATED',
@@ -198,40 +200,36 @@ const Mutation = {
 
     return db[userid].items[updateindex]
   },
-  deleteItem(parent, args, { db, pubsub }, info) {
+  async deleteItem(parent, args, { db, pubsub }, info) {
     const { itemId, columnId } = args.data
     const { userid } = args
-    const itemsIndex = db[userid].items.findIndex(item=> item.id === itemId);
-    
-    // delete items
-    if (itemsIndex === -1) {
-      throw new Error('Item not found')
-    }
-    const delItem = db[userid].items[itemsIndex]
-    const deletedItems = db[userid].items.splice(itemsIndex, 1);
-
-    // delete items index in day
-    const daysIndex = db[userid].days.findIndex(day => day.id === columnId);
-    if (daysIndex === -1 ){
-      throw new Error('Day not found')
-    }
-    const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
-    db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
-    
-    pubsub.publish(`item ${userid}`, {
-      item: {
-        mutation: 'DELETED',
-        data: db[userid].days
-      }
+    const buf = columnId.replace( /^\D+/g, '')
+    const dayID = "days." +  (buf-1)  + ".itemsid"
+    console.log("deleteItem", dayID,itemId, columnId)
+    await User.updateOne({usertoken: userid}, {$pull: {items: {id: itemId}}},(err,result) =>{
+      console.log("DELETE item",err,result)
     })
-    pubsub.publish(`mapitem ${userid}`, {
-      mapitem: {
-        mutation: 'DELETED',
-        data: delItem
-      }
+    await User.updateOne({usertoken: userid}, { $pull:{[dayID]: itemId}},(err,result) => {
+      console.log("DELETE itemid",err,result)
     })
+    //User.deleteOne({usertoken: userid, days: "dro"})
+    // const itemsIndexinDay = db[userid].days[daysIndex].itemsid.findIndex(itemid => itemid === itemId);
+    // db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
+    
+    // pubsub.publish(`item ${userid}`, {
+    //   item: {
+    //     mutation: 'DELETED',
+    //     data: db[userid].days
+    //   }
+    // })
+    // pubsub.publish(`mapitem ${userid}`, {
+    //   mapitem: {
+    //     mutation: 'DELETED',
+    //     data: delItem
+    //   }
+    // })
 
-    return db[userid]
+    //return db[userid]
 
   },
 }
