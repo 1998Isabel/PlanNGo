@@ -121,13 +121,7 @@ const Mutation = {
     await User.updateOne({usertoken: userid}, { $addToSet:{[category]: data.id}},(err,result) => {
       console.log(err,result)
     })
-    
 
-    // db[userid].days.find((day) => {
-    //   return (day.id === id)
-    // }).itemsid.unshift(item.id)
-
-    // db[userid].items.push(item)
     const process = (result) => {
       console.log("DAYS: ", result.days)
       console.log("DAYS: ", item)
@@ -153,34 +147,37 @@ const Mutation = {
   async updateDnDItem (parent, args, { db, pubsub }, info ) {
     const { userid, data } = args
 
-    // let update_days = db[userid].days
-    let update_Days = (await User.findOne({usertoken: userid}, "days"))
-    console.log("CheckDays First",update_Days.days)
-    let start_idx;
-    let finish_idx;
-    for (var i=0; i < update_Days.days.length; i++) {
-      if (update_Days.days[i].id === data.source_droppableId) {
-        start_idx = i;
-      }
-      if (update_Days.days[i].id === data.destination_droppableId){
-        finish_idx = i;
-      }
-    }
-
-    if (start_idx === finish_idx) {
-      update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
-      update_Days.days[start_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
-    }
-    else {
-      update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
-      update_Days.days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
-    }
-
-    console.log("CheckDays",update_Days.days)
-    // db[userid].days = update_days;
-    await User.updateOne({usertoken: userid}, {$set: {days: update_Days}},(err,result) =>{
-      console.log("Drag",err,result)
+    const toPullbuf = data.source_droppableId.replace( /^\D+/g, '')
+    const toPullCol = "days." +  (toPullbuf-1)  + ".itemsid"
+    const toPushbuf = data.destination_droppableId.replace( /^\D+/g, '')
+    const toPushCol = "days." +  (toPushbuf-1)  + ".itemsid"
+    console.log("from,to",toPullCol,toPushCol,data.draggableId)
+    await User.updateOne({usertoken: userid}, { $pull:{[toPullCol]: data.draggableId}},(err,result) => {
+      console.log("Dragged from",err,result)
     })
+    await User.updateOne({usertoken: userid}, { $addToSet:{[toPushCol]: data.draggableId}},(err,result) => {
+      console.log("Dragged to",err,result)
+    })
+    // let start_idx;
+    // let finish_idx;
+    // for (var i=0; i < update_Days.days.length; i++) {
+    //   if (update_Days.days[i].id === data.source_droppableId) {
+    //     start_idx = i;
+    //   }
+    //   if (update_Days.days[i].id === data.destination_droppableId){
+    //     finish_idx = i;
+    //   }
+    // }
+
+    // if (start_idx === finish_idx) {
+    //   update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
+    //   update_Days.days[start_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+    // }
+    // else {
+    //   update_Days.days[start_idx].itemsid.splice(data.source_index, 1);
+    //   update_Days.days[finish_idx].itemsid.splice(data.destination_index, 0, data.draggableId);
+    // }
+    // db[userid].days = update_days
 
     // for subscription
     const process = (result) => {
