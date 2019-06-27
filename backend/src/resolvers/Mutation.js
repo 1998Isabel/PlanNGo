@@ -212,6 +212,18 @@ const Mutation = {
     const { userid } = args
     const buf = columnId.replace( /^\D+/g, '')
     const dayID = "days." +  (buf-1)  + ".itemsid"
+
+    const process2 = (result) => {
+      console.log("Delete Sub",result.items)
+      pubsub.publish(`mapitem ${userid}`, {
+        mapitem: {
+          mutation: 'DELETED',
+          data: result.items[0]
+        }
+      })
+    }
+    process2(await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1}))
+
     console.log("deleteItem", dayID,itemId, columnId)
     await User.updateOne({usertoken: userid}, {$pull: {items: {id: itemId}}},(err,result) =>{
       console.log("DELETE item",err,result)
@@ -231,17 +243,10 @@ const Mutation = {
         }
       })
     }
-    const process2 = (result) => {
-      console.log("Delete Sub",result)
-      // pubsub.publish(`mapitem ${userid}`, {
-      //   mapitem: {
-      //     mutation: 'DELETED',
-      //     data: delItem
-      //   }
-      // })
-    }
+    
     process1(await User.findOne({usertoken: userid}, "days"))
-    process2(await User.findOne({usertoken: userid}, {"items.$.id":itemId}))
+    // process2(await User.find({usertoken: userid, "items.id": itemId}, {"items.$": 1}))
+    // process2(await User.find({usertoken: userid}, {$match: {"items": {id:itemId}}}))
     
 
 
