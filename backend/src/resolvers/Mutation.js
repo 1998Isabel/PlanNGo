@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4'
+import { prependListener } from 'cluster';
 const UserList = require('../models/UserList')
 const MyMethods = require('../models/User')
 const User = MyMethods.user
@@ -193,26 +194,40 @@ const Mutation = {
     process(await User.findOne({usertoken: userid}, "days"))
 
   },
-  updateItemInfo (parent, args, { db, pubsub }, info ) {
-    const { userid, data } = args
+
+  async updateItemInfo (parent, args, { db, pubsub }, info ) {
+    const { userid } = args
+    const { itemId, description, price, duration } = args.data
     
-    let updateindex = db[userid].items.findIndex(ele => {
-      return ele.id === data.itemid
-    })
-    db[userid].items[updateindex].place.description = data.description;
-    db[userid].items[updateindex].place.price = data.price;
-    db[userid].items[updateindex].place.duration = data.duration;
+    let oldplace = (await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1})).items[0].place
+    // console.log("Old",oldplace)
+    // oldplace.description = description
+    // oldplace.price = price
+    // oldplace.duration = duration
+    // console.log("New",oldplace)
+    // const newPlace = new Place(oldplace)
+    await User.updateOne({usertoken: userid, "items.id": itemId}, {"items.0.place.description": description,"items.0.place.price": price, "items.0.place.duration": duration})
+
+    let newplace = (await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1})).items[0]
+    // let updateindex = db[userid].items.findIndex(ele => {
+    //   return ele.id === data.itemid
+    // })
+    // db[userid].items[updateindex].place.description = data.description;
+    // db[userid].items[updateindex].place.price = data.price;
+    // db[userid].items[updateindex].place.duration = data.duration;
 
     // for subscription
     pubsub.publish(`iteminfo ${userid}`, {
       iteminfo: {
         mutation: 'UPDATED',
-        data: db[userid].items[updateindex]
+        data: newplace
       }
     })
 
-    return db[userid].items[updateindex]
+    // return db[userid].items[updateindex]
+    return newplace
   },
+
   async deleteItem(parent, args, { db, pubsub }, info) {
     const { itemId, columnId } = args.data
     const { userid } = args
@@ -248,13 +263,12 @@ const Mutation = {
           data: result.days
         }
       })
+      return result.days
     }
     
     process1(await User.findOne({usertoken: userid}, "days"))
     // process2(await User.find({usertoken: userid, "items.id": itemId}, {"items.$": 1}))
     // process2(await User.find({usertoken: userid}, {$match: {"items": {id:itemId}}}))
-    
-
 
     //return db[userid]
 

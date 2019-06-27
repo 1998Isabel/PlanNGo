@@ -80,7 +80,7 @@ input UpdateDnDItemInput {
 }
 
 input UpdateItemInfo {
-  itemid: String!
+  itemId: String!
   description: String
   price: Int
   duration: Int

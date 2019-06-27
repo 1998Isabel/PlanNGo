@@ -92,7 +92,7 @@ export const UPDATE_ITEM_INFO = gql`
   updateItemInfo(
     userid: $userid,
     data: {
-      itemid: $itemid,
+      itemId: $itemid,
       description: $description,
       price: $price,
       duration: $duration,
