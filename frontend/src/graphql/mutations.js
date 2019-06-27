@@ -129,3 +129,20 @@ export const DELETE_ITEM = gql`
     }
   }
 `
+
+export const UPDATE_DATE = gql`
+  mutation updateDate(
+    $userid: String!
+    $days: [String]!
+  ) {
+    updateDate(
+      userid: $userid
+      days: $days
+    ) {
+      days {
+        id
+        itemsid
+      }
+    }
+  }
+`

@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
-  updateDate(parent, args, {db}, info){
+  updateDate(parent, args, {db, pubsub}, info){
     const { userid, days } = args
     // const days = data;
     console.log("in updateDate, days: ", days);
@@ -50,6 +50,13 @@ const Mutation = {
       return "droppable-" + (idx+4).toString();
     })
     db[userid].totalDays = totalDays;
+    console.log("DAYS",db[userid].days)
+    pubsub.publish(`item ${userid}`, {
+      item: {
+        mutation: 'UPDATED',
+        data: db[userid].days
+      }
+    })
 
     return db[userid]
   },
