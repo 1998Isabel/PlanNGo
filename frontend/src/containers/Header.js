@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './../App.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { Query } from 'react-apollo'
+import { Query, Mutation } from 'react-apollo'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,7 @@ import PrintIcon from '@material-ui/icons/Print';
 // import SaveIcon from '@material-ui/icons/Save';
 import TodayIcon from '@material-ui/icons/Today';
 import MyDayPick from './../components/MyDayPick'
-import { PROJECT_NAME } from '../graphql'
+import { PROJECT_NAME, UPDATE_DATE } from '../graphql'
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,50 +45,69 @@ export default function Header(props) {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : null;
 
-
   const userID = props.user
-  return(
-      <Query query={PROJECT_NAME} variables={{userID}}>{({loading, error, data, subscribeToMore}) => {
-        if(error) return <div id="left_schedule">error</div>
-        if(loading) return <div id="left_schedule">loading...</div>
-        return (
-          <div className={classes.root}>
-            <AppBar position="relative" className={classes.bar}>
-              <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                  {data.users.projectName}
-                </Typography>
+
+  let updatedate = null
+  function handleDateSummit(days) {
+    console.log(days)
+    console.log(updatedate)
+    updatedate({
+      variables: {
+        userid: userID,
+        days: days
+      }
+    })
+  }
+
+  return (
+    <Query query={PROJECT_NAME} variables={{ userID }}>{({ loading, error, data, subscribeToMore }) => {
+      if (error) return <div id="left_schedule">error</div>
+      if (loading) return <div id="left_schedule">loading...</div>
+      return (
+        <div className={classes.root}>
+          <AppBar position="relative" className={classes.bar}>
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                {data.users.projectName}
+              </Typography>
+              <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
+                <TodayIcon onClick={handleDateClick} />
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleDateClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+                  <Mutation mutation={UPDATE_DATE}>{
+                    updateDate => {
+                      updatedate = updateDate
+                      return (
+                        <MyDayPick InNewProject={false} user={userID} onClick={handleDateSummit} />
+                      )
+                    }
+                  }</Mutation>
+                </Popover>
+              </IconButton>
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
-                  <TodayIcon onClick={handleDateClick}/>
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleDateClose}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
-                    }}
-                  >
-                    <MyDayPick InNewProject={false} user={userID}/>
-                  </Popover>
-                </IconButton>/
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
-                  <PrintIcon/>
-                </IconButton>
-                <Button color="inherit">Login</Button>
-              </Toolbar>
-            </AppBar>
-          </div>
-        );
-      }}</Query>
+                <PrintIcon />
+              </IconButton>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+      );
+    }}</Query>
   )
 }
 

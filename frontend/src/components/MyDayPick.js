@@ -29,6 +29,7 @@ export default class MyDayPick extends Component {
       this.props.daySubmit(days);
     }
     else {
+      this.props.onClick(days)
       // if days.length >= 1, 
       // updateDate mutation here
       // userid = this.props.user

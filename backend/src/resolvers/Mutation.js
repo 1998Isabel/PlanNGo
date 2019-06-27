@@ -42,57 +42,97 @@ const Mutation = {
     })
   },
 
-  updateDate(parent, args, {db}, info){
+  async updateDate(parent, args, {db, pubsub}, info){
     const { userid, days } = args
-    // const days = data;
+    
     console.log("in updateDate, days: ", days);
     // change days: two cases -> more days & less days
-    if (days.length >= db[userid].totalDays.length) {
+    const dayinfo = await User.findOne({usertoken: userid}, "days totalDays items")
+    let olddays = dayinfo.days
+    let totalDays = dayinfo.totalDays
+    let items = dayinfo.items
+    console.log("OLD DAYS",totalDays)
+
+    if (days.length >= totalDays.length) {
       console.log("more days");
-      const more = days.length-db[userid].totalDays.length;
+      const more = days.length - totalDays.length;
       for (var i = 0; i < more; i++){
-        db[userid].days.push({
-          id: "droppable-"+(db[userid].totalDays.length+4+i).toString(),
+        const newdayid = "droppable-"+(totalDays.length+4+i).toString()
+        console.log(newdayid)
+        const newday = {
+          id: newdayid,
           itemsid:[]
-        })        
+        }
+        await User.updateOne({usertoken: userid}, {$push:{days:newday}})
+        await User.updateOne({usertoken: userid}, {$push:{totalDays:newdayid}})
+        // db[userid].days.push({
+        //   id: "droppable-"+(db[userid].totalDays.length+4+i).toString(),
+        //   itemsid:[]
+        // })        
       }
     }
     else {
       console.log("less days");
       let update_days = [];
       const types = ["eat", "favorite", "accommodation"]
+      await User.updateOne({usertoken: userid}, {days:[]})
+      await User.updateOne({usertoken: userid}, {totalDays:[]})
+
       for(var i = 0; i < days.length+3; i++){
         if (i>=3) {
-          update_days.push({
-            id: "droppable-"+(i+1).toString(),
+          const newdayid = "droppable-"+(i+1).toString()
+          const newday = {
+            id: newdayid,
             itemsid:[]
-          })
+          }
+          await User.updateOne({usertoken: userid}, {$push:{days:newday}})
+          await User.updateOne({usertoken: userid}, {$push:{totalDays:newdayid}})
+          // update_days.push({
+          //   id: "droppable-"+(i+1).toString(),
+          //   itemsid:[]
+          // })
         }
         else {
-          const items = db[userid].items.filter(item => item.place.type === types[i]);
-          console.log("items", items);
-          const itemsid = items.map(item=>{
+          const typeitems = items.filter(item => item.place.type === types[i]);
+          // const items = db[userid].items.filter(item => item.place.type === types[i]);
+          console.log("TYPE items", typeitems);
+          const itemsid = typeitems.map(item=>{
             return item.id
           })
           console.log("itemsid", itemsid)
-          update_days.push({
+          const newtypeday = {
             id: "droppable-"+(i+1).toString(),
             itemsid: itemsid
-          })
+          }
+          await User.updateOne({usertoken: userid}, {$push:{days:newtypeday}})
+          // update_days.push({
+          //   id: "droppable-"+(i+1).toString(),
+          //   itemsid: itemsid
+          // })
         }
       }
-      db[userid].days = update_days;
+      // db[userid].days = update_days;
     }
 
     // change firstday
-    db[userid].firstDay = days[0];
-    // change totalDays
-    const totalDays = days.map((day,idx)=>{
-      return "droppable-" + (idx+4).toString();
-    })
-    db[userid].totalDays = totalDays;
+    await User.updateOne({usertoken: userid}, {firstDay:days[0]})
+    // db[userid].firstDay = days[0];
+    // // change totalDays
+    // const totalDays = days.map((day,idx)=>{
+    //   return "droppable-" + (idx+4).toString();
+    // })
+    // db[userid].totalDays = totalDays;
 
-    return db[userid]
+    //for sub
+    const newusers = await User.findOne({usertoken: userid})
+    console.log(newusers)
+    pubsub.publish(`item ${userid}`, {
+      item: {
+        mutation: 'UPDATED',
+        data: newusers.days
+      }
+    })
+    return newusers
   },
   
   async createItem(parent, args, { db, pubsub }, info ) {
@@ -135,7 +175,6 @@ const Mutation = {
         }
       })
     }
-
     process(await User.findOne({usertoken: userid}, "days"));
 
     return item
