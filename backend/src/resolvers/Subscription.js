@@ -29,7 +29,7 @@ const Subscription = {
       // }
       return pubsub.asyncIterator(`mapitem ${userid}`)
     }
-  }
+  },
 }
 
 export { Subscription as default }

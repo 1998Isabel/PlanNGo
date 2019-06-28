@@ -27,25 +27,29 @@ export const ITEM_SUBSCRIPTION = gql`
     item(userid: $userid) {
       mutation
       data {
-        id 
-        itemsid
-        items(id: $id) {
-          id
-          place {
-              name
-              description
-              placeid
-              name
-              type
-              duration
-              photo
-              price
+        days {
+          id 
+          itemsid
+          items(id: $id) {
+            id
+            place {
+                name
+                description
+                placeid
+                name
+                type
+                duration
+                photo
+                price
+            }
           }
         }
+        totalDays
       }
     }
   }
 `
+
 
 export const ITEMINFO_SUBSCRIPTION = gql`
   subscription iteminfo($userid: String!) {

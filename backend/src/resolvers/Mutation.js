@@ -125,13 +125,23 @@ const Mutation = {
 
     //for sub
     const newusers = await User.findOne({usertoken: userid})
-    console.log(newusers)
+    console.log("updatedate user", newusers)
+    // pubsub.publish(`item ${userid}`, {
+    //   item: {
+    //     mutation: 'UPDATED',
+    //     data: newusers.days
+    //   }
+    // })
     pubsub.publish(`item ${userid}`, {
       item: {
         mutation: 'UPDATED',
-        data: newusers.days
+        data: {
+          days: newusers.days,
+          totalDays: newusers.totalDays
+        }
       }
     })
+
     return newusers
   },
   
@@ -162,10 +172,19 @@ const Mutation = {
     const process = (result) => {
       // console.log("DAYS: ", result.days)
       // console.log("DAYS: ", item)
+      // pubsub.publish(`item ${userid}`, {
+      //   item: {
+      //     mutation: 'CREATED',
+      //     data: result.days,
+      //   }
+      // })
       pubsub.publish(`item ${userid}`, {
         item: {
           mutation: 'CREATED',
-          data: result.days,
+          data: {
+            days: result.days,
+            totalDays: result.totalDays
+          }
         }
       })
       pubsub.publish(`mapitem ${userid}`, {
@@ -175,7 +194,7 @@ const Mutation = {
         }
       })
     }
-    process(await User.findOne({usertoken: userid}, "days"));
+    process(await User.findOne({usertoken: userid}, "days totalDays"));
 
     return item
 
@@ -216,15 +235,24 @@ const Mutation = {
     // for subscription
     const process = (result) => {
       console.log("Drag Sub",result)
+      // pubsub.publish(`item ${userid}`, {
+      //   item: {
+      //     mutation: 'UPDATED',
+      //     data: result.days
+      //   }
+      // })
       pubsub.publish(`item ${userid}`, {
         item: {
           mutation: 'UPDATED',
-          data: result.days
+          data: {
+            days: result.days,
+            totalDays: result.totalDays
+          }
         }
       })
       return result.days
     }
-    process(await User.findOne({usertoken: userid}, "days"))
+    process(await User.findOne({usertoken: userid}, "days totalDays"))
 
   },
 
@@ -290,16 +318,25 @@ const Mutation = {
     // db[userid].days[daysIndex].itemsid.splice(itemsIndexinDay, 1)
     
     const process1 = (result) => {
+      // pubsub.publish(`item ${userid}`, {
+      //   item: {
+      //     mutation: 'DELETED',
+      //     data: result.days
+      //   }
+      // })
       pubsub.publish(`item ${userid}`, {
         item: {
           mutation: 'DELETED',
-          data: result.days
+          data: {
+            days: result.days,
+            totalDays: result.totalDays
+          }
         }
       })
       return result.days
     }
     
-    process1(await User.findOne({usertoken: userid}, "days"))
+    process1(await User.findOne({usertoken: userid}, "days totalDays"))
     // process2(await User.find({usertoken: userid, "items.id": itemId}, {"items.$": 1}))
     // process2(await User.find({usertoken: userid}, {$match: {"items": {id:itemId}}}))
 

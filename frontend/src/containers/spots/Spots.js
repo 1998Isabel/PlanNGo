@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Col from './SpotsCol'
 import { Element, scrollSpy, Events, Link } from 'react-scroll';
-import { DAYS_INFO, ITEM_SUBSCRIPTION, ITEMINFO_SUBSCRIPTION } from '../../graphql'
+import { DAYS_INFO, ITEM_SUBSCRIPTION, ITEMINFO_SUBSCRIPTION} from '../../graphql'
 import { Query, Mutation } from 'react-apollo'
 import { listToObjbyID } from '../../util'
 
@@ -70,30 +70,25 @@ class Spots extends Component {
 
         let value = this.state.value;
         if (!this.unsubscribe) {
-          this.unsubscribe = [subscribeToMore({
-            document: ITEM_SUBSCRIPTION,
-            variables: { userid: userID, id: userID },
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) return prev
-              const newDays = subscriptionData.data.item.data
-              prev.users.days = newDays;
-              return {
-                ...prev,
-                days: newDays 
-              }
-            // let update_users = [...prev.users]
-            // update_users = update_users.map(user=>{
-            //     if (user.name!==newPost.author.name) return user
-            //     let temp = user
-            //     temp.posts = [newPost, ...temp.posts]
-            //     return temp
-            // })
-            // console.log(update_users)
-            // return {
-            //     users: update_users
-            // }
-            }
-        }),
+          this.unsubscribe = [ 
+            subscribeToMore({
+              document:  ITEM_SUBSCRIPTION,
+              variables: { userid: userID, id: userID },
+              updateQuery: (prev, { subscriptionData }) => {
+               
+                if (!subscriptionData.data) return prev
+                const newDays = subscriptionData.data.item.data.days;
+                const newtotalDays = subscriptionData.data.item.data.totalDays;
+                console.log("YAAAAAAAAAAAAAA")            
+                prev.users.days = newDays;
+                prev.users.totalDays = newtotalDays;
+                
+                return {
+                  ...prev,
+                  days: newDays,
+                  totalDays: newtotalDays
+                }
+            }}),
         subscribeToMore({
           document: ITEMINFO_SUBSCRIPTION,
           variables: { userid: userID },

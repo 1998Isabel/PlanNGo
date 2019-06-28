@@ -50,6 +50,7 @@ class Schedule extends Component {
   }
 
   unsubscribe = null
+  unsubscribe_date = null
 
   render() {
     const userID = this.props.user
@@ -83,22 +84,26 @@ class Schedule extends Component {
         })
     
         if (!this.unsubscribe) {
-          this.unsubscribe = subscribeToMore({
-            document: ITEM_SUBSCRIPTION,
-            variables: { userid: userID, id: userID },
-            updateQuery: (prev, { subscriptionData }) => {
-             
-              if (!subscriptionData.data) return prev
-              const newDays = subscriptionData.data.item.data
-          
-
-              prev.users.days = newDays;
-           
-              return {
-                ...prev,
-                days: newDays 
-              }
-            }})}
+          this.unsubscribe = 
+            subscribeToMore({
+              document:  ITEM_SUBSCRIPTION,
+              variables: { userid: userID, id: userID },
+              updateQuery: (prev, { subscriptionData }) => {
+                
+                if (!subscriptionData.data) return prev
+                const newDays = subscriptionData.data.item.data.days;
+                const newtotalDays = subscriptionData.data.item.data.totalDays;
+                console.log("YAAAAAAAAAAAAAA")
+                prev.users.days = newDays;
+                prev.users.totalDays = newtotalDays;
+                
+                return {
+                  ...prev,
+                  days: newDays,
+                  totalDays: newtotalDays
+                }
+            }})
+        }
         let scrolllink = () => {
           return (
             <AppBar position="static" color="default">

@@ -15,9 +15,10 @@ type Mutation {
 }
 
 type Subscription {
-  item(userid: String!): ItemSubscriptionPayload!
+  item(userid: String!):  DateSubscriptionPayload!
   iteminfo(userid: String!): ItemInfoSubscriptionPayload!
   mapitem(userid: String!): MapItemSubscriptionPayload!
+  date(userid: String!): DateSubscriptionPayload!
 }
 type Users {
   projectName: String!
@@ -108,4 +109,14 @@ type ItemInfoSubscriptionPayload {
 type MapItemSubscriptionPayload {
   mutation: MutationType!
   data: Item!
+}
+
+type DateSubscriptionPayload {
+  mutation: MutationType!
+  data: DateSub!
+}
+
+type DateSub {
+  days: [Day]
+  totalDays: [String]
 }
