@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
+import socketIOClient from "socket.io-client";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -62,6 +63,9 @@ class SimpleCard extends Component {
     // console.log(name, event.target.value)
     this.setState({ [name]: event.target.value });
   };
+  handleCardClick = () => {
+    this.props.socket.emit("cardclick", this.props.id)
+  }
   showtypeicon = () => {
     if (this.props.place.type === "eat")
       return (
@@ -83,7 +87,9 @@ class SimpleCard extends Component {
         {provided => (
           <Card className="test-card-root" {...provided.dragHandleProps}
             {...provided.draggableProps}
-            ref={provided.innerRef}>
+            ref={provided.innerRef}
+            onClick={this.handleCardClick}
+            >
             <CardContent>
               <Mutation mutation={DELETE_ITEM}>{
                 deleteItem => {

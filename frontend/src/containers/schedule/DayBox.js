@@ -23,6 +23,7 @@ class DayBox extends Component {
     let items = null;
 		if (this.props.items.length != 0) {
 			items = this.props.items.map((item, index) => <Item
+        socket={this.props.socket}
         user={userID}
 				id={item.id} key={item.id} 
 				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}/>);

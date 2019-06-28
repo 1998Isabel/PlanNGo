@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import isEmpty from 'lodash.isempty';
+import socketIOClient from "socket.io-client";
 
 // components:
 // import Marker from './Marker';
@@ -22,6 +23,7 @@ class Map extends Component {
       mapInstance: null,
       mapApi: null,
       places: [],
+      center: TAIPEI_NTU_CENTER,
     };
   }
 
@@ -74,6 +76,19 @@ class Map extends Component {
           places.splice(delindex, 1);
           this.setState({places: places});
       }
+    })
+
+    this.props.socket.on("placeclick", (data) => {
+      console.log("Card_Click", data)
+      const places = this.state.places
+      const index = places.findIndex(ele => {
+        return ele.id === data
+      })
+      places[index].show = true
+      this.setState({places: places})
+      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(),places[index].geometry.location.lng()));
+      this.state.mapInstance.setZoom(15);
+      // this.setState({center: places[index].geometry.location})
     })
   }
 
@@ -149,7 +164,7 @@ class Map extends Component {
         )}
         <GoogleMap
           defaultZoom={12}
-          defaultCenter={TAIPEI_NTU_CENTER}
+          defaultCenter={this.state.center}
           bootstrapURLKeys={{
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],
