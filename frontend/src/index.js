@@ -7,11 +7,9 @@ import { split } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
-import gql from 'graphql-tag';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
 // Create an http link:
 const httpLink = new HttpLink({
     uri: 'http://localhost:4000/'

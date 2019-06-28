@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './../App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Query, Mutation } from 'react-apollo'
@@ -14,7 +14,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import TodayIcon from '@material-ui/icons/Today';
 import MyDayPick from './../components/MyDayPick'
 import { PROJECT_NAME, UPDATE_DATE } from '../graphql'
-
+import {withRouter} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Header(props) {
+function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -42,6 +42,11 @@ export default function Header(props) {
   function handleDateClose() {
     setAnchorEl(null);
   }
+  const onLogout = () => {
+    sessionStorage.clear()
+    props.history.push("/")
+  }
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : null;
 
@@ -102,7 +107,7 @@ export default function Header(props) {
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
                 <PrintIcon />
               </IconButton>
-              <Button color="inherit">Login</Button>
+              <Button onClick={onLogout} color="inherit">Logout</Button>
             </Toolbar>
           </AppBar>
         </div>
@@ -111,9 +116,4 @@ export default function Header(props) {
   )
 }
 
-
-
-
-
-
-// export default Header;
+export default withRouter(Header);
