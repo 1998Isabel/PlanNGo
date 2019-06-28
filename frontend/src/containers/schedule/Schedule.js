@@ -61,9 +61,12 @@ class Schedule extends Component {
         const totalDays = data.users.totalDays;
         const daysInfo = listToObjbyID(data.users.days);
         //string to date object
+        console.log("firstDay before!!!!!!",data.users.firstDay)
         const firstDay = data.users.firstDay.split("/");
+        console.log("firstDay after!!!!!!",firstDay)
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        var date_obj = new Date(Date.UTC(firstDay[0], firstDay[1], firstDay[2]));
+        var date_obj = new Date(Date.UTC(firstDay[0], parseInt(firstDay[1])-1, firstDay[2]));
+        console.log("date_obj",date_obj)
 
         console.log(totalDays)
         let renderCols = totalDays.map((colId, index) => {

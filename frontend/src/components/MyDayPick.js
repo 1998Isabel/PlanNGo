@@ -17,11 +17,11 @@ export default class MyDayPick extends Component {
 
     let days = []
     let day = this.state.from
-    days.push(day.toLocaleDateString())
+    days.push(moment(day).format('YYYY/MM/DD'))
     while (!moment(day).isSame(this.state.to)) {
       day = moment(day).add(1, 'days').toDate()
       // console.log(day)
-      days.push(day.toLocaleDateString());
+      days.push(moment(day).format('YYYY/MM/DD'));
       // console.log(days)
     }
     this.setState({days: days})
@@ -61,8 +61,8 @@ export default class MyDayPick extends Component {
           {from && !to && 'Please select the last day.'}
           {from &&
             to &&
-            `${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
+            `${moment(from).format('YYYY/MM/DD')} to
+                ${moment(to).format('YYYY/MM/DD')}`}{' '}
           {from &&
             to && (
               <button className="link" onClick={this.handleResetClick}>
