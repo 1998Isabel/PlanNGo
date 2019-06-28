@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import socketIOClient from "socket.io-client";
 import { DragDropContext } from 'react-beautiful-dnd';
 import './../App.css';
 import Schedule from './schedule/Schedule'
@@ -89,6 +90,7 @@ class Main extends Component {
   }
   
   render() {
+    const socket = socketIOClient("http://localhost:4001/")
     if (this.props.user == undefined) {
       return <Redirect to="/login"/>;
     }
@@ -100,9 +102,9 @@ class Main extends Component {
           return (
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className="main">
-                <Schedule user = {this.props.user} col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
-                <Spots user = {this.props.user} col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
-                <Map user = {this.props.user}/>
+                <Schedule socket={socket} user = {this.props.user} col={this.state.schedule_columns} items={this.state.items} columnOrder={this.state.dayOrder} handleDelete={this.handleDelete}/>
+                <Spots socket={socket} user = {this.props.user} col={this.state.spots_columns} items={this.state.items} columnOrder={this.state.columnOrder} handleDelete={this.handleDelete}/>
+                <Map socket={socket} user = {this.props.user}/>
               </div>
             </DragDropContext>
           );

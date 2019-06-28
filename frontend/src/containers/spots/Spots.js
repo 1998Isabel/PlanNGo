@@ -65,7 +65,7 @@ class Spots extends Component {
         let renderCols = totalTypes.map(colId => {
           const column = daysInfo[colId];
           const items = column.items;
-          return (<Col user={userID} key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
+          return (<Col socket={this.props.socket} user={userID} key={column.id} column={column} items={items} handleDelete={this.handleDelete}/>);
         })
 
         let value = this.state.value;

@@ -64,6 +64,9 @@ class SimpleCard extends Component {
     // console.log(name, event.target.value)
     this.setState({ [name]: event.target.value });
   };
+  handleCardClick = () => {
+    this.props.socket.emit("cardclick", this.props.id)
+  }
 
   render() {
     const { place } = this.props;
@@ -73,7 +76,9 @@ class SimpleCard extends Component {
         {provided => (
           <Card className="test-card-root" {...provided.dragHandleProps}
             {...provided.draggableProps}
-            ref={provided.innerRef}>
+            ref={provided.innerRef}
+            onClick={this.handleCardClick}
+            >
             <CardContent>
             <Mutation mutation={DELETE_ITEM}>{
                 deleteItem => {

@@ -77,7 +77,7 @@ class Schedule extends Component {
           console.log("schedule", date)
           return (
             <Element key={column.id} name={dayelement} className="element">
-              <DayBox date={date} user={userID} key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
+              <DayBox socket={this.props.socket} date={date} user={userID} key={column.id} column={column} items={items} index={index + 1} name={dayelement} handleDelete={this.handleDelete} />
             </Element>
           );
         })
