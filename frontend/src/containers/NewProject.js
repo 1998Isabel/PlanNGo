@@ -10,6 +10,7 @@ import MyDayPick from './../components/MyDayPick'
 import CryptoJS from 'crypto-js';
 import { LOGIN_MATCH } from '../graphql/queries';
 import { CREATE_USER } from '../graphql';
+import '../App.css'
 const styles = {
     fab: {
       margin: 1
@@ -119,42 +120,46 @@ class NewProject extends React.Component{
                 <div className={classes.outWrapper}>
                     <div className={classes.innerWrapper}>
                         <form className={classes.container} noValidate autoComplete="off">
-                            <div><TextField
-                                    id="project_name"
-                                    label="Project Name"
-                                    className={classes.textField}
-                                    onChange={this.handleUserChange}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input
-                                    }}
-                                /></div>
-                            <div><TextField
-                                    id="password"
-                                    label="Password"
-                                    className={classes.textField}
-                                    onChange={this.handlePasswordChange}
-                                    type="password"
-                                    autoComplete="current-password"
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input
-                                    }}
-                                /></div>
-                            <div><TextField
-                                    id="destination"
-                                    label="Destination (optional)"
-                                    className={classes.textField}
-                                    onChange={this.handleDestinationChange}
-                                    margin="normal"
-                                    variant="outlined"
-                                    InputProps={{
-                                        className: classes.input
-                                    }}
-                                /></div>
-                            <div><MyDayPick daySubmit={this.handleDaySubmit} InNewProject={true}/></div>
+                            <div className="project-wrapper">
+                                <div className="project-wrapper-col">
+                                    <div><TextField
+                                            id="project_name"
+                                            label="Project Name"
+                                            className={classes.textField}
+                                            onChange={this.handleUserChange}
+                                            margin="normal"
+                                            variant="outlined"
+                                            InputProps={{
+                                                className: classes.input
+                                            }}
+                                        /></div>
+                                    <div><TextField
+                                            id="password"
+                                            label="Password"
+                                            className={classes.textField}
+                                            onChange={this.handlePasswordChange}
+                                            type="password"
+                                            autoComplete="current-password"
+                                            margin="normal"
+                                            variant="outlined"
+                                            InputProps={{
+                                                className: classes.input
+                                            }}
+                                        /></div>
+                                    <div><TextField
+                                            id="destination"
+                                            label="Destination (optional)"
+                                            className={classes.textField}
+                                            onChange={this.handleDestinationChange}
+                                            margin="normal"
+                                            variant="outlined"
+                                            InputProps={{
+                                                className: classes.input
+                                            }}
+                                        /></div>
+                                </div>
+                                <div className="project-wrapper-col"><MyDayPick daySubmit={this.handleDaySubmit} InNewProject={true}/></div>
+                            </div>
                         </form>
                         <div className={classes.loginWrapper}>
                             <Fab onClick={this.onSubmit} color="primary" variant="extended" aria-label="create" className={classes.fab}>

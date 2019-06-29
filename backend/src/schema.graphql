@@ -119,4 +119,5 @@ type DateSubscriptionPayload {
 type DateSub {
   days: [Day]
   totalDays: [String]
+  firstDay: String
 }

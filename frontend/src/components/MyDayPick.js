@@ -24,7 +24,7 @@ export default class MyDayPick extends Component {
       days.push(moment(day).format('YYYY/MM/DD'));
       // console.log(days)
     }
-    this.setState({days: days})
+    this.setState({days: days, submitted:true})
     if (this.props.InNewProject) {
       this.props.daySubmit(days);
     }
@@ -41,6 +41,7 @@ export default class MyDayPick extends Component {
       from: undefined,
       to: undefined,
       days: [],
+      submitted: false
     };
   }
   handleDayClick = (day) => {
@@ -63,19 +64,21 @@ export default class MyDayPick extends Component {
             to &&
             `${moment(from).format('YYYY/MM/DD')} to
                 ${moment(to).format('YYYY/MM/DD')}`}{' '}
-          {from &&
-            to && (
-              <button className="link" onClick={this.handleResetClick}>
-                Reset
-              </button>
+          
+            {from &&
+              to && (
+                <button className="link" onClick={this.handleResetClick}>
+                  Reset
+                </button>
+              )}
+            {from &&
+              to && (
+            <button className="link" onClick={this.getRangeDays}>
+              Submit
+            </button>
             )}
-          {from &&
-            to && (
-          <button className="link" onClick={this.getRangeDays}>
-            Submit
-          </button>
-          )}
         </p>
+        {this.state.submitted?<p>Submitted successfully!</p>:<p></p>}
         <DayPicker
           className="Selectable"
           numberOfMonths={this.props.numberOfMonths}

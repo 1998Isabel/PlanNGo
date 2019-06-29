@@ -137,7 +137,8 @@ const Mutation = {
         mutation: 'UPDATED',
         data: {
           days: newusers.days,
-          totalDays: newusers.totalDays
+          totalDays: newusers.totalDays,
+          firstDay:  newusers.firstDay
         }
       }
     })
@@ -183,7 +184,8 @@ const Mutation = {
           mutation: 'CREATED',
           data: {
             days: result.days,
-            totalDays: result.totalDays
+            totalDays: result.totalDays,
+            firstDay:  result.firstDay
           }
         }
       })
@@ -246,7 +248,8 @@ const Mutation = {
           mutation: 'UPDATED',
           data: {
             days: result.days,
-            totalDays: result.totalDays
+            totalDays: result.totalDays,
+            firstDay:  result.firstDay
           }
         }
       })
@@ -329,7 +332,8 @@ const Mutation = {
           mutation: 'DELETED',
           data: {
             days: result.days,
-            totalDays: result.totalDays
+            totalDays: result.totalDays,
+            firstDay:  result.firstDay
           }
         }
       })

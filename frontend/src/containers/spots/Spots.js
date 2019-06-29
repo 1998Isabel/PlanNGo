@@ -86,7 +86,8 @@ class Spots extends Component {
                 return {
                   ...prev,
                   days: newDays,
-                  totalDays: newtotalDays
+                  totalDays: newtotalDays,
+                  firstDay: subscriptionData.data.item.data.firstDay
                 }
             }}),
         subscribeToMore({

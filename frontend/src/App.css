@@ -237,3 +237,16 @@ header {
   border-top-right-radius: 50% !important;
   border-bottom-right-radius: 50% !important;
 }
+
+.project-wrapper {
+  margin: 0px auto;/*div對齊效果*/
+  text-align: center;/*display: inline對齊效果*/
+}
+.project-wrapper-col{
+  display: inline-block;/*讓div並排*/ 
+  vertical-align: middle;
+  /* width: 130px;
+  height: 150px; */
+  height: 100%;
+  margin: 2em;
+}

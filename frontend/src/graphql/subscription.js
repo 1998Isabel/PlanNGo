@@ -45,6 +45,7 @@ export const ITEM_SUBSCRIPTION = gql`
           }
         }
         totalDays
+        firstDay
       }
     }
   }
