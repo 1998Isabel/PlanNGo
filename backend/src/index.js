@@ -37,6 +37,10 @@ db.once('open', () => {
         socket.emit('placeclick', data)
       })
 
+      socket.on('route', (data) => {
+        socket.emit('routeMap', (data))
+      })
+
     })
 })
 const server = new GraphQLServer({

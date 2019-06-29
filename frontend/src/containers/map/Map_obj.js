@@ -15,8 +15,6 @@ import { MAP_ITEMS, MAPITEM_SUBSCRIPTION } from '../../graphql';
 // consts
 const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
 
-let markers = [];
-
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -73,10 +71,14 @@ class Map extends Component {
         this.addPlaceFromQuery(place);
       }
       else {
-        const { places } = this.state;
+        const { places, markers } = this.state;
           const delindex = places.findIndex(ele => ele.id === subplace.id)
           places.splice(delindex, 1);
-          this.setState({places: places});
+          markers.splice(delindex, 1)
+          this.setState({
+            places: places,
+            markers: markers,
+          });
       }
     })
 
@@ -90,35 +92,34 @@ class Map extends Component {
       this.setState({places: places})
       this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(),places[index].geometry.location.lng()));
       this.state.mapInstance.setZoom(15);
-      // this.setState({center: places[index].geometry.location})
     })
 
-    // this.props.socket.on("routeMap", (data) => {
-    //   console.log(data)
-    //   let map = this.state.mapInstance;
-	  //   let maps = this.state.mapApi;
-	  //   console.log(this.state.places[0].geometry.location)
-	  //   let directionsService = new maps.DirectionsService();
-	  //   let directionsDisplay = new maps.DirectionsRenderer();
-	  //   directionsDisplay.setMap(map)
-	  //   const waypts = [{location: "Taipei Main Station", stopover: true}]
-	  //   directionsService.route(
-	  //     {
-	  //       origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
-	  //       destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
-	  //       waypoints: waypts,
-	  //       travelMode: maps.TravelMode.DRIVING
-	  //     },
-	  //     function(response, status) {
-	  //       console.log(response)
-	  //       if (status === 'OK') {
-	  //         directionsDisplay.setDirections(response);
-	  //       } else {
-	  //         window.alert('Directions request failed due to ' + status);
-	  //       }
-	  //     }
-	  //   )
-    // })
+    this.props.socket.on("routeMap", (data) => {
+      console.log(data)
+      let map = this.state.mapInstance;
+	    let maps = this.state.mapApi;
+	    console.log(this.state.places[0].geometry.location)
+	    let directionsService = new maps.DirectionsService();
+	    let directionsDisplay = new maps.DirectionsRenderer();
+	    directionsDisplay.setMap(map)
+	    const waypts = [{location: "Taipei Main Station", stopover: true}]
+	    directionsService.route(
+	      {
+	        origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
+	        destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
+	        waypoints: waypts,
+	        travelMode: maps.TravelMode.DRIVING
+	      },
+	      function(response, status) {
+	        console.log(response)
+	        if (status === 'OK') {
+	          directionsDisplay.setDirections(response);
+	        } else {
+	          window.alert('Directions request failed due to ' + status);
+	        }
+	      }
+	    )
+    })
   }
 
   apiHasLoaded = (map, maps, places) => {
@@ -127,6 +128,38 @@ class Map extends Component {
       mapInstance: map,
       mapApi: maps,
     });
+
+    const markers = [];
+    console.log("MAP", places)
+		places.forEach((place) => {
+      markers.push(new maps.Marker({
+        map: map,
+				position: {
+					lat: place.geometry.location.lat(),
+					lng: place.geometry.location.lng(),
+				},
+			}));
+		});
+	
+		markers.forEach((marker, i) => {
+			marker.addListener('click', () => {
+        console.log("Click", i)
+				this.setState((state) => {
+          // console.log(state)
+          const index = state.places.findIndex(e => e.id === i);
+          // console.log(index)
+          // console.log(index)
+          if (index < 0) {
+            return;
+          }
+          map.setCenter(new maps.LatLng(state.places[index].geometry.location.lat(),state.places[index].geometry.location.lng()));
+          map.setZoom(15);
+          state.places[i].show = !state.places[i].show; // eslint-disable-line no-param-reassign
+          return { places: state.places };
+        });
+      });
+    });
+    this.setState({markers: markers})
   };
 
   addPlaceFromQuery = (place) => {
@@ -158,12 +191,32 @@ class Map extends Component {
       place.show = true
       place.fromSearch = true
       places.push(place)
+      let newmarker = new this.state.mapApi.Marker({
+        map: this.state.mapInstance,
+				position: {
+					lat: place.geometry.location.lat(),
+					lng: place.geometry.location.lng(),
+				},
+      })
+      newmarker.addListener('click', () => {
+				this.setState((state) => {
+          console.log("Click", state.places.length - 1)
+          map.setCenter(new maps.LatLng(state.places[index].geometry.location.lat(),state.places[index].geometry.location.lng()));
+          map.setZoom(15);
+          state.places[state.places.length - 1].show = !state.places[state.places.length - 1].show; // eslint-disable-line no-param-reassign
+          return { places: state.places };
+        });
+      });
+      markers.push(newmarker)
     }
     else {
       console.log("find exist: ", findplace)
       places[findplace].show = true
     }
-    this.setState({ places: places });
+    this.setState({ 
+      places: places,
+      markers: markers
+    });
   };
 
   // onChildClick callback can take two arguments: key and childProps
@@ -184,17 +237,11 @@ class Map extends Component {
   };
 
   showMarker = (places) => {
-    const { mapInstance, mapApi } = this.state
-    if(!(mapApi && mapInstance)) return
-    // clear marker
-    for (var i = 0; i < markers.length; i++ ) {
-      markers[i].setMap(null);
-    }
-    markers = [];
+    const markers = [];
     console.log("MAP", places)
 		places.forEach((place) => {
-      markers.push(new mapApi.Marker({
-        map: mapInstance,
+      markers.push(new this.state.mapApi.Marker({
+        map: this.state.mapInstance,
 				position: {
 					lat: place.geometry.location.lat(),
 					lng: place.geometry.location.lng(),
@@ -206,10 +253,15 @@ class Map extends Component {
 			marker.addListener('click', () => {
         console.log("Click", i)
 				this.setState((state) => {
-          console.log("In Click", state.places)
-          
-          state.mapInstance.setCenter(new mapApi.LatLng(state.places[i].geometry.location.lat(),state.places[i].geometry.location.lng()));
-          state.mapInstance.setZoom(15);
+          // console.log(state)
+          const index = state.places.findIndex(e => e.id === i);
+          // console.log(index)
+          // console.log(index)
+          if (index < 0) {
+            return;
+          }
+          this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(state.places[index].geometry.location.lat(),state.places[index].geometry.location.lng()));
+          this.state.mapInstance.setZoom(15);
           state.places[i].show = !state.places[i].show; // eslint-disable-line no-param-reassign
           return { places: state.places };
         });
@@ -238,7 +290,6 @@ class Map extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps, places)}
         >
-          {this.showMarker(places)}
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo
