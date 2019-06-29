@@ -26,10 +26,6 @@ class Schedule extends Component {
   handleChange = (event, newValue) => {
     this.setState({value: newValue})
   }
-  handleRoute = () => {
-    const data = "route"
-    this.props.socket.emit("route", data)
-  }
   scrollToWithContainer(day) {
     let goToContainer = new Promise((resolve, reject) => {
       Events.scrollEvent.register('end', () => {
@@ -141,7 +137,6 @@ class Schedule extends Component {
             <div>
               <Typography variant="h5" gutterBottom style={{ marginLeft: '10px', marginTop: '10px' }}>
                 Schedule
-                <span onClick={this.handleRoute}><RouteButton /></span>
               </Typography>
               {scrolllink()}
             </div>

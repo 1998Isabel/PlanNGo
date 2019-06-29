@@ -4,6 +4,7 @@ import './../../App.css';
 import Item from './../../components/ScheduleCard'
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import RouteButton from './../../components/RouteButton'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
@@ -14,10 +15,21 @@ import Typography from '@material-ui/core/Typography';
 class DayBox extends Component {
   constructor(props) {
     super(props);
+    const directioninfo = []
   }
+  componentDidMount() {
+    this.props.socket.on("getRouteDetail", (data) => {
+      if(data) directioninfo = data
+    })
+  }
+
   handleDelete = (id, colid) => {
 		this.props.handleDelete(id, colid)
-	}
+  }
+  handleRoute = () => {
+    const data = this.props.column.id
+    this.props.socket.emit("route", data)
+  }
   render() {
     const userID = this.props.user
     let items = null;
@@ -26,13 +38,15 @@ class DayBox extends Component {
         socket={this.props.socket}
         user={userID}
 				id={item.id} key={item.id} 
-				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}/>);
+				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}
+        detail={directioninfo[index]} />);
     }
     const day = "DAY"+this.props.index;
     return (
       <div>
         <ListItem>
           <ListItemText primary={day} secondary={this.props.date} />
+          <span onClick={this.handleRoute}><RouteButton /></span>
         </ListItem>
         <Divider component="li" variant="inset"/>
         <li>

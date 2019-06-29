@@ -28,6 +28,7 @@ class SimpleCard extends Component {
     super(props);
     this.state = {
       expanded: false,
+      expanded2: false,
       anchorEl: null,
       note: this.props.place.description,
       price: this.props.place.price + "",
@@ -40,6 +41,7 @@ class SimpleCard extends Component {
   }
   handleDeleteClick = () => {
     console.log("Delete")
+    this.props.socket.emit("resetRoute", "reset from delete")
     this.deleteItem({
       variables: {
         userid: this.props.user,

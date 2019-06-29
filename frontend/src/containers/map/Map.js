@@ -10,12 +10,15 @@ import MarkerInfo from './MarkerInfo'
 import GoogleMap from './GoogleMap';
 import Search from './Search';
 import { withApollo } from 'react-apollo';
-import { MAP_ITEMS, MAPITEM_SUBSCRIPTION } from '../../graphql';
+import { MAP_ITEMS, MAPITEM_SUBSCRIPTION, ROUTE_ITEMS } from '../../graphql';
 
 // consts
 const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
 
-let markers = [];
+var markers = [];
+var dir_markers = [];
+var dir_infowindows = [];
+var directions = [];
 
 class Map extends Component {
   constructor(props) {
@@ -30,7 +33,8 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this.props.client.query({fetchPolicy:'network-only', query: MAP_ITEMS, variables: {userID: this.props.user}}).then(result => {
+    this.props.client.query({ fetchPolicy: 'network-only', query: MAP_ITEMS, variables: { userID: this.props.user } }).then(result => {
+      this.resetDirection()
       const queryplaces = result.data.items.map(item => {
         function lat() { return item.place.location[0] };
         function lng() { return item.place.location[1] };
@@ -73,10 +77,11 @@ class Map extends Component {
         this.addPlaceFromQuery(place);
       }
       else {
+        this.resetDirection()
         const { places } = this.state;
-          const delindex = places.findIndex(ele => ele.id === subplace.id)
-          places.splice(delindex, 1);
-          this.setState({places: places});
+        const delindex = places.findIndex(ele => ele.id === subplace.id)
+        places.splice(delindex, 1);
+        this.setState({ places: places });
       }
     })
 
@@ -87,38 +92,113 @@ class Map extends Component {
         return ele.id === data
       })
       places[index].show = true
-      this.setState({places: places})
-      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(),places[index].geometry.location.lng()));
+      this.setState({ places: places })
+      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(), places[index].geometry.location.lng()));
       this.state.mapInstance.setZoom(15);
       // this.setState({center: places[index].geometry.location})
     })
 
-    // this.props.socket.on("routeMap", (data) => {
-    //   console.log(data)
-    //   let map = this.state.mapInstance;
-	  //   let maps = this.state.mapApi;
-	  //   console.log(this.state.places[0].geometry.location)
-	  //   let directionsService = new maps.DirectionsService();
-	  //   let directionsDisplay = new maps.DirectionsRenderer();
-	  //   directionsDisplay.setMap(map)
-	  //   const waypts = [{location: "Taipei Main Station", stopover: true}]
-	  //   directionsService.route(
-	  //     {
-	  //       origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
-	  //       destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
-	  //       waypoints: waypts,
-	  //       travelMode: maps.TravelMode.DRIVING
-	  //     },
-	  //     function(response, status) {
-	  //       console.log(response)
-	  //       if (status === 'OK') {
-	  //         directionsDisplay.setDirections(response);
-	  //       } else {
-	  //         window.alert('Directions request failed due to ' + status);
-	  //       }
-	  //     }
-	  //   )
-    // })
+    this.props.socket.on("routeMap", (data) => {
+      console.log("DAY id", data)
+      let map = this.state.mapInstance;
+      let maps = this.state.mapApi;
+      let places = this.state.places;
+
+      this.props.client.query({ fetchPolicy: 'network-only', query: ROUTE_ITEMS, variables: { userID: this.props.user, dayID: data } }).then(result => {
+        console.log("ROUTE ITEMS", result)
+        const day = result.data.days
+        console.log("ROUTE DAY", day.id)
+        const dayroute = []
+        day.itemsid.forEach((itemid, j) => {
+          dayroute.push(places.find(ele => (ele.id === itemid)))
+        })
+        if (dayroute.length > 1) {
+          let details = []
+          for (let i = 1; i < dayroute.length; i++) {
+            console.log("ROUTE", i)
+            let directionsService = new maps.DirectionsService();
+            let directionsDisplay = new maps.DirectionsRenderer({
+              suppressMarkers: true
+            });
+            directions.push(directionsDisplay)
+            directionsDisplay.setMap(map)
+            const origin = {
+              lat: dayroute[i - 1].geometry.location.lat(),
+              lng: dayroute[i - 1].geometry.location.lng(),
+            };
+            const destination = {
+              lat: dayroute[i].geometry.location.lat(),
+              lng: dayroute[i].geometry.location.lng(),
+            };
+            directionsService.route(
+              {
+                origin: origin,
+                destination: destination,
+                travelMode: 'TRANSIT'
+              },
+              (response, status) => {
+                console.log(response.routes)
+                if (status === 'OK') {
+                  console.log(status)
+                  const detail = {
+                    id: day.itemsid[i],
+                    distance: response.routes[0].legs[0].distance.text,
+                    duration: response.routes[0].legs[0].duration.text,
+                  }
+                  details.push(detail)
+                  if (i === dayroute.length-1 ){
+                    console.log("DETAILS INSIDE", details)
+                    this.sendDirectInfo(details)
+                  }
+                  const steps = response.routes[0].legs[0].steps;
+                  const len = dir_markers.length;
+                  steps.forEach((e, i) => {
+                    const idx = i + len
+
+                    // 加入地圖標記
+                    dir_markers.push(new maps.Marker({
+                      position: { lat: e.start_location.lat(), lng: e.start_location.lng() },
+                      map: map,
+                      label: { text: idx + '', color: "#fff" }
+                    }));
+                    // 加入資訊視窗
+                    dir_infowindows.push(new maps.InfoWindow({
+                      content: e.instructions
+                    }));
+                    // console.log(dir_markers.length, dir_infowindows.length, idx);
+                    // 加入地圖標記點擊事件
+                    dir_markers[idx].addListener('click', function () {
+                      if (dir_infowindows[idx].anchor) {
+                        dir_infowindows[idx].close();
+                      } else {
+                        dir_infowindows[idx].open(map, dir_markers[idx]);
+                      }
+                    });
+                  });
+                  // console.log("Steps", steps);
+                  directionsDisplay.setDirections(response);
+                }
+                else {
+                  window.alert('Directions request failed due to ' + status);
+                }
+              }
+            )
+            // .then(() => {
+            //   if (i === dayroute.length-1 )
+            //     console.log("DETAILS INSIDE", details)
+            //     this.sendDirectInfo(details)
+            // })
+          }
+          // console.log("DETAILS INSIDE", details)
+          // this.sendDirectInfo(details)
+        }
+      })
+    })
+    this.props.socket.on("resetDirect", (data) => {
+      console.log("Reset Route", data)
+      this.resetDirection()
+      this.sendDirectInfo(null)
+    })
   }
 
   apiHasLoaded = (map, maps, places) => {
@@ -140,7 +220,7 @@ class Map extends Component {
     }
     else {
       console.log("Remove from search: ", findplace)
-      places.splice(findplace,1);
+      places.splice(findplace, 1);
       place.show = false;
       console.log(place)
       places.push(place);
@@ -176,45 +256,65 @@ class Map extends Component {
       if (index < 0) {
         return;
       }
-      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(state.places[index].geometry.location.lat(),state.places[index].geometry.location.lng()));
+      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(state.places[index].geometry.location.lat(), state.places[index].geometry.location.lng()));
       this.state.mapInstance.setZoom(15);
       state.places[index].show = !state.places[index].show; // eslint-disable-line no-param-reassign
       return { places: state.places };
     });
   };
 
+  sendDirectInfo = (details) => {
+    console.log("EMIT DETAILS", details)
+    this.props.socket.emit("setRouteDetail", details)
+  }
+
   showMarker = (places) => {
     const { mapInstance, mapApi } = this.state
-    if(!(mapApi && mapInstance)) return
+    if (!(mapApi && mapInstance)) return
     // clear marker
-    for (var i = 0; i < markers.length; i++ ) {
-      markers[i].setMap(null);
-    }
+    markers.forEach(mark => {
+      mark.setMap(null);
+    })
     markers = [];
     console.log("MAP", places)
-		places.forEach((place) => {
+    places.forEach((place) => {
       markers.push(new mapApi.Marker({
         map: mapInstance,
-				position: {
-					lat: place.geometry.location.lat(),
-					lng: place.geometry.location.lng(),
-				},
-			}));
-		});
-	
-		markers.forEach((marker, i) => {
-			marker.addListener('click', () => {
+        position: {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        },
+      }));
+    });
+
+    markers.forEach((marker, i) => {
+      marker.addListener('click', () => {
         console.log("Click", i)
-				this.setState((state) => {
+        this.setState((state) => {
           console.log("In Click", state.places)
-          
-          state.mapInstance.setCenter(new mapApi.LatLng(state.places[i].geometry.location.lat(),state.places[i].geometry.location.lng()));
+
+          state.mapInstance.setCenter(new mapApi.LatLng(state.places[i].geometry.location.lat(), state.places[i].geometry.location.lng()));
           state.mapInstance.setZoom(15);
           state.places[i].show = !state.places[i].show; // eslint-disable-line no-param-reassign
           return { places: state.places };
         });
-			});
-		});
+      });
+    });
+  }
+
+  resetDirection = () => {
+    directions.forEach(dir => {
+      dir.setMap(null)
+    })
+    directions = []
+    dir_markers.forEach(dir => {
+      dir.setMap(null)
+    })
+    dir_markers = [];
+    dir_infowindows.forEach(dir => {
+      dir.setMap(null);
+    })
+    dir_infowindows = []
   }
 
   render() {

@@ -81,6 +81,7 @@ function Header(props) {
   function handleDateSummit(days) {
     console.log(days)
     console.log(updatedate)
+    this.props.socket.emit("resetRoute", "reset from drag")
     updatedate({
       variables: {
         userid: userID,

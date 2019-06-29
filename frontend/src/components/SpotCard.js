@@ -121,19 +121,6 @@ class SimpleCard extends Component {
               </IconButton>
               </div>
             </CardContent>
-            {/* <CardActions>
-              <Button size="small">Learn More</Button>
-              <IconButton
-                className={clsx("test-expand", {
-                  "test-expandOpen": this.state.expanded,
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="Show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions> */}
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
               <CardMedia
                 className="test-card-media"

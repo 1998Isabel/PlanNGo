@@ -1,7 +1,7 @@
 type Query {
   items(id: String!): [Item]!
   users(id: String!): Users!
-  days: [Day!]!
+  days(id: String!, dayid: String): Day!
   loginMatch(id: String!): String
 }
 

@@ -37,6 +37,24 @@ const Query = {
     }
     return process(await User.findOne({usertoken: args.id}));
   },
+
+  async days(parent, args, { db }, info) {
+    // return db[args.id]
+    if (args.dayid){
+      const process = (result) => {
+        console.log("in Query days args", result.days[0]);
+        return result.days[0];
+      }
+      return process(await User.findOne({usertoken: args.id, "days.id": args.dayid}, {"days.$":1}));
+    }
+    else{
+      const process = (result) => {
+        console.log("in Query days", result);
+        return result;
+      }
+      return process(await User.findOne({usertoken: args.id}, "days"));
+    }
+  },
 }
 
 export { Query as default }

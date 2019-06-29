@@ -138,6 +138,13 @@ db.once('open', () => {
       socket.on('route', (data) => {
         socket.emit('routeMap', (data))
       })
+      socket.on('resetRoute', (data) => {
+        socket.emit('resetDirect', (data))
+      })
+      socket.on('setRouteDetail', (data) => {
+        console.log("Route Detail", data)
+        socket.emit('getRouteDetail', data)
+      })
 
     })
 })

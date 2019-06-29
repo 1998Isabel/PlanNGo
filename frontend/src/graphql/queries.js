@@ -22,6 +22,21 @@ export const MAP_ITEMS = gql`
     }
 `
 
+export const ROUTE_ITEMS = gql`
+    query days(
+        $userID: String!
+        $dayID: String!
+        ){
+        days(
+            id: $userID
+            dayid: $dayID
+            ){
+          	id
+            itemsid
+        }
+    }
+`
+
 export const DAYS_INFO = gql`
   query users($userID: String!){
       users(id: $userID) {

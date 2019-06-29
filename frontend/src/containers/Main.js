@@ -77,6 +77,7 @@ class Main extends Component {
 			destination.index === source.index){
 				return;
     }
+    this.props.socket.emit("resetRoute", "reset from drag")
     this.updateDnD({
       variables: {
         userid: this.props.user,
