@@ -94,15 +94,17 @@ class Schedule extends Component {
                 if (!subscriptionData.data) return prev
                 const newDays = subscriptionData.data.item.data.days;
                 const newtotalDays = subscriptionData.data.item.data.totalDays;
+                const newfirstDay = subscriptionData.data.item.data.firstDay; 
                 // console.log("YAAAAAAAAAAAAAA")
                 prev.users.days = newDays;
                 prev.users.totalDays = newtotalDays;
+                prev.users.firstDay = newfirstDay;
                 
                 return {
                   ...prev,
                   days: newDays,
                   totalDays: newtotalDays,
-                  firstDay: subscriptionData.data.item.data.firstDay
+                  firstDay: newfirstDay
                 }
             }})
         }
