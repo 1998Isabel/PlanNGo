@@ -4,7 +4,7 @@ import socketIOClient from "socket.io-client";
 
 // components:
 // import Marker from './Marker';
-import MarkerInfo from './MarkerInfo'
+import MarkerInfo from './MarkerInfo_old'
 
 // examples:
 import GoogleMap from './GoogleMap';
@@ -14,8 +14,6 @@ import { MAP_ITEMS, MAPITEM_SUBSCRIPTION } from '../../graphql';
 
 // consts
 const TAIPEI_NTU_CENTER = [25.021918, 121.535285];
-
-let markers = [];
 
 class Map extends Component {
   constructor(props) {
@@ -93,35 +91,35 @@ class Map extends Component {
       // this.setState({center: places[index].geometry.location})
     })
 
-    // this.props.socket.on("routeMap", (data) => {
-    //   console.log(data)
-    //   let map = this.state.mapInstance;
-	  //   let maps = this.state.mapApi;
-	  //   console.log(this.state.places[0].geometry.location)
-	  //   let directionsService = new maps.DirectionsService();
-	  //   let directionsDisplay = new maps.DirectionsRenderer();
-	  //   directionsDisplay.setMap(map)
-	  //   const waypts = [{location: "Taipei Main Station", stopover: true}]
-	  //   directionsService.route(
-	  //     {
-	  //       origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
-	  //       destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
-	  //       waypoints: waypts,
-	  //       travelMode: maps.TravelMode.DRIVING
-	  //     },
-	  //     function(response, status) {
-	  //       console.log(response)
-	  //       if (status === 'OK') {
-	  //         directionsDisplay.setDirections(response);
-	  //       } else {
-	  //         window.alert('Directions request failed due to ' + status);
-	  //       }
-	  //     }
-	  //   )
-    // })
+    this.props.socket.on("routeMap", (data) => {
+      console.log(data)
+      let map = this.state.mapInstance;
+	    let maps = this.state.mapApi;
+	    console.log(this.state.places[0].geometry.location)
+	    let directionsService = new maps.DirectionsService();
+	    let directionsDisplay = new maps.DirectionsRenderer();
+	    directionsDisplay.setMap(map)
+	    const waypts = [{location: "Taipei Main Station", stopover: true}]
+	    directionsService.route(
+	      {
+	        origin: {lat: this.state.places[2].geometry.location.lat(), lng: this.state.places[2].geometry.location.lng()},
+	        destination: {lat: this.state.places[3].geometry.location.lat(), lng: this.state.places[3].geometry.location.lng()},
+	        waypoints: waypts,
+	        travelMode: maps.TravelMode.DRIVING
+	      },
+	      function(response, status) {
+	        console.log(response)
+	        if (status === 'OK') {
+	          directionsDisplay.setDirections(response);
+	        } else {
+	          window.alert('Directions request failed due to ' + status);
+	        }
+	      }
+	    )
+    })
   }
 
-  apiHasLoaded = (map, maps, places) => {
+  apiHasLoaded = (map, maps) => {
     this.setState({
       mapApiLoaded: true,
       mapInstance: map,
@@ -130,7 +128,7 @@ class Map extends Component {
   };
 
   addPlaceFromQuery = (place) => {
-    const { places, markers } = this.state
+    const places = this.state.places
     let findplace = places.findIndex(ele => {
       return (ele.place_id === place.place_id) && (ele.fromSearch)
     })
@@ -140,7 +138,7 @@ class Map extends Component {
     }
     else {
       console.log("Remove from search: ", findplace)
-      places.splice(findplace,1);
+      const remove = places.splice(findplace,1);
       place.show = false;
       console.log(place)
       places.push(place);
@@ -183,45 +181,10 @@ class Map extends Component {
     });
   };
 
-  showMarker = (places) => {
-    const { mapInstance, mapApi } = this.state
-    if(!(mapApi && mapInstance)) return
-    // clear marker
-    for (var i = 0; i < markers.length; i++ ) {
-      markers[i].setMap(null);
-    }
-    markers = [];
-    console.log("MAP", places)
-		places.forEach((place) => {
-      markers.push(new mapApi.Marker({
-        map: mapInstance,
-				position: {
-					lat: place.geometry.location.lat(),
-					lng: place.geometry.location.lng(),
-				},
-			}));
-		});
-	
-		markers.forEach((marker, i) => {
-			marker.addListener('click', () => {
-        console.log("Click", i)
-				this.setState((state) => {
-          console.log("In Click", state.places)
-          
-          state.mapInstance.setCenter(new mapApi.LatLng(state.places[i].geometry.location.lat(),state.places[i].geometry.location.lng()));
-          state.mapInstance.setZoom(15);
-          state.places[i].show = !state.places[i].show; // eslint-disable-line no-param-reassign
-          return { places: state.places };
-        });
-			});
-		});
-  }
-
   render() {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
-    // this.showMarker(places, mapInstance, mapApi)
     return (
       <div id="right_map">
         {mapApiLoaded && (
@@ -234,11 +197,10 @@ class Map extends Component {
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],
           }}
-          // onChildClick={this.onChildClickCallback}
+          onChildClick={this.onChildClickCallback}
           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps, places)}
+          onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-          {this.showMarker(places)}
           {!isEmpty(places) &&
             places.map(place => (
               <MarkerInfo

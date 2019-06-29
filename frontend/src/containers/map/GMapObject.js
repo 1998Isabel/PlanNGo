@@ -64,7 +64,8 @@ class Map extends Component {
 		const infowindows = [];
 	
 		places.forEach((place) => {
-			markers.push(new maps.Marker({
+      
+      markers.push(new maps.Marker({
 				position: {
 					lat: place.geometry.location.lat,
 					lng: place.geometry.location.lng,

@@ -8,6 +8,7 @@ import PlaceIcon from '@material-ui/icons/Place';
 const Marker = (props) => {
 	return (
 		<>
+			<PlaceIcon color="secondary" style={{fontSize: "36px"}}/>
 			{props.show && <InfoWindow place={props.place} user={props.user}/>}
 		</>
 	);
