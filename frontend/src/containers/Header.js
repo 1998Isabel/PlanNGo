@@ -18,6 +18,16 @@ import {withRouter} from 'react-router-dom'
 var pdfMake = require('pdfmake/build/pdfmake.js');
 var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.fonts = {
+  msjh: {
+    normal: 'msjh.ttf',
+    bold: 'msjh.ttf',
+    italics: 'msjh.ttf',
+    bolditalics: 'msjh.ttf',
+}
+}
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
