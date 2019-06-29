@@ -196,7 +196,7 @@ const Mutation = {
         }
       })
     }
-    process(await User.findOne({usertoken: userid}, "days totalDays"));
+    process(await User.findOne({usertoken: userid}, "days totalDays firstDay"));
 
     return item
 
@@ -255,7 +255,7 @@ const Mutation = {
       })
       return result.days
     }
-    process(await User.findOne({usertoken: userid}, "days totalDays"))
+    process(await User.findOne({usertoken: userid}, "days totalDays firstDay"))
 
   },
 
@@ -340,7 +340,7 @@ const Mutation = {
       return result.days
     }
     
-    process1(await User.findOne({usertoken: userid}, "days totalDays"))
+    process1(await User.findOne({usertoken: userid}, "days totalDays firstDay"))
     // process2(await User.find({usertoken: userid, "items.id": itemId}, {"items.$": 1}))
     // process2(await User.find({usertoken: userid}, {$match: {"items": {id:itemId}}}))
 

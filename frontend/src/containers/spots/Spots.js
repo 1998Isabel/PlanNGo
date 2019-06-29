@@ -83,7 +83,7 @@ class Spots extends Component {
                 // console.log("YAAAAAAAAAAAAAA")            
                 prev.users.days = newDays;
                 prev.users.totalDays = newtotalDays;
-                prev.users.firstDay = newfirstDay;
+                // prev.users.firstDay = newfirstDay;
                 
                 return {
                   ...prev,

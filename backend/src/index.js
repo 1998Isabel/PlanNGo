@@ -6,6 +6,8 @@ import Subscription from './resolvers/Subscription'
 import Users from './resolvers/Users'
 import Day from './resolvers/Day'
 import { Socket } from 'dgram';
+import moment from 'moment';
+
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
@@ -47,7 +49,7 @@ db.once('open', () => {
         User.findOne({usertoken: userid}, function(err, obj){
           if (err) { console.log(err) }
           if (obj) {
-            console.log(obj.items[0].place);
+            console.log(obj);
             console.log("SEVRER: going to generate PDF!");
             const line = {
                 image: 'line',
@@ -97,8 +99,13 @@ db.once('open', () => {
                 fontSize: 12
               }
             }
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const firstDay = obj.firstDay.split("/");
+            var date_obj = new Date(Date.UTC(firstDay[0], parseInt(firstDay[1])-1, firstDay[2]));
+            
             for (var i=0; i<obj.totalDays.length; i++) {
-              docDefinition.content[2].ul.push({text:'DAY '+(i+1).toString(), style:'day'});
+              const date = moment(date_obj).add(i, 'days').toDate().toLocaleDateString('en-US', options);
+              docDefinition.content[2].ul.push({text:'DAY '+(i+1).toString()+ ' - ' + date, style:'day'});
               //push schedule here
               let ulinDay = {type:'none', ul:[]};
               const items = obj.days[i+3].itemsid.map(itemid => {
