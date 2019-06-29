@@ -141,14 +141,17 @@ class Map extends Component {
                 if (status === 'OK') {
                   console.log(status)
                   const detail = {
-                    id: day.itemsid[i],
+                    id: day.itemsid[i-1],
                     distance: response.routes[0].legs[0].distance.text,
                     duration: response.routes[0].legs[0].duration.text,
                   }
                   details.push(detail)
                   if (i === dayroute.length-1 ){
                     console.log("DETAILS INSIDE", details)
-                    this.sendDirectInfo(details)
+                    this.sendDirectInfo({
+                      id: day.id,
+                      details: details
+                    })
                   }
                   const steps = response.routes[0].legs[0].steps;
                   const len = dir_markers.length;

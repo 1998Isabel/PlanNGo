@@ -22,6 +22,8 @@ import '../App.css';
 import { Mutation } from 'react-apollo'
 import { DELETE_ITEM, UPDATE_ITEM_INFO } from '../graphql';
 
+var details = null
+
 // export default function SimpleCard() {
 class SimpleCard extends Component {
   constructor(props) {
@@ -35,14 +37,34 @@ class SimpleCard extends Component {
       duration: this.props.place.duration + "",
     }
   }
-
+  componentDidMount() {
+    this.props.socket.on("getRouteDetail", (data) => {
+      if (data) {
+        console.log(data, this.props.id)
+        const detail = data.details.find(ele => (ele.id === this.props.id))
+        if (detail) {
+          this.handleExpandOpen(detail)
+        }
+      }
+    })
+    this.props.socket.on("resetDirect", (data) => {
+      console.log("Reset Route", data)
+      this.handleExpandClose(null)
+    })
+  }
   handleExpandClick = () => {
     const expand = this.state.expanded
     this.setState({ expanded: !expand });
   }
-  handleExpand2 = () => {
+  handleExpandOpen = (detail) => {
     const expand2 = this.state.expanded2
-    this.setState({ expanded2: !expand2 });
+    details = detail
+    this.setState({ expanded2: true });
+  }
+  handleExpandClose = (detail) => {
+    const expand2 = this.state.expanded2
+    details = detail
+    this.setState({ expanded2: false });
   }
   handleDeleteClick = () => {
     console.log("Delete")
@@ -88,18 +110,18 @@ class SimpleCard extends Component {
       )
   }
   showdetail = () => {
-    console.log("CARE DETAIL",this.props.detail)
+    console.log("CARE DETAIL", details)
     console.log(this.state.expanded2)
-    if (this.props.detail){
-      this.handleExpand2();
-      return(
-        "Distance: " + this.props.detail.distance + " Duration: " + this.props.detail.duration
+    if (details) {
+      // this.handleExpand2();
+      return (
+        "Distance: " + details.distance + " Duration: " + details.duration
       )
     }
   }
   render() {
     const { place } = this.props;
-    
+
     return (
       <Draggable draggableId={this.props.id} index={this.props.index}>
         {provided => (
@@ -107,7 +129,7 @@ class SimpleCard extends Component {
             {...provided.draggableProps}
             ref={provided.innerRef}
             onClick={this.handleCardClick}
-            >
+          >
             <CardContent>
               <Mutation mutation={DELETE_ITEM}>{
                 deleteItem => {
@@ -135,9 +157,9 @@ class SimpleCard extends Component {
                   inputProps={{ 'aria-label': 'duration' }}
                   style={{ width: '20%', textAlign: 'center' }}
                   onChange={this.handleChange('duration')}
-                /> 
+                />
                 hr
-                
+
               </Typography>
               <div classname="test-expand-wrapper">
                 <IconButton

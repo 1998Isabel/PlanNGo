@@ -12,26 +12,28 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
+var infos = null;
+
 class DayBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
       directioninfo: null
     }
+    // this.handleRouteDetail = this.handleRouteDetail.bind(this);
   }
 
-  componentDidMount() {
-    this.props.socket.on("getRouteDetail", (data) => {
-      console.log("GET", data)
-      if(data){
-        const infos = data;
-        this.handleRouteDetail(infos)
-      }
-    })
-  }
-  handleRouteDetail = (infos) => {
-    this.setState({directioninfo: infos});
-  }
+  // componentDidMount() {
+  //   this.props.socket.on("getRouteDetail", this.handleRouteDetail)
+  // }
+
+  // handleRouteDetail(data) {
+  //   console.log("GET", data)
+  //   if(data){
+  //     infos = data;
+  //     // this.forceUpdate()
+  //   }
+  // }
 
   handleDelete = (id, colid) => {
 		this.props.handleDelete(id, colid)
@@ -40,19 +42,26 @@ class DayBox extends Component {
     const data = this.props.column.id
     this.props.socket.emit("route", data)
   }
-  senddetail = (id) => {
-    if (this.state.directioninfo){
-      const info = this.state.directioninfo.find(ele => {
-        return ele.id === id
-      })
-      console.log("INFO", id, info)
-      return info
-    }
-    else{
-      return null
-    }
-    
+  handleSetInfos = (infos) => {
+    this.setState(state => {
+      return {directioninfo: infos}
+    })
   }
+  // senddetail = (id) => {
+  //   if (infos){
+  //     // // this.handleSetInfos(infos)
+  //     // this.forceUpdate()
+  //     // const info = infos.find(ele => {
+  //     //   return ele.id === id
+  //     // })
+  //     // console.log("INFO", id, info)
+  //     // return info
+  //   }
+  //   else{
+  //     return null
+  //   }
+    
+  // }
   render() {
     const userID = this.props.user
     let items = null;
@@ -62,7 +71,8 @@ class DayBox extends Component {
         user={userID}
 				id={item.id} key={item.id} 
 				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}
-        detail={this.senddetail(item.id)} />);
+        //detail={this.senddetail(item.id)} 
+        />);
     }
     const day = "DAY"+this.props.index;
     return (
