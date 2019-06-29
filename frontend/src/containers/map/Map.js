@@ -28,7 +28,6 @@ class Map extends Component {
       mapInstance: null,
       mapApi: null,
       places: [],
-      center: TAIPEI_NTU_CENTER,
     };
   }
 
@@ -53,8 +52,11 @@ class Map extends Component {
         return place
       })
       // console.log("Query places in map", queryplaces)
-      this.setState({ places: queryplaces })
-      // console.log("query: ",this.state.places)
+      this.setState({places: queryplaces})
+      if(queryplaces.length > 0 && this.state.mapApiLoaded){
+        this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(queryplaces[0].geometry.location.lat(), queryplaces[0].geometry.location.lng()));
+      }
+        // console.log("query: ",this.state.places)
     })
     this.props.client.subscribe({
       query: MAPITEM_SUBSCRIPTION,
@@ -113,7 +115,8 @@ class Map extends Component {
           dayroute.push(places.find(ele => (ele.id === itemid)))
         })
         if (dayroute.length > 1) {
-          let details = []
+          let details = [];
+          let count = 0;
           for (let i = 1; i < dayroute.length; i++) {
             console.log("ROUTE", i)
             let directionsService = new maps.DirectionsService();
@@ -137,16 +140,18 @@ class Map extends Component {
                 travelMode: 'TRANSIT'
               },
               (response, status) => {
-                console.log(response.routes)
+                // console.log(response.routes)
                 if (status === 'OK') {
-                  console.log(status)
+                  console.log(i, status)
+                  count += 1;
                   const detail = {
                     id: day.itemsid[i-1],
                     distance: response.routes[0].legs[0].distance.text,
                     duration: response.routes[0].legs[0].duration.text,
                   }
                   details.push(detail)
-                  if (i === dayroute.length-1 ){
+                  console.log("SHOW EACH", i, details )
+                  if (count === dayroute.length-1 ){
                     console.log("DETAILS INSIDE", details)
                     this.sendDirectInfo({
                       id: day.id,
@@ -186,14 +191,7 @@ class Map extends Component {
                 }
               }
             )
-            // .then(() => {
-            //   if (i === dayroute.length-1 )
-            //     console.log("DETAILS INSIDE", details)
-            //     this.sendDirectInfo(details)
-            // })
           }
-          // console.log("DETAILS INSIDE", details)
-          // this.sendDirectInfo(details)
         }
       })
     })
@@ -210,6 +208,9 @@ class Map extends Component {
       mapInstance: map,
       mapApi: maps,
     });
+    if (this.state.places.length > 0){
+      map.setCenter(new maps.LatLng(this.state.places[0].geometry.location.lat(), this.state.places[0].geometry.location.lng()));
+    }
   };
 
   addPlaceFromQuery = (place) => {
@@ -320,6 +321,17 @@ class Map extends Component {
     dir_infowindows = []
   }
 
+  pickcenter = (place) => {
+    if (place){
+      console.log("NEW PLACE")
+      return [place.geometry.location.lat(), place.geometry.location.lng()];
+    }
+    else{
+      console.log("OLD PLACE")
+      return TAIPEI_NTU_CENTER;
+    }
+  }
+
   render() {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
@@ -332,7 +344,7 @@ class Map extends Component {
         )}
         <GoogleMap
           defaultZoom={12}
-          defaultCenter={this.state.center}
+          defaultCenter={this.pickcenter(places[0])}
           bootstrapURLKeys={{
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],

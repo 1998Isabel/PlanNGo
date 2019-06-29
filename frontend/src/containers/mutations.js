@@ -79,7 +79,7 @@ export const UPDATE_DND_ITEM = gql`
           totalDays
           days {
               id
-              items(id: $userID) {
+              items(id: $userid) {
                   id
                   place {
                       name
