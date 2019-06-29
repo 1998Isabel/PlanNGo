@@ -15,6 +15,9 @@ import TodayIcon from '@material-ui/icons/Today';
 import MyDayPick from './../components/MyDayPick'
 import { PROJECT_NAME, UPDATE_DATE } from '../graphql'
 import {withRouter} from 'react-router-dom'
+var pdfMake = require('pdfmake/build/pdfmake.js');
+var pdfFonts = require('pdfmake/build/vfs_fonts.js');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,6 +37,12 @@ const useStyles = makeStyles(theme => ({
 function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  
+  props.socket.on('pdfDefinition', (docDefinition)=>{
+    console.log("client side pdfDefinition")
+    console.log(docDefinition);
+    pdfMake.createPdf(docDefinition).open();
+  })
 
   function handleDateClick(event) {
     setAnchorEl(event.currentTarget);
@@ -42,6 +51,12 @@ function Header(props) {
   function handleDateClose() {
     setAnchorEl(null);
   }
+
+  function handlePdfClick() {
+    console.log("handlePdfClick!");
+    props.socket.emit('pdfclick', props.user);
+  }
+
   const onLogout = () => {
     sessionStorage.clear()
     props.history.push("/")
@@ -105,7 +120,7 @@ function Header(props) {
                 </Popover>
               </IconButton>
                 <IconButton className={classes.menuButton} color="inherit" aria-label="Print">
-                <PrintIcon />
+                <PrintIcon onClick={handlePdfClick}/>
               </IconButton>
               <Button onClick={onLogout} color="inherit">Logout</Button>
             </Toolbar>

@@ -93,7 +93,7 @@ class Schedule extends Component {
                 if (!subscriptionData.data) return prev
                 const newDays = subscriptionData.data.item.data.days;
                 const newtotalDays = subscriptionData.data.item.data.totalDays;
-                console.log("YAAAAAAAAAAAAAA")
+                // console.log("YAAAAAAAAAAAAAA")
                 prev.users.days = newDays;
                 prev.users.totalDays = newtotalDays;
                 

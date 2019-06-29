@@ -7,6 +7,8 @@ import Main from './containers/Main'
 import Home from './components/Home'
 import Login from './containers/Login'
 import NewProject from './containers/NewProject'
+import socketIOClient from "socket.io-client";
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -30,12 +32,12 @@ class App extends Component {
   }
   
   render() {
-
+    const socket = socketIOClient("http://localhost:4001/")
     const mainPage = () => {
       return(
         <div className="grid-container">
-          <Header user = {this.state.user}/>
-          <Main user = {this.state.user}/>
+          <Header user = {this.state.user} socket={socket}/>
+          <Main user = {this.state.user} socket={socket}/>
         </div>
       )
     }
