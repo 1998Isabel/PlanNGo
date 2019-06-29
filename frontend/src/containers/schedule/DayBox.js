@@ -15,12 +15,22 @@ import Typography from '@material-ui/core/Typography';
 class DayBox extends Component {
   constructor(props) {
     super(props);
-    const directioninfo = []
+    this.state = {
+      directioninfo: null
+    }
   }
+
   componentDidMount() {
     this.props.socket.on("getRouteDetail", (data) => {
-      if(data) directioninfo = data
+      console.log("GET", data)
+      if(data){
+        const infos = data;
+        this.handleRouteDetail(infos)
+      }
     })
+  }
+  handleRouteDetail = (infos) => {
+    this.setState({directioninfo: infos});
   }
 
   handleDelete = (id, colid) => {
@@ -29,6 +39,19 @@ class DayBox extends Component {
   handleRoute = () => {
     const data = this.props.column.id
     this.props.socket.emit("route", data)
+  }
+  senddetail = (id) => {
+    if (this.state.directioninfo){
+      const info = this.state.directioninfo.find(ele => {
+        return ele.id === id
+      })
+      console.log("INFO", id, info)
+      return info
+    }
+    else{
+      return null
+    }
+    
   }
   render() {
     const userID = this.props.user
@@ -39,7 +62,7 @@ class DayBox extends Component {
         user={userID}
 				id={item.id} key={item.id} 
 				index={index} colid={this.props.column.id} place={item.place} handleDelete={this.handleDelete}
-        detail={directioninfo[index]} />);
+        detail={this.senddetail(item.id)} />);
     }
     const day = "DAY"+this.props.index;
     return (

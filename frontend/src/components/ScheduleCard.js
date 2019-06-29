@@ -35,9 +35,14 @@ class SimpleCard extends Component {
       duration: this.props.place.duration + "",
     }
   }
+
   handleExpandClick = () => {
     const expand = this.state.expanded
     this.setState({ expanded: !expand });
+  }
+  handleExpand2 = () => {
+    const expand2 = this.state.expanded2
+    this.setState({ expanded2: !expand2 });
   }
   handleDeleteClick = () => {
     console.log("Delete")
@@ -82,8 +87,19 @@ class SimpleCard extends Component {
         <LocateIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
       )
   }
+  showdetail = () => {
+    console.log("CARE DETAIL",this.props.detail)
+    console.log(this.state.expanded2)
+    if (this.props.detail){
+      this.handleExpand2();
+      return(
+        "Distance: " + this.props.detail.distance + " Duration: " + this.props.detail.duration
+      )
+    }
+  }
   render() {
     const { place } = this.props;
+    
     return (
       <Draggable draggableId={this.props.id} index={this.props.index}>
         {provided => (
@@ -187,6 +203,13 @@ class SimpleCard extends Component {
                   }
                   </Mutation>
                 </div>
+              </CardContent>
+            </Collapse>
+            <Collapse in={this.state.expanded2} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>
+                  {this.showdetail()}
+                </Typography>
               </CardContent>
             </Collapse>
           </Card>)}
