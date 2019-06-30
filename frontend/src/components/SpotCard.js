@@ -80,16 +80,29 @@ class SimpleCard extends Component {
       return
   }
 
+  getStyle = (style, snapshot) => {
+    if (!snapshot.isDropAnimating) {
+      return style;
+    }
+    
+    return {
+      ...style,
+      // cannot be 0, but make it super tiny
+      transitionDuration: `0.01s`,
+    };
+  }
+
   render() {
     const { place } = this.props;
     console.log("place photo", place.photo);
     return (
       <Draggable draggableId={this.props.id} index={this.props.index}>
-        {provided => (
+        {(provided, snapshot) => (
           <Card className="test-card-root" {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
             onClick={this.handleCardClick}
+            style={this.getStyle(provided.draggableProps.style, snapshot)}
           >
             <CardContent>
               <Mutation mutation={DELETE_ITEM}>{

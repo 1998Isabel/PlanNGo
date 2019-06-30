@@ -62,6 +62,16 @@ class DayBox extends Component {
   //   }
     
   // }
+  getStyle = (style, snapshot) => {
+    if (!snapshot.isDropAnimating) {
+      return style;
+    }
+    return {
+      ...style,
+      // cannot be 0, but make it super tiny
+      transitionDuration: `0.01s`,
+    };
+  }
   render() {
     const userID = this.props.user
     let items = null;
