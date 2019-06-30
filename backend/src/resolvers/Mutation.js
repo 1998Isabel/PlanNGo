@@ -263,13 +263,8 @@ const Mutation = {
     const { userid } = args
     const { itemId, description, price, duration } = args.data
     
-    let oldplace = (await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1})).items[0].place
-    // console.log("Old",oldplace)
-    // oldplace.description = description
-    // oldplace.price = price
-    // oldplace.duration = duration
-    // console.log("New",oldplace)
-    // const newPlace = new Place(oldplace)
+    console.log("NTUEEAT")
+    console.log("DDDDD",description)
     await User.updateOne({usertoken: userid, "items.id": itemId}, {"items.0.place.description": description,"items.0.place.price": price, "items.0.place.duration": duration})
 
     let newplace = (await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1})).items[0]
@@ -279,7 +274,7 @@ const Mutation = {
     // db[userid].items[updateindex].place.description = data.description;
     // db[userid].items[updateindex].place.price = data.price;
     // db[userid].items[updateindex].place.duration = data.duration;
-
+    console.log("NEWWW",newplace)
     // for subscription
     pubsub.publish(`iteminfo ${userid}`, {
       iteminfo: {
