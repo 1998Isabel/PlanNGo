@@ -74,7 +74,7 @@ const Mutation = {
     else {
       console.log("less days");
       let update_days = [];
-      const types = ["eat", "favorite", "accommodation"]
+      const types = ["eat", "star", "live"]
       await User.updateOne({usertoken: userid}, {days:[]})
       await User.updateOne({usertoken: userid}, {totalDays:[]})
 
@@ -149,7 +149,7 @@ const Mutation = {
   async createItem(parent, args, { db, pubsub }, info ) {
     const { userid, id, data } = args
     console.log("DATA",data)
-    const mapping = {"eat": "days.0.itemsid", "favorite": "days.1.itemsid", "accommodation": "days.2.itemsid"}
+    const mapping = {"eat": "days.0.itemsid", "star": "days.1.itemsid", "live": "days.2.itemsid"}
     const category = mapping[data.place.type]
     const newPlace = new Place(data.place)
     const item = {

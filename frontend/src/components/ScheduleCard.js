@@ -100,11 +100,11 @@ class SimpleCard extends Component {
       return (
         <RestaurantIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
       )
-    else if (this.props.place.type === "favorite")
+    else if (this.props.place.type === "star")
       return (
         <FavoriteIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
       )
-    else if (this.props.place.type === "accommodation")
+    else if (this.props.place.type === "live")
       return (
         <LocateIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
       )
@@ -140,28 +140,22 @@ class SimpleCard extends Component {
                     <Typography variant="h5" component="h5">
                       {this.showtypeicon()}
                       {place.name}
-                      <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
-                        <DeleteOutlinedIcon className="test-iconSmall" onClick={this.handleDeleteClick} />
-                      </IconButton>
                     </Typography>
                   );
 
                 }
               }</Mutation>
-              <Typography className="test-card-pos" color="textSecondary">
-                Staying time: <span>  </span>
+              <Typography color="textSecondary" align="center" display="inline">
+                Staying time:
                 <TextField
-                  className="test-card-textfield test-card-pos"
+                  className="test-card-textfield"
                   defaultValue={place.duration}
-                  margin="dense"
-                  inputProps={{ 'aria-label': 'duration' }}
-                  style={{ width: '20%', textAlign: 'center' }}
+                  margin="none"
+                  inputProps={{ 'aria-label': 'duration', className: "test-card-duration-field" }}
+                  style={{ width: '20%', height: "10" }}
                   onChange={this.handleChange('duration')}
                 />
                 hr
-
-              </Typography>
-              <div classname="test-expand-wrapper">
                 <IconButton
                   className={clsx("test-expand", {
                     "test-expandOpen": this.state.expanded,
@@ -172,11 +166,10 @@ class SimpleCard extends Component {
                 >
                   <ExpandMoreIcon className="test-iconSmall" />
                 </IconButton>
-              </div>
-              {/* <Typography variant="body2" component="p">
-                {place.description}
-                
-              </Typography> */}
+                <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
+                  <DeleteOutlinedIcon className="test-iconSmall" onClick={this.handleDeleteClick} />
+                </IconButton>
+              </Typography>
             </CardContent>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
               <CardContent>

@@ -96,8 +96,8 @@ function Header(props) {
       if (loading) return <div id="left_schedule">loading...</div>
       return (
         <div className={classes.root}>
-          <AppBar position="relative" className={classes.bar}>
-            <Toolbar>
+          <AppBar variant="dense" position="relative" className={classes.bar}>
+            <Toolbar variant="dense">
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon />
               </IconButton>

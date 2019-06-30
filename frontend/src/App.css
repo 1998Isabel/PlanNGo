@@ -42,12 +42,12 @@ header {
   display: grid;
   grid-template-columns: 1fr;
   /* grid-template-rows: 50px 1fr; */
-  grid-template-rows: auto 90vh;
+  grid-template-rows: auto 93vh;
 
   grid-template-areas:
     'header'
     'main';
-  height: 100vh;
+  height: 97vh;
 }
 
 .header {
@@ -125,7 +125,8 @@ header {
   font-size: 14
 }
 .test-card-pos {
-  margin-bottom: 12px;
+  text-align: center;
+  /* height: 50px; */
 }
 .test-card-media {
   height: auto !important;
@@ -136,10 +137,12 @@ header {
   margin-top: 2px;
 }
 .test-card-textfield{
-  margin-left: 1px;
-  margin-right: 1px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 10px;
 }
 .test-duration-textfield{
+  margin-top: 0;
   margin-left: 1px;
   margin-right: 1px;
 }
@@ -174,6 +177,10 @@ header {
 .test-iconSmall {
   font-size: 20;
 }
+.test-card-duration-field {
+  text-align: center;
+  font-size: 10px;
+}
 
 .info-media {
   height: 140;
@@ -184,10 +191,10 @@ header {
   overflow-x: auto;
 }
 .fixed-size {
-  height: 74vh;
+  height: 85vh;
 }
 .day-fixed-size {
-  height: 74vh;
+  height: 85vh;
 }
 /* .active {
 	color:red !important;

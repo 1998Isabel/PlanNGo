@@ -138,9 +138,9 @@ class Schedule extends Component {
         return (
           <div id="left_schedule">
             <div>
-              <Typography variant="h5" gutterBottom style={{ marginLeft: '10px', marginTop: '10px' }}>
+              {/* <Typography variant="h5" gutterBottom style={{ marginLeft: '10px', marginTop: '10px' }}>
                 Schedule
-              </Typography>
+              </Typography> */}
               {scrolllink()}
             </div>
     

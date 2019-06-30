@@ -84,7 +84,7 @@ class InfoWindow extends Component {
 		let typeid = "";
 		if (type === "droppable-1") typeid = "eat"
 		if (type === "droppable-2") typeid = "favorate"
-		if (type === "droppable-3") typeid = "accommodation"
+		if (type === "droppable-3") typeid = "live"
 		// this.setState({ addtype: typeid })
 
 		const { place } = this.props;
@@ -163,8 +163,8 @@ class InfoWindow extends Component {
 								>
 									<FavoriteIcon />
 								</IconButton>
-								<IconButton className="info-button" aria-label="Add to accommodation"
-									color={this.buttoncolor('accommodation')}
+								<IconButton className="info-button" aria-label="Add to live"
+									color={this.buttoncolor('live')}
 									// onClick={this.handlemutation("droppable-3")}
 								>
 								<LocateIcon />

@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import StarIcon from '@material-ui/icons/Star';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import Typography from '@material-ui/core/Typography';
@@ -121,11 +122,11 @@ class Spots extends Component {
         }
         return(
           <div id="middle_spot">
-            <span>
+            {/* <span>
               <Typography variant="h5" gutterBottom style={{marginLeft:'10px', marginTop:'10px'}}>
                 Spots
               </Typography>
-            </span>
+            </span> */}
             <div>
               {/* <AppBar position="static" color="default"> */}
               <Paper square >
@@ -137,11 +138,11 @@ class Spots extends Component {
                   textColor="secondary"
                   variant="scrollable"
                   scrollButtons="auto"
-                  size="small"
+                  // size="small"
                 >
-                  <Tab label="Eat" icon={<RestaurantIcon /> } style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
-                  <Tab label="Favorite" icon={<FavoriteIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
-                  <Tab label="Accommodation" icon={<LocateIcon />} style={{ padding: 4, width:'30%', minWidth: 120, minHeight: 18 }} />
+                  <Tab  icon={<RestaurantIcon style={{margin: "9"}}/> } style={{ padding: 4, width:'33%', minWidth: 90, minHeight: 18 }} />
+                  <Tab  icon={<StarIcon style={{margin: "9"}}/>} style={{ padding: 4, width:'33%', minWidth: 90, minHeight: 18 }} />
+                  <Tab  icon={<LocateIcon style={{margin: "9"}}/>} style={{ padding: 4, width:'33%', minWidth: 90, minHeight: 18 }} />
                 </Tabs>
               </Paper>
               {value === 0 && <TabContainer>{renderCols[0]}</TabContainer>}

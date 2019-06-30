@@ -78,9 +78,9 @@ class SimpleCard extends Component {
             {...provided.draggableProps}
             ref={provided.innerRef}
             onClick={this.handleCardClick}
-            >
+          >
             <CardContent>
-            <Mutation mutation={DELETE_ITEM}>{
+              <Mutation mutation={DELETE_ITEM}>{
                 deleteItem => {
                   console.log("Mutation deleteItem");
                   this.deleteItem = deleteItem;
@@ -88,28 +88,22 @@ class SimpleCard extends Component {
                   return (
                     <Typography variant="h5" component="h2">
                       {place.name}
-                      <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
-                        <DeleteOutlinedIcon className="test-iconSmall" onClick={this.handleDeleteClick} />
-                      </IconButton>
                     </Typography>
                   );
-
                 }
               }</Mutation>
-              <Typography className="test-card-pos" color="textSecondary">
-                Staying time: <span>  </span>
+              <Typography color="textSecondary" align="center" display="inline">
+                Staying time:
                 <TextField
                   className="test-card-textfield"
                   defaultValue={place.duration}
-                  margin="dense"
-                  inputProps={{ 'aria-label': 'duration' }}
-                  style={{ width: '20%', textAlign: 'center' }}
+                  margin="none"
+                  inputProps={{ 'aria-label': 'duration', className: "test-card-duration-field" }}
+                  style={{ width: '20%', height: "10" }}
                   onChange={this.handleChange('duration')}
                 />
                 hr
-              </Typography>
-              <div classname="test-expand-wrapper">
-              <IconButton
+                <IconButton
                   className={clsx("test-expand", {
                     "test-expandOpen": this.state.expanded,
                   })}
@@ -118,8 +112,11 @@ class SimpleCard extends Component {
                   aria-label="Show more"
                 >
                   <ExpandMoreIcon className="test-iconSmall" />
-              </IconButton>
-              </div>
+                </IconButton>
+                <IconButton className="test-card-delete" color="inherit" aria-label="Delete">
+                  <DeleteOutlinedIcon className="test-iconSmall" onClick={this.handleDeleteClick} />
+                </IconButton>
+              </Typography>
             </CardContent>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
               <CardMedia
@@ -132,7 +129,7 @@ class SimpleCard extends Component {
                       <Typography paragraph>
                         {place.note}
                       </Typography> */}
-                      
+
                 <TextField
                   id="outlined-dense-multiline"
                   label="Write Some Note Here"
@@ -146,7 +143,7 @@ class SimpleCard extends Component {
                   onChange={this.handleChange('note')}
                 />
                 <div className="test-but-root">
-                
+
                   <TextField
                     id="outlined-dense-multiline"
                     label="Expected Expense"

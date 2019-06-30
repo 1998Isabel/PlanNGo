@@ -4,7 +4,7 @@ import Item from '../../components/SpotCard'
 
 const placeinfo = {
 	name: "Taipei101",
-	type: "FAVORITE",
+	type: "star",
 	staying: "one hour",
 	note: "Go to the top of the building... (should be able to edited)",
 	photo: "http://images.skyscrapercenter.com/building/tapei101_ext-mainup_(c)taipeifinancial.jpg"

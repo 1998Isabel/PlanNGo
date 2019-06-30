@@ -20,7 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const infoWindowStyle = {
 	position: 'relative',
-	bottom: 200,
+	bottom: 180,
 	left: '-45px',
 	width: 260,
 	// height: "40vh",
@@ -80,9 +80,9 @@ class InfoWindow extends Component {
 		if (type === "droppable-1")
 			typeid = "eat";
 		if (type === "droppable-2")
-			typeid = "favorite";
+			typeid = "star";
 		if (type === "droppable-3")
-			typeid = "accommodation";
+			typeid = "live";
 		const { place } = this.props;
 		this.mycreateItem({
 			variables: {
@@ -151,25 +151,25 @@ class InfoWindow extends Component {
 										<RestaurantIcon />
 									</IconButton>
 								</Tooltip>
-								<Tooltip title="Add to Favorite" placement="bottom">
-									<IconButton className="info-button" aria-label="Add to favorite"
-										color={this.buttoncolor('favorite')}
+								<Tooltip title="Add to Star" placement="bottom">
+									<IconButton className="info-button" aria-label="Add to star"
+										color={this.buttoncolor('star')}
 										onClick={() => {
-											// console.log('favorite')
-											// setAddtype('favorite')
-											this.setState({ addtype: 'favorite' })
+											// console.log('star')
+											// setAddtype('star')
+											this.setState({ addtype: 'star' })
 											this.handleAdd("droppable-2")
 										}}>
 										<FavoriteIcon />
 									</IconButton>
 								</Tooltip>
-								<Tooltip title="Add to Accommodation" placement="bottom">
-									<IconButton className="info-button" aria-label="Add to accommodation"
-										color={this.buttoncolor('accommodation')}
+								<Tooltip title="Add to Live" placement="bottom">
+									<IconButton className="info-button" aria-label="Add to live"
+										color={this.buttoncolor('live')}
 										onClick={() => {
-											// console.log('accommodation')
-											// setAddtype('accommodation')
-											this.setState({ addtype: 'accommodation' })
+											// console.log('live')
+											// setAddtype('live')
+											this.setState({ addtype: 'live' })
 											this.handleAdd("droppable-3")
 										}}>
 										<LocateIcon />
