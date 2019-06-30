@@ -28,7 +28,7 @@ class SimpleCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: true,
+      expanded: false,
       anchorEl: null,
       note: this.props.place.description,
       price: this.props.place.price + "",
