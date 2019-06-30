@@ -95,7 +95,7 @@ header {
   width: 100%;
 }
 .test-card-root {
-  width:90%;
+  width:95%;
   min-width: 275px;
   margin: 10px;
   float: center;
@@ -141,6 +141,13 @@ header {
   margin-right: 2px;
   margin-bottom: 10px;
 }
+.test-card-textfield-spot{
+  /* text-decoration: none; */
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 10px;
+  /* height: 20px; */
+}
 .test-duration-textfield{
   margin-top: 0;
   margin-left: 1px;
@@ -149,6 +156,7 @@ header {
 .test-expand {
   transform: rotate(0deg);
   float: right;
+  margin: 0;
   /* margin-left: auto !important; */
   /* transition: transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
@@ -179,7 +187,6 @@ header {
 }
 .test-card-duration-field {
   text-align: center;
-  font-size: 10px;
 }
 
 .info-media {

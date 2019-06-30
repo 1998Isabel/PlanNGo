@@ -9,6 +9,7 @@ import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import FlightIcon from '@material-ui/icons/Flight';
 import PrintIcon from '@material-ui/icons/Print';
 // import SaveIcon from '@material-ui/icons/Save';
 import TodayIcon from '@material-ui/icons/Today';
@@ -98,9 +99,7 @@ function Header(props) {
         <div className={classes.root}>
           <AppBar variant="dense" position="relative" className={classes.bar}>
             <Toolbar variant="dense">
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-              </IconButton>
+              <FlightIcon className={classes.menuButton}/>
               <Typography variant="h6" className={classes.title}>
                 {data.users.projectName}
               </Typography>

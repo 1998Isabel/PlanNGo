@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/Star';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import SaveIcon from '@material-ui/icons/Save';
@@ -28,7 +28,7 @@ class SimpleCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
+      expanded: true,
       anchorEl: null,
       note: this.props.place.description,
       price: this.props.place.price + "",
@@ -67,6 +67,18 @@ class SimpleCard extends Component {
   handleCardClick = () => {
     this.props.socket.emit("cardclick", this.props.id)
   }
+  showphoto = (place) => {
+    if (place.photo)
+      return (
+        <CardMedia
+          className="test-card-media"
+          image={place.photo}
+          title={place.name}
+        />
+      )
+    else
+      return
+  }
 
   render() {
     const { place } = this.props;
@@ -86,21 +98,22 @@ class SimpleCard extends Component {
                   this.deleteItem = deleteItem;
 
                   return (
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h5" component="h5">
                       {place.name}
                     </Typography>
                   );
                 }
               }</Mutation>
-              <Typography color="textSecondary" align="center" display="inline">
+              <Typography color="textSecondary" align="center" display="inline" >
                 Staying time:
                 <TextField
-                  className="test-card-textfield"
+                  className="test-card-textfield-spot"
                   defaultValue={place.duration}
                   margin="none"
                   inputProps={{ 'aria-label': 'duration', className: "test-card-duration-field" }}
                   style={{ width: '20%', height: "10" }}
                   onChange={this.handleChange('duration')}
+                  variant="standard"
                 />
                 hr
                 <IconButton
@@ -119,11 +132,12 @@ class SimpleCard extends Component {
               </Typography>
             </CardContent>
             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-              <CardMedia
+              {/* <CardMedia
                 className="test-card-media"
                 image={place.photo}
                 title={place.name}
-              />
+              /> */}
+              {this.showphoto(place)}
               <CardContent>
                 {/* <Typography paragraph>Note:</Typography>
                       <Typography paragraph>
