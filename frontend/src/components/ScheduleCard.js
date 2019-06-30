@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import StarIcon from '@material-ui/icons/Star';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import SaveIcon from '@material-ui/icons/Save';
@@ -102,7 +102,7 @@ class SimpleCard extends Component {
       )
     else if (this.props.place.type === "star")
       return (
-        <FavoriteIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
+        <StarIcon color="secondary" style={{ float: "left", marginRight: "10" }} />
       )
     else if (this.props.place.type === "live")
       return (

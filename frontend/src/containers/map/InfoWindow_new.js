@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Star';
+import StarIcon from '@material-ui/icons/Star';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import { timingSafeEqual } from 'crypto';
@@ -161,7 +161,7 @@ class InfoWindow extends Component {
 									// }}
 									// onClick={this.handlemutation("droppable-2")}
 								>
-									<FavoriteIcon />
+									<StarIcon />
 								</IconButton>
 								<IconButton className="info-button" aria-label="Add to live"
 									color={this.buttoncolor('live')}

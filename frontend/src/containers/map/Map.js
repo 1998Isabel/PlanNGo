@@ -93,10 +93,12 @@ class Map extends Component {
       const index = places.findIndex(ele => {
         return ele.id === data
       })
-      places[index].show = true
-      this.setState({ places: places })
-      this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(), places[index].geometry.location.lng()));
-      this.state.mapInstance.setZoom(15);
+      if (index){  
+        places[index].show = true
+        this.setState({ places: places })
+        this.state.mapInstance.setCenter(new this.state.mapApi.LatLng(places[index].geometry.location.lat(), places[index].geometry.location.lng()));
+        this.state.mapInstance.setZoom(15);
+      }
       // this.setState({center: places[index].geometry.location})
     })
 
@@ -187,7 +189,7 @@ class Map extends Component {
                   directionsDisplay.setDirections(response);
                 }
                 else {
-                  window.alert('Directions request failed due to ' + status);
+                  // window.alert('Directions request failed due to ' + status);
                 }
               }
             )

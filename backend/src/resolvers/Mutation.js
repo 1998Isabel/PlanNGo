@@ -265,7 +265,7 @@ const Mutation = {
     
     console.log("NTUEEAT")
     console.log("DDDDD",description)
-    await User.updateOne({usertoken: userid, "items.id": itemId}, {"items.0.place.description": description,"items.0.place.price": price, "items.0.place.duration": duration})
+    await User.findOneAndUpdate({usertoken: userid, "items.id": itemId}, {$set: {"items.$.place.description": description,"items.$.place.price": price, "items.$.place.duration": duration}})
 
     let newplace = (await User.findOne({usertoken: userid, "items.id": itemId}, {"items.$": 1})).items[0]
     // let updateindex = db[userid].items.findIndex(ele => {

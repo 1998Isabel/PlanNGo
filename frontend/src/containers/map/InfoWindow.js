@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Star';
+import StarIcon from '@material-ui/icons/Star';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocateIcon from '@material-ui/icons/LocationCity';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -160,7 +160,7 @@ class InfoWindow extends Component {
 											this.setState({ addtype: 'star' })
 											this.handleAdd("droppable-2")
 										}}>
-										<FavoriteIcon />
+										<StarIcon />
 									</IconButton>
 								</Tooltip>
 								<Tooltip title="Add to Live" placement="bottom">
