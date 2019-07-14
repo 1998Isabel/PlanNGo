@@ -25,7 +25,7 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apikey: "AIzaSyAxOJSHdgswGhFonFnOemiiEcmjH_jzn8o",
+      apikey: "",
       center: [25.021918, 121.535285],
       zoom: 12
     }
